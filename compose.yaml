@@ -1,0 +1,7 @@
+﻿services:
+  ancplua-skills:
+    image: ancplua-skills
+    build:
+      context: .
+      dockerfile: ancplua-skills/Dockerfile
+
