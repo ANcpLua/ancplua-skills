@@ -48,7 +48,7 @@ CHANGELOG MAINTENANCE RULES (Enforced by CI)
 - N/A
 
 ### Fixed
-- N/A
+- Build workflow now ignores timestamp differences when verifying SKILLS.md
 
 ---
 

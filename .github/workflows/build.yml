@@ -58,12 +58,18 @@ jobs:
       - name: Validate Skills
         run: ./build.sh ValidateSkills
 
-      - name: Verify SKILLS.md is up to date
+      - name: Verify SKILLS.md structure is up to date
         run: |
-          if git diff --exit-code SKILLS.md; then
-            echo "✅ SKILLS.md is up to date"
+          # Compare SKILLS.md ignoring the timestamp line
+          # The timestamp changes on every generation, so we exclude it
+          git diff SKILLS.md | grep -v "^[+-]<sub>Generated:" | grep -v "^@@" > /tmp/skills-diff.txt || true
+
+          if [ ! -s /tmp/skills-diff.txt ] || ! grep -E "^[+-]" /tmp/skills-diff.txt | grep -v "^[+-]{3}" > /dev/null; then
+            echo "✅ SKILLS.md structure is up to date (timestamp differences ignored)"
           else
-            echo "❌ SKILLS.md is out of date. Run './build.sh GenerateSkills' locally and commit."
+            echo "❌ SKILLS.md has structural changes beyond timestamp."
+            echo "Run './build.sh GenerateSkills' locally and commit."
+            cat /tmp/skills-diff.txt
             exit 1
           fi
 
