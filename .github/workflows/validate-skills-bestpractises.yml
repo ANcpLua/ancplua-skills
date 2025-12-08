@@ -13,12 +13,12 @@ name: Validate Skills Best Practices
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
     paths:
       - 'skills/**'
       - '.github/workflows/validate-skills-bestpractises.yml'
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
     paths:
       - 'skills/**'
   workflow_dispatch:
