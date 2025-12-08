@@ -119,12 +119,19 @@ GitHub Actions validates on every push/PR:
 - Skill-category cross-references
 - Template placeholders
 
-## Contributing
+## Changelog Reminder
 
-1. Fork the repository
-2. Run `./build.sh ValidateSkills` before committing
-3. Ensure CI passes
-4. Submit PR
+**Hey! Don't forget to update CHANGELOG.md when you make changes.**
+
+It's simple - just add a line under `[Unreleased]` describing what you did:
+```markdown
+### Added
+- Cool new feature you just built
+```
+
+Categories: `Added`, `Changed`, `Fixed`, `Removed`
+
+This helps everyone (including future you) understand what changed and why.
 
 ## Slash Commands
 

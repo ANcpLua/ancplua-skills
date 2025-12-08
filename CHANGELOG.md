@@ -1,30 +1,16 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+What's been happening in this project.
 
 <!--
-═══════════════════════════════════════════════════════════════════════════════
-CHANGELOG MAINTENANCE RULES (Enforced by CI)
-═══════════════════════════════════════════════════════════════════════════════
+Hey Claude! When you make changes, drop a note here under [Unreleased].
+Just a quick line about what you did - future you will thank you.
 
-1. EVERY pull request MUST update this file
-2. Add entries under [Unreleased] section
-3. Use these categories:
-   - Added: New features
-   - Changed: Changes in existing functionality
-   - Deprecated: Soon-to-be removed features
-   - Removed: Removed features
-   - Fixed: Bug fixes
-   - Security: Vulnerability fixes
-
-4. Format: `- Description of change (#PR_NUMBER)`
-5. Keep entries concise but descriptive
-6. Link to relevant issues/PRs when applicable
-
-═══════════════════════════════════════════════════════════════════════════════
+Categories:
+- Added: new stuff
+- Changed: updated stuff
+- Fixed: broken stuff that works now
+- Removed: stuff we don't need anymore
 -->
 
 ## [Unreleased]
@@ -45,7 +31,8 @@ CHANGELOG MAINTENANCE RULES (Enforced by CI)
 - MIT License
 
 ### Changed
-- N/A
+- Simplified changelog enforcement - removed enterprise PR workflow, added friendly hook reminder
+- Made CHANGELOG.md and CLAUDE.md more casual and vibe-coder friendly
 
 ### Fixed
 - Build workflow now properly ignores timestamp when comparing SKILLS.md versions
