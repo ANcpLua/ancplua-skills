@@ -1,0 +1,58 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Dependabot Configuration
+# Automated dependency updates for NuGet and GitHub Actions
+# ═══════════════════════════════════════════════════════════════════════════════
+
+version: 2
+
+registries:
+  nuget-org:
+    type: nuget-feed
+    url: https://api.nuget.org/v3/index.json
+
+updates:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # NuGet Dependencies
+  # ─────────────────────────────────────────────────────────────────────────────
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Vienna"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "ANcpLua"
+    labels:
+      - "dependencies"
+      - "nuget"
+    commit-message:
+      prefix: "deps(nuget)"
+    groups:
+      nuke:
+        patterns:
+          - "Nuke.*"
+      microsoft:
+        patterns:
+          - "Microsoft.*"
+          - "System.*"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # GitHub Actions
+  # ─────────────────────────────────────────────────────────────────────────────
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Vienna"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "ANcpLua"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "deps(actions)"

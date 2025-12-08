@@ -1,0 +1,79 @@
+{
+  "$schema": "https://claude.ai/schemas/claude-code/settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(dotnet build:*)",
+      "Bash(dotnet test:*)",
+      "Bash(dotnet format:*)",
+      "Bash(dotnet run:*)",
+      "Bash(nuke:*)",
+      "Bash(git *:*)",
+      "Bash(gh pr:*)",
+      "Bash(docker:*)",
+      "Bash(docker compose:*)",
+      "Bash(yamllint:*)",
+      "Read(./skills/**)",
+      "Read(./ancplua-skills/**)",
+      "Read(./build/**)",
+      "Edit(./skills/**)",
+      "Edit(./ancplua-skills/**)",
+      "Write(./skills/**)",
+      "Write(./SKILLS.md)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./secrets/**)",
+      "Edit(./.git/**)",
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // empty' | grep -E '\\.cs$' | head -1 | xargs -I {} sh -c 'if [ -f \"{}\" ]; then dotnet format --include \"{}\" --verbosity quiet 2>/dev/null || true; fi'"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // empty' | grep -E '\\.yaml$' | head -1 | xargs -I {} sh -c 'if [ -f \"{}\" ]; then yamllint -d \"{extends: relaxed}\" \"{}\" 2>/dev/null || true; fi'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // empty' | grep -qE '(\\.env|\\.git/|secrets/)' && exit 2 || exit 0"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"SDK: $(dotnet --version 2>/dev/null || echo 'N/A')\" && echo \"Branch: $(git branch --show-current 2>/dev/null || echo 'detached')\" && echo \"Skills: $(grep -c '^  - id:' skills/skills-registry.yaml 2>/dev/null || echo '0') registered\""
+          }
+        ]
+      }
+    ]
+  },
+  "env": {
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+    "DOTNET_NOLOGO": "1"
+  }
+}
