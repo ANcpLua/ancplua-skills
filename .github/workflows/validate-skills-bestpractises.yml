@@ -104,14 +104,15 @@ jobs:
           # Check YAML files use kebab-case
           echo "Checking YAML file naming (should be kebab-case)..."
 
-          for file in skills/*.yaml skills/*.yml 2>/dev/null; do
+          shopt -s nullglob
+          for file in skills/*.yaml skills/*.yml; do
             if [ -f "$file" ]; then
-              basename=$(basename "$file")
-              if [[ ! "$basename" =~ ^[a-z][a-z0-9-]*\.(yaml|yml)$ ]]; then
-                echo "❌ ERROR: '$basename' does not follow kebab-case convention"
+              filename=$(basename "$file")
+              if [[ ! "$filename" =~ ^[a-z][a-z0-9-]*\.(yaml|yml)$ ]]; then
+                echo "❌ ERROR: '$filename' does not follow kebab-case convention"
                 ERRORS=$((ERRORS + 1))
               else
-                echo "✅ $basename follows naming convention"
+                echo "✅ $filename follows naming convention"
               fi
             fi
           done
@@ -120,16 +121,17 @@ jobs:
           echo ""
           echo "Checking template file naming..."
 
-          for file in skills/templates/*.md 2>/dev/null; do
+          for file in skills/templates/*.md; do
             if [ -f "$file" ]; then
-              basename=$(basename "$file")
-              if [[ ! "$basename" =~ ^[A-Z][A-Z0-9-]*\.template\.md$ ]]; then
-                echo "⚠️  WARNING: '$basename' should follow UPPERCASE.template.md pattern"
+              filename=$(basename "$file")
+              if [[ ! "$filename" =~ ^[A-Z][A-Z0-9-]*\.template\.md$ ]]; then
+                echo "⚠️  WARNING: '$filename' should follow UPPERCASE.template.md pattern"
               else
-                echo "✅ $basename follows template naming convention"
+                echo "✅ $filename follows template naming convention"
               fi
             fi
           done
+          shopt -u nullglob
 
           if [ $ERRORS -gt 0 ]; then
             echo ""

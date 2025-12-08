@@ -1,0 +1,51 @@
+<Project>
+  <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+  <!-- Solution-wide build settings for ancplua-skills                                  -->
+  <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+  <PropertyGroup>
+    <!-- Target Framework -->
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Build Configuration -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>7</WarningLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+
+    <!-- Assembly Information -->
+    <Authors>Alexander Nachtmann</Authors>
+    <Company>ancplua</Company>
+    <Copyright>Copyright (c) 2025 Alexander Nachtmann</Copyright>
+    <RepositoryUrl>https://github.com/ANcpLua/ancplua-skills</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+    <!-- Build Output -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <!-- ─────────────────────────────────────────────────────────────────────────────────
+       Debug Configuration
+       ───────────────────────────────────────────────────────────────────────────────── -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <!-- ─────────────────────────────────────────────────────────────────────────────────
+       Release Configuration
+       ───────────────────────────────────────────────────────────────────────────────── -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <PublishTrimmed>false</PublishTrimmed>
+  </PropertyGroup>
+
+</Project>
