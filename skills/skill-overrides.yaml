@@ -1,0 +1,13 @@
+# Skill Overrides
+# Manual corrections and customizations that override auto-detected values
+
+overrides:
+  # Example override - uncomment and modify as needed
+  # analyze-a1b2c3d4:
+  #   priority: 10        # Override default priority
+  #   active: false       # Temporarily disable
+  #   notes: "Disabled for performance testing"
+
+# Skip validation for experimental skills
+skip_validation:
+  # - experimental-skill-id

@@ -1,0 +1,433 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Skills Structure Validation Workflow
+# Validates skills registry against Anthropic Claude Code best practices
+# ═══════════════════════════════════════════════════════════════════════════════
+# Based on Anthropic's documented conventions for:
+# - Directory structure
+# - Naming conventions
+# - File placement
+# - YAML schema validation
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: Validate Skills Best Practices
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'skills/**'
+      - '.github/workflows/validate-skills-bestpractises.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'skills/**'
+  workflow_dispatch:
+
+jobs:
+  validate-structure:
+    name: Validate Skills Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # Directory Structure Validation
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Validate directory structure
+        run: |
+          echo "═══════════════════════════════════════════════════════════════"
+          echo "Validating Skills Directory Structure"
+          echo "═══════════════════════════════════════════════════════════════"
+
+          ERRORS=0
+
+          # Check required directories exist
+          echo "Checking required directories..."
+
+          if [ ! -d "skills" ]; then
+            echo "❌ ERROR: 'skills/' directory not found"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✅ skills/ directory exists"
+          fi
+
+          if [ ! -d "skills/templates" ]; then
+            echo "❌ ERROR: 'skills/templates/' directory not found"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✅ skills/templates/ directory exists"
+          fi
+
+          # Check for required files
+          echo ""
+          echo "Checking required files..."
+
+          REQUIRED_FILES=(
+            "skills/skills-registry.yaml"
+            "skills/skills-categories.yaml"
+            "skills/templates/SKILLS.template.md"
+          )
+
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ ERROR: Required file '$file' not found"
+              ERRORS=$((ERRORS + 1))
+            else
+              echo "✅ $file exists"
+            fi
+          done
+
+          if [ $ERRORS -gt 0 ]; then
+            echo ""
+            echo "═══════════════════════════════════════════════════════════════"
+            echo "❌ FAILED: $ERRORS directory structure error(s) found"
+            echo "═══════════════════════════════════════════════════════════════"
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ Directory structure validation passed"
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # Naming Convention Validation
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Validate naming conventions
+        run: |
+          echo "═══════════════════════════════════════════════════════════════"
+          echo "Validating Naming Conventions"
+          echo "═══════════════════════════════════════════════════════════════"
+
+          ERRORS=0
+
+          # Check YAML files use kebab-case
+          echo "Checking YAML file naming (should be kebab-case)..."
+
+          for file in skills/*.yaml skills/*.yml 2>/dev/null; do
+            if [ -f "$file" ]; then
+              basename=$(basename "$file")
+              if [[ ! "$basename" =~ ^[a-z][a-z0-9-]*\.(yaml|yml)$ ]]; then
+                echo "❌ ERROR: '$basename' does not follow kebab-case convention"
+                ERRORS=$((ERRORS + 1))
+              else
+                echo "✅ $basename follows naming convention"
+              fi
+            fi
+          done
+
+          # Check template files use kebab-case with .template suffix
+          echo ""
+          echo "Checking template file naming..."
+
+          for file in skills/templates/*.md 2>/dev/null; do
+            if [ -f "$file" ]; then
+              basename=$(basename "$file")
+              if [[ ! "$basename" =~ ^[A-Z][A-Z0-9-]*\.template\.md$ ]]; then
+                echo "⚠️  WARNING: '$basename' should follow UPPERCASE.template.md pattern"
+              else
+                echo "✅ $basename follows template naming convention"
+              fi
+            fi
+          done
+
+          if [ $ERRORS -gt 0 ]; then
+            echo ""
+            echo "═══════════════════════════════════════════════════════════════"
+            echo "❌ FAILED: $ERRORS naming convention error(s) found"
+            echo "═══════════════════════════════════════════════════════════════"
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ Naming convention validation passed"
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # YAML Schema Validation
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Install YAML validator
+        run: |
+          pip install yamllint pyyaml
+
+      - name: Validate YAML syntax
+        run: |
+          echo "═══════════════════════════════════════════════════════════════"
+          echo "Validating YAML Syntax"
+          echo "═══════════════════════════════════════════════════════════════"
+
+          yamllint -d "{extends: relaxed, rules: {line-length: {max: 200}}}" skills/*.yaml
+
+          echo "✅ YAML syntax validation passed"
+
+      - name: Validate skills-registry schema
+        run: |
+          echo "═══════════════════════════════════════════════════════════════"
+          echo "Validating Skills Registry Schema"
+          echo "═══════════════════════════════════════════════════════════════"
+
+          python3 << 'EOF'
+          import yaml
+          import sys
+
+          REQUIRED_SKILL_FIELDS = ['id', 'name', 'category', 'scope', 'trigger', 'activation', 'active']
+          VALID_SCOPES = ['global', 'domain', 'session']
+          VALID_ACTIVATIONS = ['automatic', 'manual']
+
+          errors = []
+
+          with open('skills/skills-registry.yaml', 'r') as f:
+              data = yaml.safe_load(f)
+
+          if 'skills' not in data:
+              print("❌ ERROR: 'skills' key not found in registry")
+              sys.exit(1)
+
+          skills = data['skills']
+          print(f"Found {len(skills)} skills in registry")
+          print()
+
+          for i, skill in enumerate(skills):
+              skill_id = skill.get('id', f'skill_{i}')
+
+              # Check required fields
+              for field in REQUIRED_SKILL_FIELDS:
+                  if field not in skill:
+                      errors.append(f"Skill '{skill_id}': missing required field '{field}'")
+
+              # Validate scope
+              if 'scope' in skill and skill['scope'] not in VALID_SCOPES:
+                  errors.append(f"Skill '{skill_id}': invalid scope '{skill['scope']}' (must be one of {VALID_SCOPES})")
+
+              # Validate activation
+              if 'activation' in skill and skill['activation'] not in VALID_ACTIVATIONS:
+                  errors.append(f"Skill '{skill_id}': invalid activation '{skill['activation']}' (must be one of {VALID_ACTIVATIONS})")
+
+              # Validate ID format (should be prefix-hash pattern)
+              if 'id' in skill:
+                  if not '-' in skill['id']:
+                      errors.append(f"Skill '{skill_id}': ID should follow 'prefix-hash' pattern")
+
+              # Validate priority is numeric
+              if 'priority' in skill:
+                  if not isinstance(skill['priority'], int):
+                      errors.append(f"Skill '{skill_id}': priority must be an integer")
+
+          if errors:
+              print("❌ Schema validation errors:")
+              for error in errors:
+                  print(f"   - {error}")
+              print()
+              print(f"❌ FAILED: {len(errors)} schema error(s) found")
+              sys.exit(1)
+
+          print("✅ All skills have valid schema")
+          EOF
+
+      - name: Validate skills-categories schema
+        run: |
+          echo "═══════════════════════════════════════════════════════════════"
+          echo "Validating Skills Categories Schema"
+          echo "═══════════════════════════════════════════════════════════════"
+
+          python3 << 'EOF'
+          import yaml
+          import sys
+
+          REQUIRED_CATEGORY_FIELDS = ['id', 'name', 'prefix', 'scope', 'order']
+          VALID_SCOPES = ['global', 'domain', 'session']
+
+          errors = []
+
+          with open('skills/skills-categories.yaml', 'r') as f:
+              data = yaml.safe_load(f)
+
+          if 'categories' not in data:
+              print("❌ ERROR: 'categories' key not found")
+              sys.exit(1)
+
+          categories = data['categories']
+          print(f"Found {len(categories)} categories")
+          print()
+
+          seen_ids = set()
+          seen_prefixes = set()
+
+          for cat in categories:
+              cat_id = cat.get('id', 'unknown')
+
+              # Check required fields
+              for field in REQUIRED_CATEGORY_FIELDS:
+                  if field not in cat:
+                      errors.append(f"Category '{cat_id}': missing required field '{field}'")
+
+              # Check for duplicate IDs
+              if 'id' in cat:
+                  if cat['id'] in seen_ids:
+                      errors.append(f"Category '{cat_id}': duplicate ID")
+                  seen_ids.add(cat['id'])
+
+              # Check for duplicate prefixes
+              if 'prefix' in cat:
+                  if cat['prefix'] in seen_prefixes:
+                      errors.append(f"Category '{cat_id}': duplicate prefix '{cat['prefix']}'")
+                  seen_prefixes.add(cat['prefix'])
+
+              # Validate scope
+              if 'scope' in cat and cat['scope'] not in VALID_SCOPES:
+                  errors.append(f"Category '{cat_id}': invalid scope '{cat['scope']}'")
+
+              # Validate subcategories if present
+              if 'subcategories' in cat and cat['subcategories']:
+                  sub_ids = set()
+                  for sub in cat['subcategories']:
+                      if 'id' not in sub or 'name' not in sub:
+                          errors.append(f"Category '{cat_id}': subcategory missing 'id' or 'name'")
+                      elif sub['id'] in sub_ids:
+                          errors.append(f"Category '{cat_id}': duplicate subcategory ID '{sub['id']}'")
+                      else:
+                          sub_ids.add(sub['id'])
+
+          if errors:
+              print("❌ Schema validation errors:")
+              for error in errors:
+                  print(f"   - {error}")
+              print()
+              print(f"❌ FAILED: {len(errors)} schema error(s) found")
+              sys.exit(1)
+
+          print("✅ All categories have valid schema")
+          EOF
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # Cross-Reference Validation
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Validate skill-category references
+        run: |
+          echo "═══════════════════════════════════════════════════════════════"
+          echo "Validating Skill-Category Cross References"
+          echo "═══════════════════════════════════════════════════════════════"
+
+          python3 << 'EOF'
+          import yaml
+          import sys
+
+          errors = []
+
+          # Load categories
+          with open('skills/skills-categories.yaml', 'r') as f:
+              cat_data = yaml.safe_load(f)
+
+          categories = {c['id']: c for c in cat_data['categories']}
+          subcategories = {}
+          for cat in cat_data['categories']:
+              if 'subcategories' in cat and cat['subcategories']:
+                  for sub in cat['subcategories']:
+                      subcategories[(cat['id'], sub['id'])] = sub
+
+          # Load skills
+          with open('skills/skills-registry.yaml', 'r') as f:
+              skill_data = yaml.safe_load(f)
+
+          print(f"Checking {len(skill_data['skills'])} skills against {len(categories)} categories...")
+          print()
+
+          for skill in skill_data['skills']:
+              skill_id = skill.get('id', 'unknown')
+
+              # Check category exists
+              if 'category' in skill:
+                  if skill['category'] not in categories:
+                      errors.append(f"Skill '{skill_id}': references non-existent category '{skill['category']}'")
+                  else:
+                      # Check subcategory if present
+                      if 'subcategory' in skill and skill['subcategory']:
+                          key = (skill['category'], skill['subcategory'])
+                          if key not in subcategories:
+                              errors.append(f"Skill '{skill_id}': references non-existent subcategory '{skill['subcategory']}' in category '{skill['category']}'")
+
+                      # Check scope matches category scope
+                      cat_scope = categories[skill['category']].get('scope')
+                      skill_scope = skill.get('scope')
+                      if cat_scope and skill_scope and cat_scope != skill_scope:
+                          errors.append(f"Skill '{skill_id}': scope '{skill_scope}' doesn't match category scope '{cat_scope}'")
+
+          if errors:
+              print("❌ Cross-reference errors:")
+              for error in errors:
+                  print(f"   - {error}")
+              print()
+              print(f"❌ FAILED: {len(errors)} cross-reference error(s) found")
+              sys.exit(1)
+
+          print("✅ All skill-category references are valid")
+          EOF
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # Template Validation
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Validate template placeholders
+        run: |
+          echo "═══════════════════════════════════════════════════════════════"
+          echo "Validating Template Placeholders"
+          echo "═══════════════════════════════════════════════════════════════"
+
+          TEMPLATE="skills/templates/SKILLS.template.md"
+
+          if [ ! -f "$TEMPLATE" ]; then
+            echo "❌ ERROR: Template file not found"
+            exit 1
+          fi
+
+          ERRORS=0
+
+          # Check for required placeholders
+          REQUIRED_PLACEHOLDERS=(
+            "{{STATS_TABLE}}"
+            "{{TABLE_OF_CONTENTS}}"
+            "{{BODY_SECTIONS}}"
+            "{{GENERATION_TIMESTAMP}}"
+            "{{TOTAL_SKILLS}}"
+            "{{TOTAL_CATEGORIES}}"
+          )
+
+          for placeholder in "${REQUIRED_PLACEHOLDERS[@]}"; do
+            if ! grep -q "$placeholder" "$TEMPLATE"; then
+              echo "❌ ERROR: Missing required placeholder '$placeholder'"
+              ERRORS=$((ERRORS + 1))
+            else
+              echo "✅ Found placeholder $placeholder"
+            fi
+          done
+
+          if [ $ERRORS -gt 0 ]; then
+            echo ""
+            echo "═══════════════════════════════════════════════════════════════"
+            echo "❌ FAILED: $ERRORS template error(s) found"
+            echo "═══════════════════════════════════════════════════════════════"
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ Template validation passed"
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # Final Summary
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Validation Summary
+        if: success()
+        run: |
+          echo ""
+          echo "═══════════════════════════════════════════════════════════════"
+          echo "✅ ALL VALIDATIONS PASSED"
+          echo "═══════════════════════════════════════════════════════════════"
+          echo ""
+          echo "Validated:"
+          echo "  ✅ Directory structure"
+          echo "  ✅ Naming conventions"
+          echo "  ✅ YAML syntax"
+          echo "  ✅ Skills registry schema"
+          echo "  ✅ Categories schema"
+          echo "  ✅ Skill-category cross references"
+          echo "  ✅ Template placeholders"
+          echo ""
+          echo "Your skills structure follows Anthropic best practices!"

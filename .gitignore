@@ -1,0 +1,425 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# .gitignore for ancplua-skills
+# Rider 2025.3 | C# | Bash | PowerShell | Zsh | TypeScript | JavaScript |
+# Markdown | Python | Makefiles | npm
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# JetBrains Rider 2025.3
+# ─────────────────────────────────────────────────────────────────────────────────
+.idea/
+*.sln.iml
+*.iml
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/**/contentModel.xml
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+.idea/**/gradle.xml
+.idea/**/libraries
+cmake-build-*/
+.idea/**/mongoSettings.xml
+*.iws
+out/
+.idea_modules/
+atlassian-ide-plugin.xml
+.idea/replstate.xml
+.idea/sonarlint/
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+.idea/httpRequests
+.idea/caches/build_file_checksums.ser
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# C# / .NET
+# ─────────────────────────────────────────────────────────────────────────────────
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+mono_crash.*
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]uild/[Bb]in/
+[Bb]uild/[Oo]bj/
+*.pidb
+*.svclog
+*.scc
+_Chutzpah*
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+*.psess
+*.vsp
+*.vspx
+*.sap
+*.e2e
+$tf/
+*.gpState
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+_TeamCity*
+*.dotCover
+.axoCover/*
+!.axoCover/settings.json
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+*.ncrunchproject
+*.ncrunchsolution
+*.ncrunchsolution.user
+csx/
+*.build.csdef
+ecf/
+rcf/
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+_pkginfo.txt
+*.appx
+*.appxbundle
+*.appxupload
+*.[Pp]ublish.xml
+*.azurePubxml
+*.pubxml
+*.publishproj
+PublishScripts/
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+artifacts/
+ScaffoldingReadMe.txt
+StyleCopReport.xml
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.tlog
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+_Chutzpah*
+ServiceFabricBackup/
+*.rptproj.bak
+*.mdf
+*.ldf
+*.ndf
+*.rdl.data
+*.bim.layout
+*.bim_*.settings
+*.rptproj.rsuser
+*- [Bb]ackup.rdl
+*- [Bb]ackup ([0-9]).rdl
+*- [Bb]ackup ([0-9][0-9]).rdl
+FakesAssemblies/
+*.GhostDoc.xml
+.ntvs_analysis.dat
+node_modules/
+*.plg
+*.opt
+*.vbw
+**/*.HTMLClient/GeneratedArtifacts
+**/*.DesktopClient/GeneratedArtifacts
+**/*.DesktopClient/ModelManifest.xml
+**/*.Server/GeneratedArtifacts
+**/*.Server/ModelManifest.xml
+_Pvt_Extensions
+paket-files/
+.paket/paket.exe
+.fake/
+.cr/personal
+__pycache__/
+*.pyc
+*.btm.cs
+*.odx.cs
+*.xsd.cs
+OpenCover/
+ASALocalRun/
+*.binlog
+*.nvuser
+.mfractor/
+.localhistory/
+.vshistory/
+healthchecksdb
+MigrationBackup/
+FodyWeavers.xsd
+.idea/.idea.*/.idea/
+*.csproj.user
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# Nuke Build
+# ─────────────────────────────────────────────────────────────────────────────────
+.nuke/temp/
+.tmp/
+
+# Keep build/*.cs files but ignore build artifacts
+build/bin/
+build/obj/
+!build/*.cs
+!build/*.csproj
+!build/*.props
+!build/*.targets
+!build/*.DotSettings
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# Bash / Shell
+# ─────────────────────────────────────────────────────────────────────────────────
+*.sh.swp
+*.bash_history
+.bash_history
+.bash_logout
+.bashrc.local
+*.bak
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# PowerShell
+# ─────────────────────────────────────────────────────────────────────────────────
+*.ps1xml
+*.pssc
+*.psrc
+ConsoleHost_history.txt
+PSScriptAnalyzerSettings.psd1
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# Zsh
+# ─────────────────────────────────────────────────────────────────────────────────
+.zsh_history
+.zcompdump*
+.zsh_sessions/
+.zshrc.local
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# TypeScript / JavaScript
+# ─────────────────────────────────────────────────────────────────────────────────
+*.js.map
+*.d.ts
+dist/
+lib/
+*.tsbuildinfo
+.npm
+.eslintcache
+.stylelintcache
+*.lcov
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# Node.js / npm
+# ─────────────────────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# Python
+# ─────────────────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+*.mo
+*.pot
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+instance/
+.webassets-cache
+.scrapy
+docs/_build/
+.pybuilder/
+target/
+.ipynb_checkpoints
+profile_default/
+ipython_config.py
+__pypackages__/
+celerybeat-schedule
+celerybeat.pid
+*.sage.py
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.spyderproject
+.spyproject
+.ropeproject
+/site
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+cython_debug/
+poetry.lock
+.pdm.toml
+.pdm-python
+.pdm-build/
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# Makefiles
+# ─────────────────────────────────────────────────────────────────────────────────
+*.d
+*.o
+*.a
+*.lib
+*.exe
+*.dll
+*.dylib
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# Markdown (generated/temp)
+# ─────────────────────────────────────────────────────────────────────────────────
+*.md.bak
+*.md.tmp
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# OS Generated
+# ─────────────────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# Docker
+# ─────────────────────────────────────────────────────────────────────────────────
+.docker/
+docker-compose.override.yml
+.dockerignore.local
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# Secrets (NEVER commit)
+# ─────────────────────────────────────────────────────────────────────────────────
+*.pem
+*.key
+*.p12
+*.pfx
+.env
+.env.*
+!.env.example
+secrets/
+credentials/
+*.secret
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json.example
+
+# ─────────────────────────────────────────────────────────────────────────────────
+# Backups
+# ─────────────────────────────────────────────────────────────────────────────────
+*.bak
+*.backup
+*.old
+*~

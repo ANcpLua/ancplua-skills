@@ -1,0 +1,258 @@
+# Skills Registry
+# Single source of truth for all available skills
+# Generated IDs follow pattern: {prefix}-{sha256(name+trigger)[:8]}
+
+skills:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # GLOBAL SKILLS (scope: global) - Always loaded, immutable
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  # --- Code Analysis ---
+  - id: analyze-a1b2c3d4
+    name: "Static Code Analysis"
+    category: analysis
+    scope: global
+    priority: 1
+    trigger: "on_file_open"
+    activation: automatic
+    description: |
+      Analyzes code for patterns, anti-patterns, complexity metrics, and potential issues.
+      Runs automatically when files are opened or modified.
+    capabilities:
+      - complexity_analysis
+      - pattern_detection
+      - dependency_mapping
+    active: true
+
+  - id: analyze-security01
+    name: "Security Scanner"
+    category: analysis
+    scope: global
+    priority: 2
+    trigger: "on_save"
+    activation: automatic
+    description: |
+      Scans for common security vulnerabilities, secrets in code, and OWASP top 10 issues.
+    capabilities:
+      - vulnerability_scan
+      - secret_detection
+      - dependency_audit
+    active: true
+
+  # --- Code Generation ---
+  - id: gen-scaffold01
+    name: "Project Scaffolder"
+    category: generation
+    scope: global
+    priority: 1
+    trigger: "user_request"
+    activation: manual
+    description: |
+      Generates project structures, boilerplate code, and configuration files
+      based on templates and best practices.
+    capabilities:
+      - template_expansion
+      - file_generation
+      - config_creation
+    active: true
+
+  - id: gen-unittest01
+    name: "Unit Test Generator"
+    category: generation
+    scope: global
+    priority: 2
+    trigger: "user_request"
+    activation: manual
+    description: |
+      Generates unit tests for existing code using xUnit, NUnit, or MSTest patterns.
+    capabilities:
+      - test_generation
+      - mock_creation
+      - assertion_patterns
+    active: true
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # DOMAIN SKILLS (scope: domain) - Loaded per project type
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  # --- .NET Development ---
+  - id: dotnet-aspnet01
+    name: "ASP.NET Core Patterns"
+    category: dotnet
+    subcategory: aspnet
+    scope: domain
+    priority: 1
+    trigger: "project_type:aspnet"
+    activation: automatic
+    description: |
+      Provides ASP.NET Core-specific patterns: controllers, middleware,
+      dependency injection, and configuration best practices.
+    capabilities:
+      - controller_patterns
+      - middleware_design
+      - di_configuration
+    active: true
+
+  - id: dotnet-efcore01
+    name: "Entity Framework Core"
+    category: dotnet
+    subcategory: efcore
+    scope: domain
+    priority: 2
+    trigger: "project_type:efcore"
+    activation: automatic
+    description: |
+      Entity Framework Core patterns: DbContext design, migrations,
+      query optimization, and relationship mapping.
+    capabilities:
+      - migration_generation
+      - query_optimization
+      - model_configuration
+    active: true
+
+  - id: dotnet-blazor01
+    name: "Blazor Components"
+    category: dotnet
+    subcategory: blazor
+    scope: domain
+    priority: 3
+    trigger: "project_type:blazor"
+    activation: automatic
+    description: |
+      Blazor component patterns, state management, and interop capabilities.
+    capabilities:
+      - component_design
+      - state_management
+      - js_interop
+    active: true
+
+  # --- Web Development ---
+  - id: web-react01
+    name: "React Patterns"
+    category: web
+    subcategory: react
+    scope: domain
+    priority: 1
+    trigger: "project_type:react"
+    activation: automatic
+    description: |
+      React 18+ patterns: hooks, server components, suspense, and state management.
+    capabilities:
+      - hook_patterns
+      - component_design
+      - state_patterns
+    active: true
+
+  - id: web-typescript01
+    name: "TypeScript Excellence"
+    category: web
+    subcategory: typescript
+    scope: domain
+    priority: 2
+    trigger: "file_type:*.ts,*.tsx"
+    activation: automatic
+    description: |
+      Advanced TypeScript patterns: generics, utility types, and type-safe APIs.
+    capabilities:
+      - type_inference
+      - generic_patterns
+      - type_guards
+    active: true
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # SESSION SKILLS (scope: session) - On-demand, task-specific
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  # --- Debugging ---
+  - id: debug-exception01
+    name: "Exception Analyzer"
+    category: debugging
+    scope: session
+    priority: 1
+    trigger: "error_detected"
+    activation: automatic
+    description: |
+      Analyzes exceptions, stack traces, and error patterns to identify root causes.
+    capabilities:
+      - stack_trace_analysis
+      - error_correlation
+      - fix_suggestions
+    active: true
+
+  - id: debug-perf01
+    name: "Performance Profiler"
+    category: debugging
+    scope: session
+    priority: 2
+    trigger: "user_request"
+    activation: manual
+    description: |
+      Identifies performance bottlenecks, memory leaks, and optimization opportunities.
+    capabilities:
+      - hotspot_detection
+      - memory_analysis
+      - optimization_hints
+    active: true
+
+  # --- Testing ---
+  - id: test-coverage01
+    name: "Coverage Analyzer"
+    category: testing
+    scope: session
+    priority: 1
+    trigger: "test_run_complete"
+    activation: automatic
+    description: |
+      Analyzes test coverage and suggests tests for uncovered code paths.
+    capabilities:
+      - coverage_analysis
+      - gap_detection
+      - test_suggestions
+    active: true
+
+  # --- Documentation ---
+  - id: doc-api01
+    name: "API Documentation"
+    category: documentation
+    scope: session
+    priority: 1
+    trigger: "user_request"
+    activation: manual
+    description: |
+      Generates OpenAPI specs, XML docs, and API documentation from code.
+    capabilities:
+      - openapi_generation
+      - xml_docs
+      - markdown_export
+    active: true
+
+  # --- DevOps ---
+  - id: ops-docker01
+    name: "Docker Configuration"
+    category: devops
+    scope: session
+    priority: 1
+    trigger: "user_request"
+    activation: manual
+    description: |
+      Generates Dockerfiles, docker-compose configurations, and container best practices.
+    capabilities:
+      - dockerfile_generation
+      - compose_config
+      - optimization_hints
+    active: true
+
+  - id: ops-cicd01
+    name: "CI/CD Pipeline"
+    category: devops
+    scope: session
+    priority: 2
+    trigger: "user_request"
+    activation: manual
+    description: |
+      Generates GitHub Actions, Azure DevOps, or GitLab CI pipeline configurations.
+    capabilities:
+      - github_actions
+      - azure_pipelines
+      - gitlab_ci
+    active: true

@@ -1,0 +1,130 @@
+# Skills Category Definitions
+# Single source of truth for all skill categories
+
+categories:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # GLOBAL SKILLS - Always available, immutable core capabilities
+  # ═══════════════════════════════════════════════════════════════════════════
+  - id: analysis
+    name: "Code Analysis"
+    prefix: analyze
+    icon: "🔍"
+    scope: global
+    description: |
+      > **Analysis skills** examine code structure, patterns, and potential issues
+      > without making modifications. Read-only inspection capabilities.
+    order: 1
+
+  - id: generation
+    name: "Code Generation"
+    prefix: gen
+    icon: "⚡"
+    scope: global
+    description: |
+      > **Generation skills** create new code, files, or project structures
+      > based on templates, patterns, or specifications.
+    order: 2
+
+  - id: transformation
+    name: "Code Transformation"
+    prefix: transform
+    icon: "🔄"
+    scope: global
+    description: |
+      > **Transformation skills** modify existing code through refactoring,
+      > migration, or format conversion while preserving semantics.
+    order: 3
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # DOMAIN SKILLS - Project-scoped, loaded per technology stack
+  # ═══════════════════════════════════════════════════════════════════════════
+  - id: dotnet
+    name: ".NET Development"
+    prefix: dotnet
+    icon: "🟣"
+    scope: domain
+    description: |
+      > **.NET skills** for C#, F#, ASP.NET Core, Entity Framework,
+      > and the broader .NET ecosystem.
+    order: 10
+    subcategories:
+      - id: aspnet
+        name: "ASP.NET Core"
+      - id: efcore
+        name: "Entity Framework"
+      - id: blazor
+        name: "Blazor"
+      - id: maui
+        name: ".NET MAUI"
+
+  - id: web
+    name: "Web Development"
+    prefix: web
+    icon: "🌐"
+    scope: domain
+    description: |
+      > **Web skills** for frontend frameworks, APIs, and browser technologies.
+    order: 11
+    subcategories:
+      - id: react
+        name: "React"
+      - id: typescript
+        name: "TypeScript"
+      - id: css
+        name: "CSS & Styling"
+
+  - id: data
+    name: "Data & Databases"
+    prefix: data
+    icon: "🗄️"
+    scope: domain
+    description: |
+      > **Data skills** for database design, queries, migrations, and data pipelines.
+    order: 12
+    subcategories:
+      - id: sql
+        name: "SQL"
+      - id: nosql
+        name: "NoSQL"
+      - id: orm
+        name: "ORM Patterns"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # SESSION SKILLS - Runtime-loaded, task-specific capabilities
+  # ═══════════════════════════════════════════════════════════════════════════
+  - id: debugging
+    name: "Debugging & Diagnostics"
+    prefix: debug
+    icon: "🐛"
+    scope: session
+    description: |
+      > **Debugging skills** activated when errors, exceptions, or unexpected
+      > behavior is detected. On-demand diagnostic capabilities.
+    order: 20
+
+  - id: testing
+    name: "Testing & Quality"
+    prefix: test
+    icon: "✅"
+    scope: session
+    description: |
+      > **Testing skills** for unit tests, integration tests, and quality assurance.
+    order: 21
+
+  - id: documentation
+    name: "Documentation"
+    prefix: doc
+    icon: "📝"
+    scope: session
+    description: |
+      > **Documentation skills** for generating docs, comments, and explanations.
+    order: 22
+
+  - id: devops
+    name: "DevOps & CI/CD"
+    prefix: ops
+    icon: "🚀"
+    scope: session
+    description: |
+      > **DevOps skills** for deployment, pipelines, and infrastructure.
+    order: 23
