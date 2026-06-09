@@ -1,258 +1,128 @@
 # Skills Registry
-# Single source of truth for all available skills
-# Generated IDs follow pattern: {prefix}-{sha256(name+trigger)[:8]}
+# Canonical source for the public skill pack.
 
 skills:
-  # ═══════════════════════════════════════════════════════════════════════════
-  # GLOBAL SKILLS (scope: global) - Always loaded, immutable
-  # ═══════════════════════════════════════════════════════════════════════════
-
-  # --- Code Analysis ---
-  - id: analyze-a1b2c3d4
-    name: "Static Code Analysis"
-    category: analysis
-    scope: global
+  - id: forgejo-direct-api
+    name: "Forgejo Direct API"
+    category: source-control
+    scope: domain
     priority: 1
-    trigger: "on_file_open"
-    activation: automatic
-    description: |
-      Analyzes code for patterns, anti-patterns, complexity metrics, and potential issues.
-      Runs automatically when files are opened or modified.
-    capabilities:
-      - complexity_analysis
-      - pattern_detection
-      - dependency_mapping
-    active: true
-
-  - id: analyze-security01
-    name: "Security Scanner"
-    category: analysis
-    scope: global
-    priority: 2
-    trigger: "on_save"
-    activation: automatic
-    description: |
-      Scans for common security vulnerabilities, secrets in code, and OWASP top 10 issues.
-    capabilities:
-      - vulnerability_scan
-      - secret_detection
-      - dependency_audit
-    active: true
-
-  # --- Code Generation ---
-  - id: gen-scaffold01
-    name: "Project Scaffolder"
-    category: generation
-    scope: global
-    priority: 1
-    trigger: "user_request"
+    trigger: "forgejo, forgejo api, forgejo actions, forgejo runners, forgejo pull request, forgejo release, forgejo packages"
     activation: manual
+    path: "skills/packs/forgejo-direct-api"
+    license: "MIT repo wrapper; Forgejo API facts from public Swagger/docs"
+    compatibility: "Portable Markdown skill with shell helper scripts; requires caller-provided FORGEJO_TOKEN for private probes."
     description: |
-      Generates project structures, boilerplate code, and configuration files
-      based on templates and best practices.
+      Direct Forgejo v15 API reference. Prefer live Swagger and Forgejo-native endpoints over GitHub-shaped assumptions
+      for repositories, Actions, runners, pull requests, reviews, statuses, releases, packages, webhooks, users, orgs,
+      and admin work.
     capabilities:
-      - template_expansion
-      - file_generation
-      - config_creation
+      - forgejo_api
+      - actions_runners
+      - pull_requests
+      - releases_packages
+      - swagger_grounding
     active: true
 
-  - id: gen-unittest01
-    name: "Unit Test Generator"
-    category: generation
-    scope: global
-    priority: 2
-    trigger: "user_request"
-    activation: manual
-    description: |
-      Generates unit tests for existing code using xUnit, NUnit, or MSTest patterns.
-    capabilities:
-      - test_generation
-      - mock_creation
-      - assertion_patterns
-    active: true
-
-  # ═══════════════════════════════════════════════════════════════════════════
-  # DOMAIN SKILLS (scope: domain) - Loaded per project type
-  # ═══════════════════════════════════════════════════════════════════════════
-
-  # --- .NET Development ---
-  - id: dotnet-aspnet01
-    name: "ASP.NET Core Patterns"
-    category: dotnet
-    subcategory: aspnet
+  - id: mcp-csharp-sdk-140
+    name: "MCP C# SDK 1.4.0"
+    category: model-context-protocol
+    subcategory: dotnet
     scope: domain
     priority: 1
-    trigger: "project_type:aspnet"
-    activation: automatic
+    trigger: "mcp csharp, modelcontextprotocol, mcp server, mcp client, streamable http, mcp tasks, mcp sampling, mcp elicitation, mcp roots"
+    activation: manual
+    path: "skills/packs/mcp-csharp-sdk-1.4.0"
+    license: "MIT repo wrapper; references summarize public SDK/docs"
+    compatibility: "Portable Markdown skill. Optional Claude subagent adapter is in adapters/claude/agents/mcp-csharp-sdk-expert.md."
     description: |
-      Provides ASP.NET Core-specific patterns: controllers, middleware,
-      dependency injection, and configuration best practices.
+      Authoritative condensed reference for ModelContextProtocol C#/.NET SDK 1.4.0, including servers, clients, tools,
+      prompts, resources, transports, sessions, tasks, MRTR, sampling, elicitation, roots, identity, auth, filters,
+      completions, logging, pagination, HTTP context, McpServer, and McpClient.
     capabilities:
-      - controller_patterns
-      - middleware_design
-      - di_configuration
+      - mcp
+      - dotnet
+      - streamable_http
+      - mrtr
+      - protocol_correctness
     active: true
 
-  - id: dotnet-efcore01
-    name: "Entity Framework Core"
-    category: dotnet
-    subcategory: efcore
-    scope: domain
+  - id: microsoft-first-research
+    name: "Microsoft-First Research"
+    category: documentation-grounding
+    subcategory: microsoft
+    scope: global
+    priority: 1
+    trigger: "microsoft, azure, dotnet, foundry, agent framework, copilot studio, sdk docs, current api"
+    activation: manual
+    path: "skills/packs/microsoft-first-research"
+    license: "Apache-2.0 as declared in SKILL.md"
+    compatibility: "Portable routing skill; depends on the consuming agent having some Microsoft Learn/doc lookup capability."
+    description: |
+      Routing skill that biases substantive Microsoft-shaped work toward Microsoft Learn, source checkouts, and current first-party documentation before answering from memory.
+    capabilities:
+      - microsoft_grounding
+      - research_routing
+      - docs_first
+      - api_freshness
+    active: true
+
+  - id: microsoft-learn-grounding
+    name: "Microsoft Learn Grounding"
+    category: documentation-grounding
+    subcategory: microsoft
+    scope: global
     priority: 2
-    trigger: "project_type:efcore"
-    activation: automatic
+    trigger: "microsoft learn, learn mcp, azure docs, dotnet docs, m365 docs, foundry docs, doc freshness"
+    activation: manual
+    path: "skills/packs/microsoft-learn-grounding"
+    license: "Apache-2.0 as declared in SKILL.md"
+    compatibility: "Portable instructions for using Microsoft Learn MCP-style retrieval; tool names may need mapping in non-MCP runtimes."
     description: |
-      Entity Framework Core patterns: DbContext design, migrations,
-      query optimization, and relationship mapping.
+      Operating guide for Microsoft Learn grounding: search/fetch/code-sample retrieval, maxTokenBudget, freshness checks, daily refresh behavior, and limitations of the public docs surface.
     capabilities:
-      - migration_generation
-      - query_optimization
-      - model_configuration
+      - microsoft_learn
+      - documentation_search
+      - freshness_checks
+      - source_links
     active: true
 
-  - id: dotnet-blazor01
-    name: "Blazor Components"
-    category: dotnet
-    subcategory: blazor
-    scope: domain
-    priority: 3
-    trigger: "project_type:blazor"
-    activation: automatic
-    description: |
-      Blazor component patterns, state management, and interop capabilities.
-    capabilities:
-      - component_design
-      - state_management
-      - js_interop
-    active: true
-
-  # --- Web Development ---
-  - id: web-react01
-    name: "React Patterns"
-    category: web
+  - id: react-bits-pro
+    name: "React Bits Pro"
+    category: frontend
     subcategory: react
     scope: domain
     priority: 1
-    trigger: "project_type:react"
-    activation: automatic
+    trigger: "react bits, reactbits, animated react components, shadcn registry, premium landing blocks"
+    activation: manual
+    path: "skills/packs/react-bits-pro"
+    license: "Proprietary upstream component access; this repo stores instructions only"
+    compatibility: "Portable instructions, but actual component installation requires the user's own React Bits Pro license key and registry access."
     description: |
-      React 18+ patterns: hooks, server components, suspense, and state management.
+      Install and integrate React Bits Pro premium animated UI components and page blocks into React/Next.js apps using the shadcn registry CLI.
     capabilities:
-      - hook_patterns
-      - component_design
-      - state_patterns
+      - react
+      - nextjs
+      - shadcn
+      - animated_ui
+      - landing_blocks
     active: true
 
-  - id: web-typescript01
-    name: "TypeScript Excellence"
-    category: web
-    subcategory: typescript
-    scope: domain
-    priority: 2
-    trigger: "file_type:*.ts,*.tsx"
-    activation: automatic
-    description: |
-      Advanced TypeScript patterns: generics, utility types, and type-safe APIs.
-    capabilities:
-      - type_inference
-      - generic_patterns
-      - type_guards
-    active: true
-
-  # ═══════════════════════════════════════════════════════════════════════════
-  # SESSION SKILLS (scope: session) - On-demand, task-specific
-  # ═══════════════════════════════════════════════════════════════════════════
-
-  # --- Debugging ---
-  - id: debug-exception01
-    name: "Exception Analyzer"
-    category: debugging
+  - id: thermo-code-quality-review
+    name: "Thermo-Nuclear Code Quality Review"
+    category: review-quality
     scope: session
     priority: 1
-    trigger: "error_detected"
-    activation: automatic
-    description: |
-      Analyzes exceptions, stack traces, and error patterns to identify root causes.
-    capabilities:
-      - stack_trace_analysis
-      - error_correlation
-      - fix_suggestions
-    active: true
-
-  - id: debug-perf01
-    name: "Performance Profiler"
-    category: debugging
-    scope: session
-    priority: 2
-    trigger: "user_request"
+    trigger: "thermo-nuclear code quality review, thermonuclear review, deep maintainability audit, harsh code quality review"
     activation: manual
+    path: "skills/packs/thermo-nuclear-code-quality-review"
+    license: "MIT repo wrapper"
+    compatibility: "Portable review prompt. Frontmatter field disable-model-invocation is runtime-specific and safe to ignore when unsupported."
     description: |
-      Identifies performance bottlenecks, memory leaks, and optimization opportunities.
+      Extremely strict maintainability review prompt focused on abstraction quality, giant files, spaghetti-condition growth, and structural simplification opportunities.
     capabilities:
-      - hotspot_detection
-      - memory_analysis
-      - optimization_hints
-    active: true
-
-  # --- Testing ---
-  - id: test-coverage01
-    name: "Coverage Analyzer"
-    category: testing
-    scope: session
-    priority: 1
-    trigger: "test_run_complete"
-    activation: automatic
-    description: |
-      Analyzes test coverage and suggests tests for uncovered code paths.
-    capabilities:
-      - coverage_analysis
-      - gap_detection
-      - test_suggestions
-    active: true
-
-  # --- Documentation ---
-  - id: doc-api01
-    name: "API Documentation"
-    category: documentation
-    scope: session
-    priority: 1
-    trigger: "user_request"
-    activation: manual
-    description: |
-      Generates OpenAPI specs, XML docs, and API documentation from code.
-    capabilities:
-      - openapi_generation
-      - xml_docs
-      - markdown_export
-    active: true
-
-  # --- DevOps ---
-  - id: ops-docker01
-    name: "Docker Configuration"
-    category: devops
-    scope: session
-    priority: 1
-    trigger: "user_request"
-    activation: manual
-    description: |
-      Generates Dockerfiles, docker-compose configurations, and container best practices.
-    capabilities:
-      - dockerfile_generation
-      - compose_config
-      - optimization_hints
-    active: true
-
-  - id: ops-cicd01
-    name: "CI/CD Pipeline"
-    category: devops
-    scope: session
-    priority: 2
-    trigger: "user_request"
-    activation: manual
-    description: |
-      Generates GitHub Actions, Azure DevOps, or GitLab CI pipeline configurations.
-    capabilities:
-      - github_actions
-      - azure_pipelines
-      - gitlab_ci
+      - code_review
+      - maintainability
+      - abstraction_quality
+      - simplification
     active: true

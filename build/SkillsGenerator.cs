@@ -39,6 +39,9 @@ public static class SkillsGenerator
         public string Description { get; set; } = "";
         public List<string> Capabilities { get; set; } = new();
         public bool Active { get; set; } = true;
+        public string? Path { get; set; }
+        public string? License { get; set; }
+        public string? Compatibility { get; set; }
     }
 
     public class Category
@@ -312,6 +315,21 @@ public static class SkillsGenerator
             }
             sb.AppendLine();
             sb.AppendLine("</details>");
+        }
+
+        if (!string.IsNullOrWhiteSpace(skill.Path))
+        {
+            sb.AppendLine($"> **Path:** `{skill.Path}`");
+        }
+
+        if (!string.IsNullOrWhiteSpace(skill.License))
+        {
+            sb.AppendLine($"> **License:** `{skill.License}`");
+        }
+
+        if (!string.IsNullOrWhiteSpace(skill.Compatibility))
+        {
+            sb.AppendLine($"> **Compatibility:** {skill.Compatibility.Trim()}");
         }
 
         sb.AppendLine($"> **Trigger:** `{skill.Trigger}`");

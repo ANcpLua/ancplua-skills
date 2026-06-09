@@ -16,6 +16,9 @@ Categories:
 ## [Unreleased]
 
 ### Added
+- Public AI-agnostic skill pack layout under `skills/packs/`.
+- Compatibility documentation for Claude, Codex, and other agents.
+- Claude adapter area under `adapters/claude/`.
 - Initial Skills Framework with YAML-driven skill registry
 - Nuke build system with GenerateSkills and ValidateSkills targets
 - SkillsGenerator for YAML → Markdown template generation
@@ -31,6 +34,10 @@ Categories:
 - MIT License
 
 ### Changed
+- Replaced placeholder registry entries with the active local skills.
+- Extended generated `SKILLS.md` entries with path, license, and compatibility metadata.
+- Removed top-level Claude-only config from the portable skill-pack surface.
+- Updated build package pins to avoid vulnerable transitive restore output.
 - Simplified changelog enforcement - removed enterprise PR workflow, added friendly hook reminder
 - Made CHANGELOG.md and CLAUDE.md more casual and vibe-coder friendly
 

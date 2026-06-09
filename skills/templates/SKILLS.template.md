@@ -4,7 +4,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         SKILLS.md CONTEXT LOADING                           │
+│                      AI-AGNOSTIC SKILL PACK INDEX                           │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐                       │
@@ -12,8 +12,8 @@
 │  │   Skills    │   │   Skills    │   │   Skills    │                       │
 │  └─────────────┘   └─────────────┘   └─────────────┘                       │
 │        ↓                 ↓                 ↓                                │
-│   [IMMUTABLE]       [PROJECT-SCOPED]   [RUNTIME-LOADED]                    │
-│   Core agents       .NET/Web/etc.      Task-specific                       │
+│   [BASELINE]        [PROJECT-SCOPED]   [RUNTIME-LOADED]                    │
+│   Doc routing       MCP/Web/etc.       Task-specific                       │
 │   Always available  Per-domain         On-demand activation                │
 │                                                                             │
 │  LOADING: Stateless. Each session = fresh parse + merge by priority.       │
@@ -54,17 +54,27 @@ Within each scope, lower `priority` numbers load first.
 
 ---
 
+## Skill Folder Contract
+
+Each entry points to a folder with a `SKILL.md` file. The portable contract is intentionally small:
+
+- YAML frontmatter with at least `name` and `description`.
+- Markdown instructions in the body.
+- Optional `references/`, `scripts/`, `assets/`, or runtime adapter files.
+- Relative paths in `SKILL.md` are resolved from that skill folder.
+
+Unsupported frontmatter keys should be ignored by runtimes that do not know them.
+
 ## Activation Triggers
 
 | Trigger Type | Description |
 |--------------|-------------|
-| `on_file_open` | Activates when a file is opened |
-| `on_save` | Activates when a file is saved |
 | `project_type:*` | Activates for specific project types |
 | `file_type:*` | Activates for specific file extensions |
 | `error_detected` | Activates when an error/exception occurs |
 | `test_run_complete` | Activates after test execution |
 | `user_request` | Manual activation only |
+| free-form keywords | Runtimes may map natural-language trigger strings to their own routing model |
 
 ---
 

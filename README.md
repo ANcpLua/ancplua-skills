@@ -1,88 +1,83 @@
 # ancplua-skills
 
-A YAML-driven skills registry framework for Claude Code agents with hierarchical scope management.
+Public, AI-agnostic skill pack.
 
-## Overview
+The portable unit is a directory containing `SKILL.md`. Claude, Codex, and other agents can all consume that shape because it is plain Markdown with small YAML frontmatter. Runtime-specific files, such as Claude subagents or local permission config, belong under `adapters/` and are not part of the core contract.
 
-This framework provides a structured way to define, organize, and generate skill documentation for AI coding assistants. Skills are organized into three scope levels:
+## What Is Portable
 
-- **Global Skills** - Always loaded, core capabilities
-- **Domain Skills** - Project-type specific (e.g., .NET, React, TypeScript)
-- **Session Skills** - On-demand activation for specific tasks
+Portable:
 
-## Quick Start
+- `skills/packs/<skill>/SKILL.md`
+- optional `references/`, `scripts/`, and `assets/` under the skill folder
+- frontmatter keys such as `name`, `description`, `license`, `metadata`
+- Markdown routing tables and relative links
 
-### Prerequisites
+Runtime-specific:
 
-- .NET 10.0 SDK
-- Nuke build system
+- Claude subagents
+- slash commands
+- permission settings
+- MCP connector configuration
+- model names such as `opus`, `sonnet`, or OpenAI model slugs
 
-### Generate SKILLS.md
+Those runtime-specific pieces live in `adapters/`.
+
+## Skills
+
+The generated index is [SKILLS.md](SKILLS.md).
+
+Current core skills:
+
+- `forgejo-direct-api`
+- `mcp-csharp-sdk-1.4.0`
+- `microsoft-first-research`
+- `microsoft-learn-grounding`
+- `react-bits-pro`
+- `thermo-nuclear-code-quality-review`
+
+## Install
+
+Claude:
+
+```bash
+mkdir -p ~/.claude/skills
+cp -R skills/packs/<skill-name> ~/.claude/skills/
+```
+
+Codex:
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R skills/packs/<skill-name> ~/.codex/skills/
+```
+
+Any other model/runtime:
+
+1. Read `SKILL.md`.
+2. Resolve relative paths from that skill directory.
+3. Ignore unsupported frontmatter keys.
+4. Map tool names and connector names to equivalent local capabilities.
+
+## Credentials
+
+No real secrets are stored in this repo. Some skills mention environment variables such as `FORGEJO_TOKEN` or `REACTBITS_LICENSE_KEY`; those are placeholders and must be supplied by the user in their own environment.
+
+`react-bits-pro` is instructions-only and requires the user's own React Bits Pro access.
+
+## Generate The Index
 
 ```bash
 ./build.sh GenerateSkills
 ```
 
-### Validate Skills Structure
+Validation:
 
 ```bash
 ./build.sh ValidateSkills
+dotnet build ancplua-skills.slnx --nologo
 ```
-
-## Project Structure
-
-```
-ancplua-skills/
-├── skills/
-│   ├── skills-registry.yaml      # All skill definitions
-│   ├── skills-categories.yaml    # Category hierarchy
-│   ├── skill-overrides.yaml      # Optional overrides
-│   └── templates/
-│       └── SKILLS.template.md    # Output template
-├── build/
-│   ├── Build.cs                  # Nuke build targets
-│   └── SkillsGenerator.cs        # Template engine
-├── SKILLS.md                     # Generated output
-└── Dockerfile                    # Container support
-```
-
-## Skills Registry Schema
-
-Each skill in `skills-registry.yaml` has:
-
-| Field | Required | Description |
-|-------|----------|-------------|
-| `id` | Yes | Unique identifier (format: `prefix-hash`) |
-| `name` | Yes | Display name |
-| `category` | Yes | Parent category ID |
-| `scope` | Yes | `global`, `domain`, or `session` |
-| `trigger` | Yes | Activation trigger |
-| `activation` | Yes | `automatic` or `manual` |
-| `active` | Yes | Enable/disable flag |
-| `priority` | No | Load order (lower = first) |
-| `capabilities` | No | List of capability tags |
-
-## CI/CD
-
-### Validation Workflow
-
-The `validate-skills-bestpractises.yml` workflow runs on every push to `skills/**` and validates:
-
-- Directory structure
-- Naming conventions (kebab-case for YAML files)
-- YAML syntax
-- Schema compliance
-- Cross-references between skills and categories
-- Template placeholders
-
-### Docker Publishing
-
-The `docker-publish.yml` workflow is disabled by default. Enable it by removing `if: false` from the job.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Author
-
-Alexander Nachtmann
+Repository wrapper content is MIT unless a skill declares a narrower upstream license or access requirement in its own `SKILL.md` or registry entry.

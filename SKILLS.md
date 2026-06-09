@@ -4,7 +4,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         SKILLS.md CONTEXT LOADING                           │
+│                      AI-AGNOSTIC SKILL PACK INDEX                           │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐                       │
@@ -12,8 +12,8 @@
 │  │   Skills    │   │   Skills    │   │   Skills    │                       │
 │  └─────────────┘   └─────────────┘   └─────────────┘                       │
 │        ↓                 ↓                 ↓                                │
-│   [IMMUTABLE]       [PROJECT-SCOPED]   [RUNTIME-LOADED]                    │
-│   Core agents       .NET/Web/etc.      Task-specific                       │
+│   [BASELINE]        [PROJECT-SCOPED]   [RUNTIME-LOADED]                    │
+│   Doc routing       MCP/Web/etc.       Task-specific                       │
 │   Always available  Per-domain         On-demand activation                │
 │                                                                             │
 │  LOADING: Stateless. Each session = fresh parse + merge by priority.       │
@@ -28,9 +28,9 @@
 
 | Scope | Active | Total |
 |-------|--------|-------|
-| Global | 4 | 4 |
-| Domain | 5 | 5 |
-| Session | 6 | 6 |
+| Global | 2 | 2 |
+| Domain | 3 | 3 |
+| Session | 1 | 1 |
 
 ---
 
@@ -40,23 +40,18 @@
 <summary>Table of Contents</summary>
 
 - **Global Skills (Always Loaded)**
-  - [🔍 Code Analysis](#code-analysis) (2)
-  - [⚡ Code Generation](#code-generation) (2)
+  - [D Documentation Grounding](#documentation-grounding) (2)
+    - [Microsoft](#microsoft) (2)
 
 - **Domain Skills (Project-Scoped)**
-  - [🟣 .NET Development](#.net-development) (3)
-    - [ASP.NET Core](#asp.net-core) (1)
-    - [Entity Framework](#entity-framework) (1)
-    - [Blazor](#blazor) (1)
-  - [🌐 Web Development](#web-development) (2)
+  - [M Model Context Protocol](#model-context-protocol) (1)
+    - [.NET](#.net) (1)
+  - [S Source Control Platforms](#source-control-platforms) (1)
+  - [F Frontend UI](#frontend-ui) (1)
     - [React](#react) (1)
-    - [TypeScript](#typescript) (1)
 
 - **Session Skills (On-Demand)**
-  - [🐛 Debugging & Diagnostics](#debugging--diagnostics) (2)
-  - [✅ Testing & Quality](#testing--quality) (1)
-  - [📝 Documentation](#documentation) (1)
-  - [🚀 DevOps & CI/CD](#devops--cicd) (2)
+  - [Q Review & Quality](#review--quality) (1)
 
 </details>
 
@@ -65,79 +60,48 @@
 ## 🌍 Global Skills
 
 <details open>
-<summary><h3>🔍 Code Analysis</h3></summary>
+<summary><h3>D Documentation Grounding</h3></summary>
 
-> **Analysis skills** examine code structure, patterns, and potential issues
-> without making modifications. Read-only inspection capabilities.
+> Skills that route work toward authoritative documentation, source, and freshness checks before answering from memory.
 
-**`Static Code Analysis`** &nbsp; `analyze-a1b2c3d4` &nbsp; 🤖 Auto &nbsp; P1
+#### Microsoft
 
-Analyzes code for patterns, anti-patterns, complexity metrics, and potential issues.
-Runs automatically when files are opened or modified.
+**`Microsoft-First Research`** &nbsp; `microsoft-first-research` &nbsp; 👆 Manual &nbsp; P1
 
-<details>
-<summary>Capabilities</summary>
-
-- `complexity_analysis`
-- `pattern_detection`
-- `dependency_mapping`
-
-</details>
-> **Trigger:** `on_file_open`
-
-
-**`Security Scanner`** &nbsp; `analyze-security01` &nbsp; 🤖 Auto &nbsp; P2
-
-Scans for common security vulnerabilities, secrets in code, and OWASP top 10 issues.
+Routing skill that biases substantive Microsoft-shaped work toward Microsoft Learn, source checkouts, and current first-party documentation before answering from memory.
 
 <details>
 <summary>Capabilities</summary>
 
-- `vulnerability_scan`
-- `secret_detection`
-- `dependency_audit`
+- `microsoft_grounding`
+- `research_routing`
+- `docs_first`
+- `api_freshness`
 
 </details>
-> **Trigger:** `on_save`
+> **Path:** `skills/packs/microsoft-first-research`
+> **License:** `Apache-2.0 as declared in SKILL.md`
+> **Compatibility:** Portable routing skill; depends on the consuming agent having some Microsoft Learn/doc lookup capability.
+> **Trigger:** `microsoft, azure, dotnet, foundry, agent framework, copilot studio, sdk docs, current api`
 
 
-</details>
+**`Microsoft Learn Grounding`** &nbsp; `microsoft-learn-grounding` &nbsp; 👆 Manual &nbsp; P2
 
-<details open>
-<summary><h3>⚡ Code Generation</h3></summary>
-
-> **Generation skills** create new code, files, or project structures
-> based on templates, patterns, or specifications.
-
-**`Project Scaffolder`** &nbsp; `gen-scaffold01` &nbsp; 👆 Manual &nbsp; P1
-
-Generates project structures, boilerplate code, and configuration files
-based on templates and best practices.
+Operating guide for Microsoft Learn grounding: search/fetch/code-sample retrieval, maxTokenBudget, freshness checks, daily refresh behavior, and limitations of the public docs surface.
 
 <details>
 <summary>Capabilities</summary>
 
-- `template_expansion`
-- `file_generation`
-- `config_creation`
+- `microsoft_learn`
+- `documentation_search`
+- `freshness_checks`
+- `source_links`
 
 </details>
-> **Trigger:** `user_request`
-
-
-**`Unit Test Generator`** &nbsp; `gen-unittest01` &nbsp; 👆 Manual &nbsp; P2
-
-Generates unit tests for existing code using xUnit, NUnit, or MSTest patterns.
-
-<details>
-<summary>Capabilities</summary>
-
-- `test_generation`
-- `mock_creation`
-- `assertion_patterns`
-
-</details>
-> **Trigger:** `user_request`
+> **Path:** `skills/packs/microsoft-learn-grounding`
+> **License:** `Apache-2.0 as declared in SKILL.md`
+> **Compatibility:** Portable instructions for using Microsoft Learn MCP-style retrieval; tool names may need mapping in non-MCP runtimes.
+> **Trigger:** `microsoft learn, learn mcp, azure docs, dotnet docs, m365 docs, foundry docs, doc freshness`
 
 
 </details>
@@ -145,103 +109,90 @@ Generates unit tests for existing code using xUnit, NUnit, or MSTest patterns.
 ## 📦 Domain Skills
 
 <details open>
-<summary><h3>🟣 .NET Development</h3></summary>
+<summary><h3>M Model Context Protocol</h3></summary>
 
-> **.NET skills** for C#, F#, ASP.NET Core, Entity Framework,
-> and the broader .NET ecosystem.
+> Skills for MCP SDKs, protocol behavior, transports, tools, resources, prompts, and client/server correctness.
 
-#### ASP.NET Core
+#### .NET
 
-**`ASP.NET Core Patterns`** &nbsp; `dotnet-aspnet01` &nbsp; 🤖 Auto &nbsp; P1
+**`MCP C# SDK 1.4.0`** &nbsp; `mcp-csharp-sdk-140` &nbsp; 👆 Manual &nbsp; P1
 
-Provides ASP.NET Core-specific patterns: controllers, middleware,
-dependency injection, and configuration best practices.
-
-<details>
-<summary>Capabilities</summary>
-
-- `controller_patterns`
-- `middleware_design`
-- `di_configuration`
-
-</details>
-> **Trigger:** `project_type:aspnet`
-
-
-#### Entity Framework
-
-**`Entity Framework Core`** &nbsp; `dotnet-efcore01` &nbsp; 🤖 Auto &nbsp; P2
-
-Entity Framework Core patterns: DbContext design, migrations,
-query optimization, and relationship mapping.
+Authoritative condensed reference for ModelContextProtocol C#/.NET SDK 1.4.0, including servers, clients, tools,
+prompts, resources, transports, sessions, tasks, MRTR, sampling, elicitation, roots, identity, auth, filters,
+completions, logging, pagination, HTTP context, McpServer, and McpClient.
 
 <details>
 <summary>Capabilities</summary>
 
-- `migration_generation`
-- `query_optimization`
-- `model_configuration`
+- `mcp`
+- `dotnet`
+- `streamable_http`
+- `mrtr`
+- `protocol_correctness`
 
 </details>
-> **Trigger:** `project_type:efcore`
-
-
-#### Blazor
-
-**`Blazor Components`** &nbsp; `dotnet-blazor01` &nbsp; 🤖 Auto &nbsp; P3
-
-Blazor component patterns, state management, and interop capabilities.
-
-<details>
-<summary>Capabilities</summary>
-
-- `component_design`
-- `state_management`
-- `js_interop`
-
-</details>
-> **Trigger:** `project_type:blazor`
+> **Path:** `skills/packs/mcp-csharp-sdk-1.4.0`
+> **License:** `MIT repo wrapper; references summarize public SDK/docs`
+> **Compatibility:** Portable Markdown skill. Optional Claude subagent adapter is in adapters/claude/agents/mcp-csharp-sdk-expert.md.
+> **Trigger:** `mcp csharp, modelcontextprotocol, mcp server, mcp client, streamable http, mcp tasks, mcp sampling, mcp elicitation, mcp roots`
 
 
 </details>
 
 <details open>
-<summary><h3>🌐 Web Development</h3></summary>
+<summary><h3>S Source Control Platforms</h3></summary>
 
-> **Web skills** for frontend frameworks, APIs, and browser technologies.
+> Skills for direct forge/repository APIs, pull requests, review workflows, CI runners, releases, and packages.
+
+**`Forgejo Direct API`** &nbsp; `forgejo-direct-api` &nbsp; 👆 Manual &nbsp; P1
+
+Direct Forgejo v15 API reference. Prefer live Swagger and Forgejo-native endpoints over GitHub-shaped assumptions
+for repositories, Actions, runners, pull requests, reviews, statuses, releases, packages, webhooks, users, orgs,
+and admin work.
+
+<details>
+<summary>Capabilities</summary>
+
+- `forgejo_api`
+- `actions_runners`
+- `pull_requests`
+- `releases_packages`
+- `swagger_grounding`
+
+</details>
+> **Path:** `skills/packs/forgejo-direct-api`
+> **License:** `MIT repo wrapper; Forgejo API facts from public Swagger/docs`
+> **Compatibility:** Portable Markdown skill with shell helper scripts; requires caller-provided FORGEJO_TOKEN for private probes.
+> **Trigger:** `forgejo, forgejo api, forgejo actions, forgejo runners, forgejo pull request, forgejo release, forgejo packages`
+
+
+</details>
+
+<details open>
+<summary><h3>F Frontend UI</h3></summary>
+
+> Skills for UI libraries, component registries, page sections, and frontend integration workflows.
 
 #### React
 
-**`React Patterns`** &nbsp; `web-react01` &nbsp; 🤖 Auto &nbsp; P1
+**`React Bits Pro`** &nbsp; `react-bits-pro` &nbsp; 👆 Manual &nbsp; P1
 
-React 18+ patterns: hooks, server components, suspense, and state management.
-
-<details>
-<summary>Capabilities</summary>
-
-- `hook_patterns`
-- `component_design`
-- `state_patterns`
-
-</details>
-> **Trigger:** `project_type:react`
-
-
-#### TypeScript
-
-**`TypeScript Excellence`** &nbsp; `web-typescript01` &nbsp; 🤖 Auto &nbsp; P2
-
-Advanced TypeScript patterns: generics, utility types, and type-safe APIs.
+Install and integrate React Bits Pro premium animated UI components and page blocks into React/Next.js apps using the shadcn registry CLI.
 
 <details>
 <summary>Capabilities</summary>
 
-- `type_inference`
-- `generic_patterns`
-- `type_guards`
+- `react`
+- `nextjs`
+- `shadcn`
+- `animated_ui`
+- `landing_blocks`
 
 </details>
-> **Trigger:** `file_type:*.ts,*.tsx`
+> **Path:** `skills/packs/react-bits-pro`
+> **License:** `Proprietary upstream component access; this repo stores instructions only`
+> **Compatibility:** Portable instructions, but actual component installation requires the user's own React Bits Pro license key and registry access.
+> **Trigger:** `react bits, reactbits, animated react components, shadcn registry, premium landing blocks`
 
 
 </details>
@@ -249,120 +200,27 @@ Advanced TypeScript patterns: generics, utility types, and type-safe APIs.
 ## ⚡ Session Skills
 
 <details open>
-<summary><h3>🐛 Debugging & Diagnostics</h3></summary>
+<summary><h3>Q Review & Quality</h3></summary>
 
-> **Debugging skills** activated when errors, exceptions, or unexpected
-> behavior is detected. On-demand diagnostic capabilities.
+> On-demand skills for code review, maintainability audits, and implementation-quality judgement.
 
-**`Exception Analyzer`** &nbsp; `debug-exception01` &nbsp; 🤖 Auto &nbsp; P1
+**`Thermo-Nuclear Code Quality Review`** &nbsp; `thermo-code-quality-review` &nbsp; 👆 Manual &nbsp; P1
 
-Analyzes exceptions, stack traces, and error patterns to identify root causes.
-
-<details>
-<summary>Capabilities</summary>
-
-- `stack_trace_analysis`
-- `error_correlation`
-- `fix_suggestions`
-
-</details>
-> **Trigger:** `error_detected`
-
-
-**`Performance Profiler`** &nbsp; `debug-perf01` &nbsp; 👆 Manual &nbsp; P2
-
-Identifies performance bottlenecks, memory leaks, and optimization opportunities.
+Extremely strict maintainability review prompt focused on abstraction quality, giant files, spaghetti-condition growth, and structural simplification opportunities.
 
 <details>
 <summary>Capabilities</summary>
 
-- `hotspot_detection`
-- `memory_analysis`
-- `optimization_hints`
+- `code_review`
+- `maintainability`
+- `abstraction_quality`
+- `simplification`
 
 </details>
-> **Trigger:** `user_request`
-
-
-</details>
-
-<details open>
-<summary><h3>✅ Testing & Quality</h3></summary>
-
-> **Testing skills** for unit tests, integration tests, and quality assurance.
-
-**`Coverage Analyzer`** &nbsp; `test-coverage01` &nbsp; 🤖 Auto &nbsp; P1
-
-Analyzes test coverage and suggests tests for uncovered code paths.
-
-<details>
-<summary>Capabilities</summary>
-
-- `coverage_analysis`
-- `gap_detection`
-- `test_suggestions`
-
-</details>
-> **Trigger:** `test_run_complete`
-
-
-</details>
-
-<details open>
-<summary><h3>📝 Documentation</h3></summary>
-
-> **Documentation skills** for generating docs, comments, and explanations.
-
-**`API Documentation`** &nbsp; `doc-api01` &nbsp; 👆 Manual &nbsp; P1
-
-Generates OpenAPI specs, XML docs, and API documentation from code.
-
-<details>
-<summary>Capabilities</summary>
-
-- `openapi_generation`
-- `xml_docs`
-- `markdown_export`
-
-</details>
-> **Trigger:** `user_request`
-
-
-</details>
-
-<details open>
-<summary><h3>🚀 DevOps & CI/CD</h3></summary>
-
-> **DevOps skills** for deployment, pipelines, and infrastructure.
-
-**`Docker Configuration`** &nbsp; `ops-docker01` &nbsp; 👆 Manual &nbsp; P1
-
-Generates Dockerfiles, docker-compose configurations, and container best practices.
-
-<details>
-<summary>Capabilities</summary>
-
-- `dockerfile_generation`
-- `compose_config`
-- `optimization_hints`
-
-</details>
-> **Trigger:** `user_request`
-
-
-**`CI/CD Pipeline`** &nbsp; `ops-cicd01` &nbsp; 👆 Manual &nbsp; P2
-
-Generates GitHub Actions, Azure DevOps, or GitLab CI pipeline configurations.
-
-<details>
-<summary>Capabilities</summary>
-
-- `github_actions`
-- `azure_pipelines`
-- `gitlab_ci`
-
-</details>
-> **Trigger:** `user_request`
+> **Path:** `skills/packs/thermo-nuclear-code-quality-review`
+> **License:** `MIT repo wrapper`
+> **Compatibility:** Portable review prompt. Frontmatter field disable-model-invocation is runtime-specific and safe to ignore when unsupported.
+> **Trigger:** `thermo-nuclear code quality review, thermonuclear review, deep maintainability audit, harsh code quality review`
 
 
 </details>
@@ -381,18 +239,28 @@ Within each scope, lower `priority` numbers load first.
 
 ---
 
+## Skill Folder Contract
+
+Each entry points to a folder with a `SKILL.md` file. The portable contract is intentionally small:
+
+- YAML frontmatter with at least `name` and `description`.
+- Markdown instructions in the body.
+- Optional `references/`, `scripts/`, `assets/`, or runtime adapter files.
+- Relative paths in `SKILL.md` are resolved from that skill folder.
+
+Unsupported frontmatter keys should be ignored by runtimes that do not know them.
+
 ## Activation Triggers
 
 | Trigger Type | Description |
 |--------------|-------------|
-| `on_file_open` | Activates when a file is opened |
-| `on_save` | Activates when a file is saved |
 | `project_type:*` | Activates for specific project types |
 | `file_type:*` | Activates for specific file extensions |
 | `error_detected` | Activates when an error/exception occurs |
 | `test_run_complete` | Activates after test execution |
 | `user_request` | Manual activation only |
+| free-form keywords | Runtimes may map natural-language trigger strings to their own routing model |
 
 ---
 
-<sub>Generated: 2025-12-08 17:22:39 UTC | Skills: 15 | Categories: 10</sub>
+<sub>Generated: 2026-06-09 08:16:25 UTC | Skills: 6 | Categories: 5</sub>
