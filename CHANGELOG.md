@@ -38,7 +38,7 @@ Categories:
 - Extended generated `SKILLS.md` entries with path, license, and compatibility metadata.
 - Removed top-level Claude-only config from the portable skill-pack surface.
 - Updated build package pins to avoid vulnerable transitive restore output.
-- Updated GitHub Actions from Node 20-backed `actions/*@v4` actions to current Node 24-ready releases.
+- Updated GitHub and Docker Actions from Node 20-backed releases to current Node 24-ready releases.
 - Simplified changelog enforcement - removed enterprise PR workflow, added friendly hook reminder
 - Clarified CHANGELOG.md and CLAUDE.md maintenance notes.
 
