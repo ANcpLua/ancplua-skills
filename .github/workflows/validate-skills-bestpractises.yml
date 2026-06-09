@@ -1,8 +1,8 @@
 # ═══════════════════════════════════════════════════════════════════════════════
 # Skills Structure Validation Workflow
-# Validates skills registry against Anthropic Claude Code best practices
+# Validates the portable skills registry and pack layout
 # ═══════════════════════════════════════════════════════════════════════════════
-# Based on Anthropic's documented conventions for:
+# Based on model-agnostic conventions for:
 # - Directory structure
 # - Naming conventions
 # - File placement
@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # ─────────────────────────────────────────────────────────────────────────
       # Directory Structure Validation
@@ -432,4 +432,4 @@ jobs:
           echo "  ✅ Skill-category cross references"
           echo "  ✅ Template placeholders"
           echo ""
-          echo "Your skills structure follows Anthropic best practices!"
+          echo "Your portable skills structure is valid."

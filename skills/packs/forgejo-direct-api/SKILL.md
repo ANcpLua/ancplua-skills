@@ -39,12 +39,14 @@ GET /repos/{owner}/{repo}/actions/tasks
 
 ## Refresh and verify
 
+From this skill directory:
+
 ```bash
-/Users/ancplua/.claude/skills/forgejo-direct-api/scripts/fetch-forgejo-swagger.sh https://v15.next.forgejo.org
+scripts/fetch-forgejo-swagger.sh https://v15.next.forgejo.org
 ```
 
 ```bash
-FORGEJO_TOKEN=... /Users/ancplua/.claude/skills/forgejo-direct-api/scripts/verify-forgejo-skill.sh https://v15.next.forgejo.org ANcpLua qyl
+FORGEJO_TOKEN=... scripts/verify-forgejo-skill.sh https://v15.next.forgejo.org ANcpLua qyl
 ```
 
 Without `FORGEJO_TOKEN`, verification still checks documented routes against Swagger and skips private repo probes.

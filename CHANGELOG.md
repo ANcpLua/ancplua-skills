@@ -3,8 +3,8 @@
 What's been happening in this project.
 
 <!--
-Hey Claude! When you make changes, drop a note here under [Unreleased].
-Just a quick line about what you did - future you will thank you.
+Agent maintenance note: when you make changes, drop a short line here under
+[Unreleased].
 
 Categories:
 - Added: new stuff
@@ -38,11 +38,13 @@ Categories:
 - Extended generated `SKILLS.md` entries with path, license, and compatibility metadata.
 - Removed top-level Claude-only config from the portable skill-pack surface.
 - Updated build package pins to avoid vulnerable transitive restore output.
+- Updated GitHub Actions from Node 20-backed `actions/*@v4` actions to current Node 24-ready releases.
 - Simplified changelog enforcement - removed enterprise PR workflow, added friendly hook reminder
-- Made CHANGELOG.md and CLAUDE.md more casual and vibe-coder friendly
+- Clarified CHANGELOG.md and CLAUDE.md maintenance notes.
 
 ### Fixed
 - Build workflow now properly ignores timestamp when comparing SKILLS.md versions
+- Forgejo skill refresh examples now use skill-relative script paths instead of a Claude-specific absolute path.
 
 ---
 
