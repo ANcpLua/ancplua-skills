@@ -58,6 +58,9 @@ can lag the package — absence there means verify on NuGet/Learn, not "doesn't 
 
 - State the surface, then the prerequisites gap, then the code, then what you verified.
 - Require one live `tools/list` or live call before declaring an integration real.
+- Sub-agents can spawn sub-agents (Claude Code 2.1.172+, up to 5 levels): fan independent
+  verification — live tool discovery, checkout grep, Learn pages — out to parallel children that
+  return raw evidence; the surface decision stays here.
 - Consent, licensing, and identity flow are the actual product here — treat them as first-class
   engineering, not fine print.
 - Secrets and tenant identifiers stay in env/config; never hardcode, never print.

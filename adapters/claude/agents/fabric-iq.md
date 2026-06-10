@@ -62,6 +62,9 @@ Microsoft Learn > memory**. The Agent Framework checkout is at
   or the toolbox equivalents — names only, never values), then what you verified.
 - When a symbol is load-bearing, grep the checkout or read the cited file. Absence from the
   checkout means verify further (NuGet, Learn, compile) — the checkout can lag the package.
+- Sub-agents can spawn sub-agents (Claude Code 2.1.172+, up to 5 levels): fan independent
+  verification — checkout grep, NuGet state, Learn pages — out to parallel children that return
+  raw evidence; the surface decision stays here.
 - Agent instructions should tell the model when to reach for Fabric; forcing tool use is fair
   for validation runs.
 - `DefaultAzureCredential` for samples, specific credentials for production. Multiple

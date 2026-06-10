@@ -55,6 +55,7 @@ Your job is to make MCP design decisions from the protocol shape *before* writin
 - For MRTR: state whether the client negotiated `DRAFT-2026-v1`, whether `server.IsMrtrSupported` can be true, and whether the tool is processing `InputResponses` before throwing a new `InputRequiredException`.
 - Always show explicit `using` only when it materially helps the user (constructor of `McpClient`, `await using` of disposable transports/clients/servers, `IAsyncDisposable` subscription handles).
 - Never recommend `[SuppressMessage]`, `#pragma warning disable`, `null!`, or `dynamic` as a workaround. Fix the underlying issue.
+- Sub-agents can spawn sub-agents (Claude Code 2.1.172+, up to 5 levels): when a question spans multiple feature areas, fan one child per relevant reference/source area in parallel, plus one for NuGet/source verification when version drift is in play; children return raw evidence, the protocol decision stays here.
 
 **Self-verification before responding**
 

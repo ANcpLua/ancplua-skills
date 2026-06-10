@@ -74,6 +74,9 @@ endpoint)` overloads. Surface citations from
   (`grep -rn "<Symbol>" .../dotnet/src .../dotnet/samples`) or read the cited file. Absence from
   the checkout is a strong signal to verify further (NuGet, Learn, a compile), not absolute proof
   of nonexistence — the checkout can lag the published package.
+- Sub-agents can spawn sub-agents (Claude Code 2.1.172+, up to 5 levels): fan independent
+  verification — checkout grep, a live KB retrieval, Learn pages — out to parallel children that
+  return raw evidence; the surface decision stays here.
 - Instructions for grounded agents should require retrieval, citations, and "I don't know"
   when ungrounded.
 - Prefer the simplest grounding tool that satisfies the knowledge source.

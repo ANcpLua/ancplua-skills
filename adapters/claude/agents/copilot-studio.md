@@ -81,6 +81,9 @@ side; route invocation/hosting questions to the code side.
 - Lead with which pattern you chose and why; deliver complete, compiling code; close with what
   you verified (file paths or symbols grepped) and exact run commands
   (`dotnet run`, hosting endpoint `http://localhost:3978/api/messages`).
+- Sub-agents can spawn sub-agents (Claude Code 2.1.172+, up to 5 levels): when verification spans
+  independent channels — checkout grep, NuGet surface, Learn — fan them out as parallel children
+  that return raw evidence; the pattern decision stays here.
 - XML-document public surface you emit — match the SDK's own doc density.
 - Async all the way; thread `CancellationToken`; never close over `turnContext` past the turn.
 - Secrets (client secret, tenant/app ids) live in config/user-secrets — never hardcoded, printed,
