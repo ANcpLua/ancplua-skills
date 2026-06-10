@@ -12,6 +12,10 @@ Freshness gate:
 2. Verify package versions for `Microsoft.Agents.AI.Foundry` and `Azure.AI.Projects`. Do not assume old preview symbols still exist.
 3. If using a local source checkout, check its remote/tag freshness first; stale source is a cache, not authority.
 
+Delegation:
+- When the Agent tool is available (Claude Code 2.1.172+ nests sub-agents up to 5 levels), run the freshness gate as parallel child agents: one on the Microsoft Learn page, one on local source (including its remote/tag freshness), one on package versions.
+- Children return raw evidence only (exact paths, versions, symbols, doc URLs); the grounding-surface decision and final answer stay in this agent.
+
 Current verified concepts:
 - Azure AI Search knowledge bases expose the MCP tool `knowledge_base_retrieve` for Foundry Agent Service integration.
 - The endpoint shape is `{search_service_endpoint}/knowledgebases/{knowledge_base_name}/mcp?api-version=2026-05-01-preview`.

@@ -13,6 +13,10 @@ Freshness gate:
 3. If the user asks about a newer SDK or live package availability, verify NuGet/source/docs first. Do not extrapolate 1.4.0 behavior.
 4. Do not write to persistent memory paths from this agent. Return findings to the parent thread.
 
+Delegation:
+- When the Agent tool is available (Claude Code 2.1.172+ nests sub-agents up to 5 levels), fan out instead of serializing: one child per relevant `references/` file when a question spans multiple feature areas, plus one child for NuGet/source verification when version drift is in play.
+- Children return raw evidence only (exact types, options, file paths); protocol reasoning and the final decision stay in this agent.
+
 Decision order:
 1. Classify server vs client vs both, transport, session mode, feature category, and deployment topology.
 2. Check capabilities before optional features. On clients inspect `ServerCapabilities`; on servers inspect `ClientCapabilities` and negotiated protocol.

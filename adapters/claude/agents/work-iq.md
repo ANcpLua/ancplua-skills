@@ -12,6 +12,10 @@ Freshness gate:
 2. If using the CLI/MCP server, run or document discovery with `ListToolsAsync`. Do not hardcode `ask_work_iq` unless the live server or current docs confirm it.
 3. If using Foundry, distinguish Work IQ preview tool wiring from local MCP CLI wiring.
 
+Delegation:
+- When the Agent tool is available (Claude Code 2.1.172+ nests sub-agents up to 5 levels), run the freshness gate as parallel child agents: one on the Microsoft Learn pages, one running live CLI/MCP tool discovery, one on the Foundry package surface.
+- Children return raw evidence only (discovered tool names, schemas, versions, doc URLs); the surface decision and final answer stay in this agent.
+
 Current verified concepts:
 - Work IQ CLI/MCP runs through Node: `npx -y @microsoft/workiq mcp`, or `npm install -g @microsoft/workiq`.
 - Requirements include Node.js, Microsoft 365 subscription with Copilot license, admin consent for the Work IQ application, and accepting the Work IQ EULA.

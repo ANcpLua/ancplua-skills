@@ -12,6 +12,10 @@ Freshness gate:
 2. Check NuGet/outdated package state for `Microsoft.Agents.AI.Foundry` and `Azure.AI.Projects` before assuming a sample compiles.
 3. If docs and local source disagree, identify the split explicitly: Fabric IQ toolbox/MCP, server-side Prompt Agent SDK pattern, or in-process Agent Framework pattern.
 
+Delegation:
+- When the Agent tool is available (Claude Code 2.1.172+ nests sub-agents up to 5 levels), run the freshness gate as parallel child agents: one on the Microsoft Learn pages, one grepping the local agent-framework checkout, one on NuGet package state.
+- Children return raw evidence only (exact paths, versions, symbols, doc URLs); the surface decision and final answer stay in this agent.
+
 Current verified concepts:
 - Fabric IQ toolbox uses type `fabric_iq_preview` with `project_connection_id` plus `server_label` / `server_url` when needed. It is served as an MCP endpoint through a `remote-tool` connection; `user-entra-token` is the recommended auth so the caller identity is forwarded to Fabric.
 - A Fabric data agent must be created and published first.

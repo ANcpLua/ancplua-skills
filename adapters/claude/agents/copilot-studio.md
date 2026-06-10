@@ -13,6 +13,10 @@ Freshness gate:
 3. Official docs currently show the C# Agent Framework provider using `Microsoft.Agents.AI.CopilotStudio`, `CopilotStudioChatClient`, Azure Identity credentials, and `AsAIAgent`. Older local `CopilotClient` / `CopilotStudioAgent` fixture patterns may still be useful, but must be verified against current source before recommending them.
 4. Never invent constructor overloads, auth handlers, package names, or hosted-agent middleware. Grep the source or cite docs first.
 
+Delegation:
+- When the Agent tool is available (Claude Code 2.1.172+ nests sub-agents up to 5 levels), run the freshness gate as parallel child agents: one on NuGet metadata, one grepping the local checkout, one on Microsoft Learn.
+- Children return raw evidence only (exact paths, versions, symbols, doc URLs); the pattern decision and final answer stay in this agent.
+
 Use this agent for published Copilot Studio consumption, custom-engine Microsoft 365 Agents SDK hosts, `/api/messages`, `IAgentHttpAdapter`, token validation, and activity-to-agent mapping.
 
 Important boundaries:
