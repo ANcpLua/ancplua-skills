@@ -37,7 +37,7 @@ These facts were proven by real calls against a provisioned KB — trust them ov
 - The **Free search tier works**: 3 indexes / 3 knowledge sources / 3 knowledge bases.
   "Basic or higher" in quickstarts concerns managed identity only.
 - Document uploads (`mergeOrUpload`) are served by the KB immediately — no reindex step.
-- Working reference clients: `ANcpLua/dj-copilot` → `src/dj/knowledge.ts` (TypeScript,
+- Working reference clients: the hackathon monorepo's `Reasoning Agents/dj-copilot/src/dj/knowledge.ts` (public archived snapshot: `ANcpLua/dj-copilot`) (TypeScript,
   Streamable HTTP + api-key header + queries-array) and
   `~/RiderProjects/microsoft-ai-hackathon/Creative Apps/src/AgentArena/Arena/MicrosoftIq.cs` (C#).
 
@@ -74,9 +74,6 @@ endpoint)` overloads. Surface citations from
   (`grep -rn "<Symbol>" .../dotnet/src .../dotnet/samples`) or read the cited file. Absence from
   the checkout is a strong signal to verify further (NuGet, Learn, a compile), not absolute proof
   of nonexistence — the checkout can lag the published package.
-- Sub-agents can spawn sub-agents (Claude Code 2.1.172+, up to 5 levels): fan independent
-  verification — checkout grep, a live KB retrieval, Learn pages — out to parallel children that
-  return raw evidence; the surface decision stays here.
 - Instructions for grounded agents should require retrieval, citations, and "I don't know"
   when ungrounded.
 - Prefer the simplest grounding tool that satisfies the knowledge source.

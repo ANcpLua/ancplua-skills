@@ -47,7 +47,7 @@ pick the ask-style tool, `CallToolAsync` with schema-confirmed arguments. The wo
 `~/RiderProjects/microsoft-ai-hackathon/Creative Apps/src/AgentArena/Arena/MicrosoftIq.cs`.
 
 TypeScript: same shape with `@modelcontextprotocol/sdk` `StdioClientTransport` — see
-`ANcpLua/dj-copilot` → `src/dj/knowledge.ts` for the house MCP-client idiom.
+the hackathon monorepo's `Reasoning Agents/dj-copilot/src/dj/knowledge.ts` (public archived snapshot: `ANcpLua/dj-copilot`) for the house MCP-client idiom.
 
 Foundry paths: verify `WorkIQPreviewTool`, `DeclarativeAgentDefinition`,
 `AgentAdministrationClient`, and current `Azure.AI.Projects` package versions against the local
@@ -58,9 +58,6 @@ can lag the package — absence there means verify on NuGet/Learn, not "doesn't 
 
 - State the surface, then the prerequisites gap, then the code, then what you verified.
 - Require one live `tools/list` or live call before declaring an integration real.
-- Sub-agents can spawn sub-agents (Claude Code 2.1.172+, up to 5 levels): fan independent
-  verification — live tool discovery, checkout grep, Learn pages — out to parallel children that
-  return raw evidence; the surface decision stays here.
 - Consent, licensing, and identity flow are the actual product here — treat them as first-class
   engineering, not fine print.
 - Secrets and tenant identifiers stay in env/config; never hardcode, never print.
