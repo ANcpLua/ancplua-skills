@@ -34,7 +34,7 @@ Current core skills:
 - `microsoft-first-research`
 - `microsoft-learn-grounding`
 - `react-bits-pro`
-- `thermo-nuclear-code-quality-review`
+- `supercritical-code-quality-review`
 
 ## Install
 

@@ -51,8 +51,8 @@ is the trigger. Ground it.
 ## Ground truth beats preview docs
 
 For preview Microsoft .NET packages, Learn is often a release behind and not API-exact. The deciding sources are,
-in order: **(1)** the installed package + its NuGet `.xml` doc sidecar and `tests/`, **(2)** the
-`~/RiderProjects/agent-framework` checkout, **(3)** compile/run output, **(4)** Learn for concepts and breadth.
+in order: **(1)** the installed package + its NuGet `.xml` doc sidecar and `tests/`, **(2)** an
+`<agent-framework-checkout>` local source checkout when present, **(3)** compile/run output, **(4)** Learn for concepts and breadth.
 When Learn and the checkout disagree on a preview API, trust the checkout and the compiler, and say which one you
 used. Use Learn to understand *what* a thing is; use the checkout to know *exactly* how to call it.
 
