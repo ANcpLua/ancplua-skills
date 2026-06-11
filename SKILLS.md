@@ -29,7 +29,7 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 2 | 2 |
-| Domain | 3 | 3 |
+| Domain | 4 | 4 |
 | Session | 1 | 1 |
 
 ---
@@ -46,7 +46,7 @@
 - **Domain Skills (Project-Scoped)**
   - [M Model Context Protocol](#model-context-protocol) (1)
     - [.NET](#.net) (1)
-  - [S Source Control Platforms](#source-control-platforms) (1)
+  - [S Source Control Platforms](#source-control-platforms) (2)
   - [F Frontend UI](#frontend-ui) (1)
     - [React](#react) (1)
 
@@ -166,6 +166,29 @@ and admin work.
 > **Trigger:** `forgejo, forgejo api, forgejo actions, forgejo runners, forgejo pull request, forgejo release, forgejo packages`
 
 
+**`NuGet Trusted Publishing`** &nbsp; `nuget-trusted-publishing` &nbsp; 👆 Manual &nbsp; P1
+
+Keyless, fully-automated NuGet.org publishing via Trusted Publishing (GitHub Actions OIDC) using the
+battle-tested fleet workflow: tag-derived auto-versioning, Must-Publish gate, 3-OS verify, NuGet/login,
+auto GitHub release. Kills the wrong "can't publish, API key missing" diagnosis with verified failure-mode
+references (policy form traps, index lag, orphaned v-tags, 409s).
+
+<details>
+<summary>Capabilities</summary>
+
+- `nuget_publishing`
+- `trusted_publishing_oidc`
+- `github_actions`
+- `release_automation`
+- `ci_owned_versioning`
+
+</details>
+> **Path:** `skills/packs/nuget-trusted-publishing`
+> **License:** `MIT repo wrapper; NuGet.org facts from Microsoft Learn, workflow pattern from the ANcpLua fleet`
+> **Compatibility:** Portable Markdown skill; the bundled workflow targets GitHub Actions + nuget.org Trusted Publishing (NuGet/login OIDC).
+> **Trigger:** `nuget publish, trusted publishing, nuget api key, dotnet nuget push, nuget-publish.yml, release workflow, authenticate to nuget, NuGet/login, package not on nuget.org, automate nuget release`
+
+
 </details>
 
 <details open>
@@ -263,4 +286,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-06-09 08:16:25 UTC | Skills: 6 | Categories: 5</sub>
+<sub>Generated: 2026-06-11 16:06:20 UTC | Skills: 7 | Categories: 5</sub>

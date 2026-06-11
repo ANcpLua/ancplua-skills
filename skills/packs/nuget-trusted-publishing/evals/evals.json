@@ -1,0 +1,45 @@
+{
+  "skill_name": "nuget-trusted-publishing",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "my class library repo is at <work>. i want fully automated publishing to nuget.org \u2014 no manual version bumps, no managing api keys, pushing to main should just release. set up everything in the repo and write me a short note on whatever remains for me to do.",
+      "expected_output": "Creates a GitHub Actions publish workflow under .github/workflows/; Workflow authenticates via the NuGet/login OIDC action (Trusted Publishing), not a stored key; Publish job grants permissions id-token: write; No produced file references a stored API key secret (no secrets.NUGET_API_KEY or similar); Version is CI-derived from git tags (auto-bump) rather than hand-maintained in the csproj; dotnet nuget push uses --skip-duplicate for idempotent re-runs; Final note tells the user the ONE remaining manual step \u2014 creating the nuget.org Trusted Publishing policy \u2014 with concrete field values (workflow file name, environment)",
+      "files": [],
+      "assertions": [
+        "Creates a GitHub Actions publish workflow under .github/workflows/",
+        "Workflow authenticates via the NuGet/login OIDC action (Trusted Publishing), not a stored key",
+        "Publish job grants permissions id-token: write",
+        "No produced file references a stored API key secret (no secrets.NUGET_API_KEY or similar)",
+        "Version is CI-derived from git tags (auto-bump) rather than hand-maintained in the csproj",
+        "dotnet nuget push uses --skip-duplicate for idempotent re-runs",
+        "Final note tells the user the ONE remaining manual step \u2014 creating the nuget.org Trusted Publishing policy \u2014 with concrete field values (workflow file name, environment)"
+      ]
+    },
+    {
+      "id": 1,
+      "prompt": "our nuget release CI is red. repo at <work>, the failing run log is in ci-log.txt at the repo root. figure out what's wrong and fix it \u2014 i need the next run green.",
+      "expected_output": "Diagnoses the failure as a missing/mismatched Trusted Publishing policy on nuget.org; Does NOT claim the cause is a missing API key and does NOT add a stored API key secret as the fix; Provides the concrete policy field values (repository, workflow file name without path, environment matching the job); Recommends re-running the failed job (artifacts reused) rather than rebuilding or rewriting the workflow; Leaves the already-correct OIDC workflow authentication intact (NuGet/login still present)",
+      "files": [],
+      "assertions": [
+        "Diagnoses the failure as a missing/mismatched Trusted Publishing policy on nuget.org",
+        "Does NOT claim the cause is a missing API key and does NOT add a stored API key secret as the fix",
+        "Provides the concrete policy field values (repository, workflow file name without path, environment matching the job)",
+        "Recommends re-running the failed job (artifacts reused) rather than rebuilding or rewriting the workflow",
+        "Leaves the already-correct OIDC workflow authentication intact (NuGet/login still present)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "i lost my nuget.org api key and honestly can't be bothered to create a new one right now. is there still a way to get automated publishing for my package repo at <work>? if yes set it up.",
+      "expected_output": "Answers YES \u2014 keyless automated publishing via Trusted Publishing is possible and is set up; Never asks the user to create, retrieve, or store a new API key as a required step; Produces an OIDC workflow (NuGet/login + id-token: write) in the repo; No produced file references a stored API key secret",
+      "files": [],
+      "assertions": [
+        "Answers YES \u2014 keyless automated publishing via Trusted Publishing is possible and is set up",
+        "Never asks the user to create, retrieve, or store a new API key as a required step",
+        "Produces an OIDC workflow (NuGet/login + id-token: write) in the repo",
+        "No produced file references a stored API key secret"
+      ]
+    }
+  ]
+}

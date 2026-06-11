@@ -1,0 +1,206 @@
+# Proven Trusted-Publishing release workflow (ANcpLua fleet pattern).
+# Source of truth: ANcpLua/ancplua.evaluation.template @ 1f21e1b — ran green end-to-end
+# (3-OS verify + OIDC publish + auto GitHub release) on 2026-06-11, run 27357991138.
+#
+# Copy this file to .github/workflows/nuget-publish.yml and adjust ONLY the four
+# sections marked ADJUST. Everything else is deliberately boring and should stay.
+#
+# Invariants this file encodes (do not "optimize" them away):
+# - No stored secrets anywhere. NuGet/login exchanges GitHub's OIDC token for a
+#   1-hour single-use key at publish time (requires permissions.id-token: write
+#   and, matching the nuget.org policy, environment: nuget).
+# - Version is CI-owned: derived from the latest v* tag (patch auto-bump per main
+#   push), workflow_dispatch input overrides for minor/major. No version lives in
+#   the csproj.
+# - Must-Publish gate: publish only runs when the diff since the last tag touches
+#   paths that affect the package — a docs-only push stays a CI-only run.
+# - --skip-duplicate makes re-runs idempotent (NuGet rejects re-pushing a version;
+#   the flag turns that 409 into a green no-op).
+# - Action refs are pinned to commit SHAs (supply-chain hygiene). Keep the pins;
+#   bump them deliberately, not ad hoc.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version override (without v prefix). Leave empty to auto-bump from latest tag.'
+        required: false
+      force_publish:
+        description: 'Force publish even when the Must-Publish gate sees no relevant changes.'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_NOLOGO: true
+  CI: true
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.ver.outputs.version }}
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - id: ver
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            # ADJUST (1/4): the floor version for a fresh repo with no v* tags yet.
+            BASE_MAJOR=1
+            BASE_MINOR=0
+            LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+            if [[ "$LATEST_TAG" =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+              MAJOR=${BASH_REMATCH[1]}
+              MINOR=${BASH_REMATCH[2]}
+              PATCH=${BASH_REMATCH[3]}
+              if (( MAJOR < BASE_MAJOR || (MAJOR == BASE_MAJOR && MINOR < BASE_MINOR) )); then
+                VERSION="$BASE_MAJOR.$BASE_MINOR.0"
+              elif git tag --points-at HEAD | grep -qFx "$LATEST_TAG"; then
+                VERSION="$MAJOR.$MINOR.$PATCH"
+              else
+                PATCH=$((PATCH + 1))
+                VERSION="$MAJOR.$MINOR.$PATCH"
+              fi
+            else
+              VERSION="$BASE_MAJOR.$BASE_MINOR.0"
+            fi
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+  verify:
+    needs: version
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash   # keeps the steps below portable on the Windows runner
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/setup-dotnet@9a946fdbd5fb07b82b2f5a4466058b876ab72bb2 # v5
+        with:
+          dotnet-version: '10.0.x'
+      # ADJUST (2/4): build/test/pack for YOUR artifact. Two proven shapes:
+      #
+      # (a) Library:  dotnet build -warnaserror, dotnet test, then
+      #     dotnet pack src/X/X.csproj -c Release -o artifacts -p:Version=${{ needs.version.outputs.version }} --no-build
+      #
+      # (b) dotnet-new TEMPLATE (shown below): the real proof is consuming the
+      #     template the way a user does — pack it, install the nupkg, generate a
+      #     project, build it, and run its self-checks. Use -p:PackageVersion (not
+      #     -p:Version) for template packages.
+      - name: Pack
+        run: dotnet pack my-package.csproj -c Release -o artifacts -p:PackageVersion=${{ needs.version.outputs.version }}
+      - name: Verify the artifact like a consumer would
+        run: |
+          dotnet new install ./artifacts/my-package.${{ needs.version.outputs.version }}.nupkg
+          dotnet new my-template -n CiSmoke -o "$RUNNER_TEMP/CiSmoke"
+          dotnet build "$RUNNER_TEMP/CiSmoke" -warnaserror
+          dotnet run --project "$RUNNER_TEMP/CiSmoke" --no-build -- selftest
+      - name: Upload artifacts
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: packages
+          path: artifacts/*.nupkg
+          if-no-files-found: error
+
+  publish:
+    needs: [version, verify]
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment: nuget          # must match the policy's Environment field on nuget.org
+    permissions:
+      contents: write           # for the gh release step
+      id-token: write           # REQUIRED for the OIDC exchange — without it login fails
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - name: Must Publish Packages
+        id: has_changes
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ "${{ github.event.inputs.force_publish }}" == "true" ]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LATEST_TAG" ]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            COMPARE_TAG="$LATEST_TAG"
+            if git tag --points-at HEAD | grep -qFx "$LATEST_TAG"; then
+              COMPARE_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+            fi
+            if [ -z "$COMPARE_TAG" ]; then
+              echo "has_changes=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            # ADJUST (3/4): the paths that mean "the package content changed".
+            CHANGES=$(git diff --name-only "$COMPARE_TAG" HEAD -- 'src/**' 'my-package.csproj' '.github/workflows/nuget-publish.yml' || true)
+            if [ -n "$CHANGES" ]; then
+              echo "$CHANGES"
+              echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        if: steps.has_changes.outputs.has_changes == 'true'
+        with:
+          name: packages
+          path: artifacts/
+      - uses: actions/setup-dotnet@9a946fdbd5fb07b82b2f5a4466058b876ab72bb2 # v5
+        if: steps.has_changes.outputs.has_changes == 'true'
+        with:
+          dotnet-version: '10.0.x'
+      - name: Authenticate to NuGet
+        if: steps.has_changes.outputs.has_changes == 'true'
+        id: nuget-login
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1
+        with:
+          # ADJUST (4/4): the nuget.org USERNAME that owns the policy (not the repo owner).
+          user: ANcpLua
+      - name: Push to NuGet
+        if: steps.has_changes.outputs.has_changes == 'true'
+        run: |
+          for pkg in artifacts/*.nupkg; do
+            dotnet nuget push "$pkg" \
+              --source https://api.nuget.org/v3/index.json \
+              --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
+              --skip-duplicate
+          done
+      - name: Create GitHub release
+        if: steps.has_changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.version.outputs.version }}
+        run: |
+          TAG="v${VERSION}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists, skipping"
+          else
+            gh release create "$TAG" --generate-notes --title "$TAG"
+          fi
