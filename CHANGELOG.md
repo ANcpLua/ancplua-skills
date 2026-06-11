@@ -32,6 +32,11 @@ Categories:
 - Root Directory.Build.props for solution-wide configuration
 - Dockerfile for .NET 10 multi-stage build
 - MIT License
+- `supercritical-code-quality-review` skill: original strict structural review with adversarial refutation, plus a Claude nested-agent cascade adapter (`supercritical-review-orchestrator`).
+- Nested sub-agent delegation guidance in the Claude expert agents (Claude Code 2.1.172+ allows sub-agents to spawn sub-agents, 5 levels deep).
+
+### Removed
+- `thermo-nuclear-code-quality-review` pack — it was a verbatim copy of Cursor team-kit's unlicensed skill; replaced by the original `supercritical-code-quality-review`.
 
 ### Changed
 - Replaced placeholder registry entries with the active local skills.
