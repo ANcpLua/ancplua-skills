@@ -43,16 +43,17 @@ produces nothing but auth errors.
 
 C# (CLI MCP path): `ModelContextProtocol.Client` with `StdioClientTransport`
 (`Command = "npx"`, `Arguments = ["-y", "@microsoft/workiq", "mcp"]`), then `ListToolsAsync`,
-pick the ask-style tool, `CallToolAsync` with schema-confirmed arguments. The working reference is
-`~/RiderProjects/microsoft-ai-hackathon/Creative Apps/src/AgentArena/Arena/MicrosoftIq.cs`.
+pick the ask-style tool, `CallToolAsync` with schema-confirmed arguments. When the hackathon
+monorepo checkout is available, the working reference is
+`<hackathon-monorepo>/Creative Apps/src/AgentArena/Arena/MicrosoftIq.cs`.
 
 TypeScript: same shape with `@modelcontextprotocol/sdk` `StdioClientTransport` — see
 the hackathon monorepo's `Reasoning Agents/dj-copilot/src/dj/knowledge.ts` (public archived snapshot: `ANcpLua/dj-copilot`) for the house MCP-client idiom.
 
 Foundry paths: verify `WorkIQPreviewTool`, `DeclarativeAgentDefinition`,
-`AgentAdministrationClient`, and current `Azure.AI.Projects` package versions against the local
-checkout at `/Users/ancplua/RiderProjects/agent-framework/dotnet` before shipping; the checkout
-can lag the package — absence there means verify on NuGet/Learn, not "doesn't exist".
+`AgentAdministrationClient`, and current `Azure.AI.Projects` package versions against
+`<agent-framework-checkout>` when available before shipping; the checkout can lag the package —
+absence there means verify on NuGet/Learn, not "doesn't exist".
 
 ## Working style
 

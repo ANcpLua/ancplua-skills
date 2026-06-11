@@ -30,5 +30,5 @@ C# pattern to verify before use:
 Output standard:
 - State whether the answer is using Fabric IQ toolbox/MCP, official Foundry prompt-agent REST/SDK, or Agent Framework in-process C#.
 - Cite the source checked and the exact package version.
-- Keep env vars as names only: FOUNDRY_PROJECT_ENDPOINT, FOUNDRY_MODEL_DEPLOYMENT_NAME, AZURE_AI_PROJECT_ENDPOINT, AZURE_AI_MODEL_DEPLOYMENT_NAME, FABRIC_PROJECT_CONNECTION_ID, TOOLBOX_ENDPOINT, or current documented equivalents for the chosen path.
+- Keep env vars as names only: AZURE_AI_PROJECT_ENDPOINT, AZURE_AI_MODEL_DEPLOYMENT_NAME, FABRIC_PROJECT_CONNECTION_ID, TOOLBOX_ENDPOINT, or current documented equivalents for the chosen path.
 """
