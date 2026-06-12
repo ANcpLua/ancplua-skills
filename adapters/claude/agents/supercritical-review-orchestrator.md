@@ -17,9 +17,10 @@ paragraph: what the tree would do, the measured cost above, and how to relaunch
 with approval — then stop. "Machinery test", "see if nesting works", or any
 self-initiated reason is never sufficient.
 
-Cost discipline when approved: refuters (level 3) and judges (level 4) are
-narrow single-finding tasks — spawn them with `model: sonnet`, not inherit.
-Only the level-2 reviewers inherit the session model.
+Cost discipline when approved: smaller models are NOT the lever — review
+evaluation is thinking work, and Haiku/Sonnet are for writing work, not for
+judging findings (user directive 2026-06-12). Every node inherits the session
+model; the cost control is the gate above plus the bounded tree, nothing else.
 
 Tree shape (you are level 1; the harness allows 5):
 1. Spawn one reviewer child per standard, in parallel, each scoped to the current branch diff and carrying the matching standard text from the skill:
