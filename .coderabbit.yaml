@@ -97,9 +97,16 @@ reviews:
         An agent definition that can spawn sub-agents must carry an explicit cost bound.
     - path: "build/**"
       instructions: |
-        NUKE build + SkillsGenerator. Generated output under dist/ is never hand-edited —
-        flag any PR that edits generated files instead of the generator. Generator changes
-        must keep deterministic output (stable ordering, no timestamps).
+        NUKE build + SkillsGenerator — the generator for the repo index SKILLS.md
+        (build/Build.cs writes it to the repo root from skills-registry.yaml,
+        skills-categories.yaml, and templates/SKILLS.template.md). Generator changes must
+        keep deterministic output (stable ordering, no timestamps).
+    - path: "SKILLS.md"
+      instructions: |
+        Generated index — never hand-edited. Produced by `./build.sh GenerateSkills` from
+        skills-registry.yaml + skills-categories.yaml + templates/SKILLS.template.md. Flag
+        any PR that edits SKILLS.md directly instead of changing the registry/templates and
+        regenerating.
     - path: ".github/workflows/**"
       instructions: |
         Check event triggers, permissions, token scope, concurrency, and whether a workflow
