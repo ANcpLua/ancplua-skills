@@ -16,6 +16,11 @@ Categories:
 ## [Unreleased]
 
 ### Added
+- `maf-dotnet-source-of-truth` skill + new `dotnet-ai` category: Microsoft Agent Framework (.NET) API guardrails, every rename trap grep-verified against a pinned `microsoft/agent-framework` checkout (AgentThread→AgentSession, AgentRunResponse→AgentResponse, IChatClient.CompleteAsync→GetResponseAsync, …).
+- `qyl-tfm-map` skill + new `dotnet-platform` category: maps qyl-workspace projects to their target frameworks (net10.0 baseline vs the netstandard2.0 Roslyn island) and the API/feature constraints each imposes.
+
+### Changed
+- Raised `microsoft-first-research` and `thermo-nuclear-code-quality-review` to Gold on the TomeVault quality rubric: added activation triggers, runnable code blocks, named tools, and imperative guidance (all 10 packs now Gold).
 - Public AI-agnostic skill pack layout under `skills/packs/`.
 - Compatibility documentation for Claude, Codex, and other agents.
 - Claude adapter area under `adapters/claude/`.

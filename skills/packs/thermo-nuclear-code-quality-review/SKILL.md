@@ -6,9 +6,28 @@ disable-model-invocation: true
 
 # Thermo-Nuclear Code Quality Review
 
-Use this skill for an unusually strict review focused on implementation quality, maintainability, abstraction quality, and codebase health.
+Use this skill when you want an unusually strict, structure-first review of a branch or diff — focused on implementation quality, maintainability, abstraction quality, and codebase health. It is manual-only; invoke it deliberately, not as a default pass.
 
 Above all, this skill should push the reviewer to be **ambitious** about code structure. Do not merely identify local cleanup opportunities. Actively search for "code judo" moves: restructurings that preserve behavior while making the implementation dramatically simpler, smaller, more direct, and more elegant.
+
+## Scope the review first
+
+Pull the exact diff and find the structural smells this skill cares about before reading line-by-line:
+
+```bash
+# what changed, and which files the PR grows
+git diff --stat origin/main...HEAD
+
+# files this PR pushes toward / past the 1000-line smell threshold (rule 1)
+git diff --name-only origin/main...HEAD | while read -r f; do
+  [ -f "$f" ] && printf '%6s  %s\n' "$(wc -l < "$f")" "$f"
+done | sort -rn | awk '$1 > 800'
+
+# find the spaghetti smell: new ad-hoc branches added into existing flows (rule 2)
+git diff origin/main...HEAD | grep -nE '^\+\s*(if|else if|switch|case )' | head -40
+```
+
+Use the diff — not the whole repo — as the unit of review. Never approve from a summary; read the actual `git diff`.
 
 ## Core Prompt
 
