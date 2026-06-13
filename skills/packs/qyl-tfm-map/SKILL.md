@@ -84,6 +84,30 @@ Decision table:
 
 > 💡 Adding a public `DiagnosticDescriptor`? You **must** add a row to `AnalyzerReleases.Unshipped.md` (RS2000/RS2008 are live). The banned-API analyzer (RS0030) is on. Analyzer packs ship under `analyzers/dotnet/cs/`, not `lib/` (NU5017 suppressed by design). These gates are easy to forget and fail the build.
 
+## Examples — getting the island right
+
+Both blocks below live in a `netstandard2.0` source-generator project (e.g. `Qyl.AutoInstrumentation.SourceGenerators`).
+
+```csharp
+// ❌ BAD — net10 runtime BCL inside a netstandard2.0 generator: does NOT compile
+var hash = System.HashCode.Combine(name, kind);            // HashCode: netstandard2.1+
+ArgumentNullException.ThrowIfNull(symbol);                 // ThrowIf*: net6+
+var json = System.Text.Json.JsonSerializer.Serialize(m);  // modern STJ: absent on ns2.0
+```
+
+```csharp
+// ✅ GOOD — same intent via the polyfills from ANcpLua.Roslyn.Utilities.Sources
+var hash = HashCombiner.Combine(name, kind);
+Guard.AgainstNull(symbol);
+// a generator emits source text — build the string directly; don't serialize at generate time
+
+// modern C# SYNTAX is fine here: LangVersion=latest + polyfilled compiler attributes
+public sealed record AttributeModel(string Name, EquatableArray<string> Tags)
+{
+    public required string SchemaUrl { get; init; }       // 'required' + 'init' compile on ns2.0
+}
+```
+
 ## Common Pitfalls
 
 | Pitfall | Symptom | Fix |
@@ -94,10 +118,25 @@ Decision table:
 | New analyzer diagnostic, no release-tracking row | `RS2000`/`RS2008` build error | Add the descriptor to `AnalyzerReleases.Unshipped.md` |
 | Reflection/codegen in a net10 library | Trim/AOT analyzer warning → error | Annotate (`[RequiresUnreferencedCode]`) or redesign to be trim-safe |
 
+## Verification checklist
+
+Before committing a change in a qyl project, confirm:
+
+- [ ] You resolved the TFM from the **nearest `.csproj`** — not guessed from the folder or assembly name.
+- [ ] On `netstandard2.0` (or a `net10.0;netstandard2.0` leg): no net10 runtime BCL — polyfilled equivalents used instead.
+- [ ] You did **not** avoid modern C# syntax out of caution — records / `init` / `required` compile on the island.
+- [ ] New public `DiagnosticDescriptor` → a row was added to `AnalyzerReleases.Unshipped.md`.
+- [ ] On a `net10.0` library: the change stays AOT/trim-safe (no unbounded reflection or runtime codegen) and disposes / passes `CancellationToken` correctly.
+
 ## Reference files
 
 - **[references/project-tfm-map.md](references/project-tfm-map.md)** — the exact per-project TFM table for the whole workspace, grouped by bucket, plus the false-friends. **Load when** you need the authoritative TFM of a specific project rather than inferring it.
 - **[references/netstandard20-cookbook.md](references/netstandard20-cookbook.md)** — the net10-BCL → netstandard2.0-polyfill substitution table, the allowed-syntax list, and the analyzer/generator gotchas. **Load when** writing or fixing code on the island.
+
+## Related skills
+
+- `nuget-trusted-publishing` — for publishing the NuGet packages these qyl projects produce.
+- For test-framework and platform choices in qyl test projects (xUnit v3 on Microsoft.Testing.Platform, TUnit), use the `dotnet-test` skill pack.
 
 ## Re-derive the map (when projects change)
 
