@@ -29,7 +29,7 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 2 | 2 |
-| Domain | 6 | 6 |
+| Domain | 7 | 7 |
 | Session | 1 | 1 |
 
 ---
@@ -51,6 +51,7 @@
     - [React](#react) (1)
   - [A Architecture Diagramming](#architecture-diagramming) (1)
   - [N .NET Platform](#.net-platform) (1)
+  - [A .NET AI & Agent SDKs](#.net-ai--agent-sdks) (1)
 
 - **Session Skills (On-Demand)**
   - [Q Review & Quality](#review--quality) (1)
@@ -282,6 +283,37 @@ the false-friend projects, the net10-BCL → netstandard2.0 substitution cookboo
 
 </details>
 
+<details open>
+<summary><h3>A .NET AI & Agent SDKs</h3></summary>
+
+> Skills for .NET AI / agent SDK correctness — Microsoft Agent Framework, Microsoft.Extensions.AI, Foundry — grounded in pinned source over lagging docs.
+
+**`MAF .NET Source-of-Truth`** &nbsp; `maf-dotnet-source-of-truth` &nbsp; 👆 Manual &nbsp; P1
+
+Write Microsoft Agent Framework (.NET) code against the cloned, SHA-pinned source instead of memory or
+Microsoft Learn, which lag the source and keep renamed pre-GA signatures alive. Encodes the verified
+stale-rename traps (AgentThread→AgentSession, AgentRunResponse→AgentResponse, GetNewThread→CreateSessionAsync,
+IChatClient.CompleteAsync→GetResponseAsync), the wrap-in-an-agent-vs-hand-rolled-IChatClient rule, the real
+ChatClientAgent/AIAgent signatures, a pre-emit self-check, and the re-grep refresh ritual.
+
+<details>
+<summary>Capabilities</summary>
+
+- `microsoft_agent_framework`
+- `dotnet_ai_agents`
+- `source_of_truth_grounding`
+- `api_signature_verification`
+- `stale_doc_rename_traps`
+
+</details>
+> **Path:** `skills/packs/maf-dotnet-source-of-truth`
+> **License:** `MIT repo wrapper; every API fact grep-verified from a local microsoft/agent-framework checkout (>= dotnet-1.10.0)`
+> **Compatibility:** Portable Markdown skill. Requires a local clone of microsoft/agent-framework; grep paths assume the dotnet subtree layout (src/, tests/).
+> **Trigger:** `microsoft agent framework, Microsoft.Agents.AI, AIAgent, ChatClientAgent, AgentSession, AgentResponse, RunAsync, RunStreamingAsync, IChatClient, AgentThread rename, CompleteAsync gone, MAF dotnet, agent-framework source`
+
+
+</details>
+
 ## ⚡ Session Skills
 
 <details open>
@@ -348,4 +380,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-06-13 17:46:52 UTC | Skills: 9 | Categories: 7</sub>
+<sub>Generated: 2026-06-13 19:44:01 UTC | Skills: 10 | Categories: 8</sub>

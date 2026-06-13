@@ -195,3 +195,27 @@ skills:
       - netstandard20_constraints
       - aot_trim_awareness
     active: true
+
+  - id: maf-dotnet-source-of-truth
+    name: "MAF .NET Source-of-Truth"
+    category: dotnet-ai
+    scope: domain
+    priority: 1
+    trigger: "microsoft agent framework, Microsoft.Agents.AI, AIAgent, ChatClientAgent, AgentSession, AgentResponse, RunAsync, RunStreamingAsync, IChatClient, AgentThread rename, CompleteAsync gone, MAF dotnet, agent-framework source"
+    activation: manual
+    path: "skills/packs/maf-dotnet-source-of-truth"
+    license: "MIT repo wrapper; every API fact grep-verified from a local microsoft/agent-framework checkout (>= dotnet-1.10.0)"
+    compatibility: "Portable Markdown skill. Requires a local clone of microsoft/agent-framework; grep paths assume the dotnet subtree layout (src/, tests/)."
+    description: |
+      Write Microsoft Agent Framework (.NET) code against the cloned, SHA-pinned source instead of memory or
+      Microsoft Learn, which lag the source and keep renamed pre-GA signatures alive. Encodes the verified
+      stale-rename traps (AgentThread→AgentSession, AgentRunResponse→AgentResponse, GetNewThread→CreateSessionAsync,
+      IChatClient.CompleteAsync→GetResponseAsync), the wrap-in-an-agent-vs-hand-rolled-IChatClient rule, the real
+      ChatClientAgent/AIAgent signatures, a pre-emit self-check, and the re-grep refresh ritual.
+    capabilities:
+      - microsoft_agent_framework
+      - dotnet_ai_agents
+      - source_of_truth_grounding
+      - api_signature_verification
+      - stale_doc_rename_traps
+    active: true
