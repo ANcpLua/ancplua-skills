@@ -122,6 +122,19 @@ Verified signatures in `src/`:
 - [ ] Sessions via `CreateSessionAsync` / `SerializeSessionAsync` / `DeserializeSessionAsync`.
 - [ ] If I cited a doc, it was for concept/migration only — not for a signature.
 
+## Is this pin stale? (zero-infra self-check — run when the skill fires)
+
+No webhook is possible on a repo you don't own. Instead, check at point of use — one API call, no workflow, no cron:
+
+```bash
+# Latest upstream dotnet release vs this file's pin (dotnet-1.10.0).
+gh api repos/microsoft/agent-framework/releases \
+  --jq '[.[] | select(.tag_name|startswith("dotnet-"))][0].tag_name'
+# If that prints a tag newer than dotnet-1.10.0 → this file is stale; run the refresh ritual below.
+```
+
+> 💡 Want it hands-off instead? You already run Renovate on this repo — a custom regex manager (`github-releases` datasource, `packageName: microsoft/agent-framework`, matched to `dotnet-*`) will open a PR bumping the pin automatically. Treat that PR as a *prompt to re-verify*, not a blind merge — the table below must be re-grepped, not trusted.
+
 ## Refresh ritual (when you bump the pinned version)
 
 ```bash
