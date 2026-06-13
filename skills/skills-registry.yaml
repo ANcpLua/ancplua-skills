@@ -108,6 +108,27 @@ skills:
       - landing_blocks
     active: true
 
+  - id: c4-diagram
+    name: "C4 Diagram"
+    category: architecture-diagramming
+    scope: domain
+    priority: 1
+    trigger: "c4 diagram, container diagram, architecture diagram, system diagram, draw.io, drawio"
+    activation: manual
+    path: "skills/packs/c4-diagram"
+    license: "MIT repo wrapper; no third-party assets included"
+    compatibility: "Portable Markdown skill that generates editable .drawio XML using built-in diagrams.net shapes."
+    description: |
+      Generate C4 Container diagrams as editable draw.io XML, with explicit layout, labeled connections,
+      built-in shapes, and a required legend.
+    capabilities:
+      - c4
+      - architecture_diagrams
+      - drawio
+      - system_design
+      - container_diagrams
+    active: true
+
   - id: thermo-code-quality-review
     name: "Thermo-Nuclear Code Quality Review"
     category: review-quality

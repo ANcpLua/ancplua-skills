@@ -46,6 +46,15 @@ categories:
       - id: react
         name: "React"
 
+  - id: architecture-diagramming
+    name: "Architecture Diagramming"
+    prefix: arch
+    icon: "A"
+    scope: domain
+    description: |
+      > Skills for generating architecture diagrams, C4 views, and editable diagram artifacts.
+    order: 13
+
   - id: review-quality
     name: "Review & Quality"
     prefix: review

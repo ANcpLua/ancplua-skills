@@ -29,7 +29,7 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 2 | 2 |
-| Domain | 4 | 4 |
+| Domain | 5 | 5 |
 | Session | 1 | 1 |
 
 ---
@@ -49,6 +49,7 @@
   - [S Source Control Platforms](#source-control-platforms) (2)
   - [F Frontend UI](#frontend-ui) (1)
     - [React](#react) (1)
+  - [A Architecture Diagramming](#architecture-diagramming) (1)
 
 - **Session Skills (On-Demand)**
   - [Q Review & Quality](#review--quality) (1)
@@ -220,6 +221,34 @@ Install and integrate React Bits Pro premium animated UI components and page blo
 
 </details>
 
+<details open>
+<summary><h3>A Architecture Diagramming</h3></summary>
+
+> Skills for generating architecture diagrams, C4 views, and editable diagram artifacts.
+
+**`C4 Diagram`** &nbsp; `c4-diagram` &nbsp; 👆 Manual &nbsp; P1
+
+Generate C4 Container diagrams as editable draw.io XML, with explicit layout, labeled connections,
+built-in shapes, and a required legend.
+
+<details>
+<summary>Capabilities</summary>
+
+- `c4`
+- `architecture_diagrams`
+- `drawio`
+- `system_design`
+- `container_diagrams`
+
+</details>
+> **Path:** `skills/packs/c4-diagram`
+> **License:** `MIT repo wrapper; no third-party assets included`
+> **Compatibility:** Portable Markdown skill that generates editable .drawio XML using built-in diagrams.net shapes.
+> **Trigger:** `c4 diagram, container diagram, architecture diagram, system diagram, draw.io, drawio`
+
+
+</details>
+
 ## ⚡ Session Skills
 
 <details open>
@@ -286,4 +315,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-06-11 16:06:20 UTC | Skills: 7 | Categories: 5</sub>
+<sub>Generated: 2026-06-13 12:28:20 UTC | Skills: 8 | Categories: 6</sub>
