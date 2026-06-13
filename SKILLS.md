@@ -29,7 +29,7 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 2 | 2 |
-| Domain | 5 | 5 |
+| Domain | 6 | 6 |
 | Session | 1 | 1 |
 
 ---
@@ -50,6 +50,7 @@
   - [F Frontend UI](#frontend-ui) (1)
     - [React](#react) (1)
   - [A Architecture Diagramming](#architecture-diagramming) (1)
+  - [N .NET Platform](#.net-platform) (1)
 
 - **Session Skills (On-Demand)**
   - [Q Review & Quality](#review--quality) (1)
@@ -249,6 +250,38 @@ built-in shapes, and a required legend.
 
 </details>
 
+<details open>
+<summary><h3>N .NET Platform</h3></summary>
+
+> Skills for .NET target frameworks, SDK/project configuration, source generators, analyzers, and the API/feature constraints those impose.
+
+**`qyl TFM Map`** &nbsp; `qyl-tfm-map` &nbsp; 👆 Manual &nbsp; P1
+
+Know, without being told, which target framework every project in the qyl-workspace compiles for — the
+net10.0 baseline (full modern BCL, AOT/trim-aware) versus the small netstandard2.0 Roslyn island (source
+generators, analyzers, and the multi-targeted OpenTelemetry libs) — and what each allows or forbids. The
+load-bearing nuance it exists to override: on netstandard2.0 modern C# syntax is legal (polyfilled via
+ANcpLua.Roslyn.Utilities.Sources) but the net10 runtime BCL is not. Includes the per-project TFM table,
+the false-friend projects, the net10-BCL → netstandard2.0 substitution cookbook, and the live analyzer gates.
+
+<details>
+<summary>Capabilities</summary>
+
+- `dotnet_tfm`
+- `source_generators`
+- `roslyn_analyzers`
+- `netstandard20_constraints`
+- `aot_trim_awareness`
+
+</details>
+> **Path:** `skills/packs/qyl-tfm-map`
+> **License:** `MIT repo wrapper; project-specific TFM facts read directly from the qyl-workspace csproj files`
+> **Compatibility:** Portable Markdown skill. Project-scoped to ~/RiderProjects/qyl-workspace; the map is re-derivable from the csprojs via the command in SKILL.md if the projects change.
+> **Trigger:** `target framework, TFM, netstandard2.0, net10, source generator, roslyn analyzer, IsRoslynComponent, multi-target, polyfill, AOT trim, can I use HashCode / System.Text.Json / Span here, qyl workspace`
+
+
+</details>
+
 ## ⚡ Session Skills
 
 <details open>
@@ -315,4 +348,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-06-13 12:28:20 UTC | Skills: 8 | Categories: 6</sub>
+<sub>Generated: 2026-06-13 17:46:52 UTC | Skills: 9 | Categories: 7</sub>

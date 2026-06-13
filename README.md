@@ -34,6 +34,7 @@ Current core skills:
 - `mcp-csharp-sdk-1.4.0`
 - `microsoft-first-research`
 - `microsoft-learn-grounding`
+- `qyl-tfm-map`
 - `react-bits-pro`
 - `thermo-nuclear-code-quality-review`
 

@@ -16,6 +16,7 @@ Categories:
 ## [Unreleased]
 
 ### Added
+- `qyl-tfm-map` skill + new `dotnet-platform` category: maps qyl-workspace projects to their target frameworks (net10.0 baseline vs the netstandard2.0 Roslyn island) and the API/feature constraints each imposes.
 - Public AI-agnostic skill pack layout under `skills/packs/`.
 - Compatibility documentation for Claude, Codex, and other agents.
 - Claude adapter area under `adapters/claude/`.
