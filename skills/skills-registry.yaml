@@ -147,3 +147,26 @@ skills:
       - abstraction_quality
       - simplification
     active: true
+
+  - id: nuget-trusted-publishing
+    name: "NuGet Trusted Publishing"
+    category: source-control
+    scope: domain
+    priority: 1
+    trigger: "nuget publish, trusted publishing, nuget api key, dotnet nuget push, nuget-publish.yml, release workflow, authenticate to nuget, NuGet/login, package not on nuget.org, automate nuget release"
+    activation: manual
+    path: "skills/packs/nuget-trusted-publishing"
+    license: "MIT repo wrapper; NuGet.org facts from Microsoft Learn, workflow pattern from the ANcpLua fleet"
+    compatibility: "Portable Markdown skill; the bundled workflow targets GitHub Actions + nuget.org Trusted Publishing (NuGet/login OIDC)."
+    description: |
+      Keyless, fully-automated NuGet.org publishing via Trusted Publishing (GitHub Actions OIDC) using the
+      battle-tested fleet workflow: tag-derived auto-versioning, Must-Publish gate, 3-OS verify, NuGet/login,
+      auto GitHub release. Kills the wrong "can't publish, API key missing" diagnosis with verified failure-mode
+      references (policy form traps, index lag, orphaned v-tags, 409s).
+    capabilities:
+      - nuget_publishing
+      - trusted_publishing_oidc
+      - github_actions
+      - release_automation
+      - ci_owned_versioning
+    active: true
