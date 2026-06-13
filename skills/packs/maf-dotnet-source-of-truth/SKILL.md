@@ -133,7 +133,11 @@ gh api repos/microsoft/agent-framework/releases \
 # If that prints a tag newer than dotnet-1.10.0 → this file is stale; run the refresh ritual below.
 ```
 
-> 💡 Want it hands-off instead? You already run Renovate on this repo — a custom regex manager (`github-releases` datasource, `packageName: microsoft/agent-framework`, matched to `dotnet-*`) will open a PR bumping the pin automatically. Treat that PR as a *prompt to re-verify*, not a blind merge — the table below must be re-grepped, not trusted.
+> 💡 Hands-off path (wired): Renovate watches this repo and the `dotnet-*` releases of `microsoft/agent-framework` (see `renovate.json` → `customManagers`). When a newer one ships it opens a PR bumping the machine anchor below. **Treat that PR as a prompt to re-verify, never a blind merge** — re-grep the rename table at the new tag; Renovate only changed the anchor, not the verified prose.
+
+<!-- renovate-pin: microsoft/agent-framework dotnet-1.10.0 -->
+<!-- ^ Renovate bumps the version in the line above when a newer dotnet-* release ships; the prose/table stay until a human re-greps. -->
+
 
 ## Refresh ritual (when you bump the pinned version)
 
