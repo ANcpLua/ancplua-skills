@@ -67,7 +67,8 @@ AgentRunResponse resp = await agent.RunAsync("hi", thread);             // Agent
 ```
 
 ```csharp
-// ✅ RIGHT — verified against the pinned source.
+// ✅ RIGHT — assembled from grep-verified signatures (2026-06-13). It is a dated snapshot, not the authority:
+//    the authority is the files cited below — open them. The real exercised example is the test/sample linked under the block.
 using Microsoft.Agents.AI;        // AIAgent, ChatClientAgent, AgentSession, AgentResponse, AgentResponse<T>
 using Microsoft.Extensions.AI;    // IChatClient, ChatMessage, ChatRole, ChatOptions, AITool
 
@@ -95,14 +96,15 @@ var runOpts = new ChatClientAgentRunOptions(new ChatOptions { Temperature = 0.2f
 AgentResponse r2 = await agent.RunAsync("…", session, runOpts);
 ```
 
-Verified signatures in `src/`:
-- `ChatClientAgent(IChatClient chatClient, string? instructions = null, string? name = null, string? description = null, IList<AITool>? tools = null, ILoggerFactory? = null, IServiceProvider? = null)` (plus a `(IChatClient, ChatClientAgentOptions?, …)` overload).
-- `AIAgent.RunAsync(...)` → `Task<AgentResponse>` (4 overloads: `(AgentSession?, AgentRunOptions?, ct)`, `(string, …)`, `(ChatMessage, …)`, `(IEnumerable<ChatMessage>, …)`).
-- `AIAgent.RunStreamingAsync(...)` → `IAsyncEnumerable<AgentResponseUpdate>` (mirrors the 4 overloads).
-- `AIAgent.CreateSessionAsync(ct)` → `ValueTask<AgentSession>`.
-- `ChatClientAgentRunOptions : AgentRunOptions` (sealed).
+Verified signatures — **the file is the authority; open it, don't trust this index** (paths under `$MAF_SRC/`):
+- `src/Microsoft.Agents.AI.Abstractions/AIAgent.cs` — `RunAsync` has 4 overloads, each `(<input>, AgentSession? session = null, AgentRunOptions? options = null, CancellationToken = default)` over `()` / `string message` / `ChatMessage message` / `IEnumerable<ChatMessage> messages`, returning `Task<AgentResponse>`; `RunStreamingAsync` mirrors them → `IAsyncEnumerable<AgentResponseUpdate>`; `CreateSessionAsync(ct)` → `ValueTask<AgentSession>`; `DeserializeSessionAsync(JsonElement serializedState, JsonSerializerOptions?, ct)`.
+- `src/Microsoft.Agents.AI/ChatClient/ChatClientAgent.cs` — `ChatClientAgent(IChatClient, string? instructions=null, string? name=null, string? description=null, IList<AITool>? tools=null, ILoggerFactory?, IServiceProvider?)` + `(IChatClient, ChatClientAgentOptions?, …)`.
+- `src/Microsoft.Agents.AI/ChatClient/ChatClientAgentRunOptions.cs` — `ChatClientAgentRunOptions(ChatOptions? chatOptions = null) : AgentRunOptions` (sealed).
+- `src/Microsoft.Agents.AI.Abstractions/AgentResponse{T}.cs` — `AgentResponse<T> : AgentResponse` (typed/structured output; prefer it over parsing text).
 
-**Prefer the typed overload:** `AgentResponse<T> : AgentResponse` exists (`AgentResponse{T}.cs`) for structured/typed output — reach for it instead of parsing text when you need a schema'd result.
+**Don't trust the snippet — read a real exercised example** (executable spec; this skill is just a dated index into it):
+- `tests/Microsoft.Agents.AI.Abstractions.UnitTests/DelegatingAIAgentTests.cs` — `CreateSessionAsync()` + `RunAsync(...)` in use.
+- `samples/02-agents/Agents/Agent_Step06_DependencyInjection/Program.cs` — a canonical `new ChatClientAgent(...)` wiring.
 
 ## Common Pitfalls
 
