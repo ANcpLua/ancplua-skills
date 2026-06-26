@@ -178,7 +178,12 @@ class Build : NukeBuild
     {
         return path.Contains("<repo-root>", StringComparison.OrdinalIgnoreCase)
                || path.Contains("~/.claude", StringComparison.OrdinalIgnoreCase)
-               || path.StartsWith("/home/user/projects/", StringComparison.Ordinal);
+               || path.StartsWith("/home/user/projects/", StringComparison.Ordinal)
+               // Documented, ~-relative qyl workspace root: the project-scoped home that
+               // qyl-tfm-map / maf-dotnet-source-of-truth declare in their compatibility
+               // field. Not a username leak (no /Users/<name>/). Other ~/RiderProjects/<x>
+               // paths and all absolute /Users//home/ leaks stay banned.
+               || path.StartsWith("~/RiderProjects/qyl-workspace", StringComparison.Ordinal);
     }
 
     private record struct PathViolation(string FilePath, int Line, string Path);
