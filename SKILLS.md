@@ -29,7 +29,7 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 2 | 2 |
-| Domain | 5 | 5 |
+| Domain | 6 | 6 |
 | Session | 1 | 1 |
 
 ---
@@ -50,6 +50,7 @@
   - [F Frontend UI](#frontend-ui) (1)
     - [React](#react) (1)
   - [A Architecture Diagramming](#architecture-diagramming) (1)
+  - [C CI Automation](#ci-automation) (1)
 
 - **Session Skills (On-Demand)**
   - [Q Review & Quality](#review--quality) (1)
@@ -249,6 +250,38 @@ built-in shapes, and a required legend.
 
 </details>
 
+<details open>
+<summary><h3>C CI Automation</h3></summary>
+
+> Skills for CI/CD orchestration — self-hosted runner lifecycle, draining queued runs, VM/engine bring-up and teardown, and scoped cleanup.
+
+**`Self-Hosted CI Orchestration`** &nbsp; `self-hosted-ci-orchestration` &nbsp; 👆 Manual &nbsp; P1
+
+Drive a self-hosted CI runner to a green verdict and back to sleep: wake-safe status, bring the runner
+(and its VM/engine) online, drain runs that are queued only because the runner was down, snapshot the
+result once (never a live watch), then tear down and reap leaked test containers by label (never a blanket
+prune, never named volumes). Encodes the status -> up -> drain -> snapshot -> down+reap loop, the "a stopped
+runner is not a blocker" rule, and the two human-gated edges (runner topology / repo visibility; deleting
+outside the test-container label).
+
+<details>
+<summary>Capabilities</summary>
+
+- `self_hosted_ci`
+- `runner_lifecycle`
+- `queued_run_draining`
+- `scoped_container_reap`
+- `teardown_discipline`
+
+</details>
+> **Path:** `skills/packs/self-hosted-ci-orchestration`
+> **License:** `MIT repo wrapper`
+> **Compatibility:** Portable Markdown skill. Assumes a forge with a runner API (e.g. gh) and an idempotent project-local control tool exposing status/up/down/reset/run; machine, VM, and repo specifics live in that tool, not in this skill.
+> **Trigger:** `self-hosted runner, runner offline, ci queued not starting, bring the VM up for CI, ci up, ci down, get CI green, self-hosted job not picking up, runner lifecycle, drain queued runs`
+
+
+</details>
+
 ## ⚡ Session Skills
 
 <details open>
@@ -315,4 +348,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-06-13 12:28:20 UTC | Skills: 8 | Categories: 6</sub>
+<sub>Generated: 2026-06-15 16:23:24 UTC | Skills: 9 | Categories: 7</sub>

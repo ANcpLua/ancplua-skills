@@ -55,6 +55,15 @@ categories:
       > Skills for generating architecture diagrams, C4 views, and editable diagram artifacts.
     order: 13
 
+  - id: ci-automation
+    name: "CI Automation"
+    prefix: ci
+    icon: "C"
+    scope: domain
+    description: |
+      > Skills for CI/CD orchestration — self-hosted runner lifecycle, draining queued runs, VM/engine bring-up and teardown, and scoped cleanup.
+    order: 16
+
   - id: review-quality
     name: "Review & Quality"
     prefix: review

@@ -170,3 +170,28 @@ skills:
       - release_automation
       - ci_owned_versioning
     active: true
+
+  - id: self-hosted-ci-orchestration
+    name: "Self-Hosted CI Orchestration"
+    category: ci-automation
+    scope: domain
+    priority: 1
+    trigger: "self-hosted runner, runner offline, ci queued not starting, bring the VM up for CI, ci up, ci down, get CI green, self-hosted job not picking up, runner lifecycle, drain queued runs"
+    activation: manual
+    path: "skills/packs/self-hosted-ci-orchestration"
+    license: "MIT repo wrapper"
+    compatibility: "Portable Markdown skill. Assumes a forge with a runner API (e.g. gh) and an idempotent project-local control tool exposing status/up/down/reset/run; machine, VM, and repo specifics live in that tool, not in this skill."
+    description: |
+      Drive a self-hosted CI runner to a green verdict and back to sleep: wake-safe status, bring the runner
+      (and its VM/engine) online, drain runs that are queued only because the runner was down, snapshot the
+      result once (never a live watch), then tear down and reap leaked test containers by label (never a blanket
+      prune, never named volumes). Encodes the status -> up -> drain -> snapshot -> down+reap loop, the "a stopped
+      runner is not a blocker" rule, and the two human-gated edges (runner topology / repo visibility; deleting
+      outside the test-container label).
+    capabilities:
+      - self_hosted_ci
+      - runner_lifecycle
+      - queued_run_draining
+      - scoped_container_reap
+      - teardown_discipline
+    active: true
