@@ -218,6 +218,8 @@ skills:
       - source_of_truth_grounding
       - api_signature_verification
       - stale_doc_rename_traps
+    active: true
+
   - id: self-hosted-ci-orchestration
     name: "Self-Hosted CI Orchestration"
     category: ci-automation
