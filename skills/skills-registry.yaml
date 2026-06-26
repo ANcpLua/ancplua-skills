@@ -171,6 +171,55 @@ skills:
       - ci_owned_versioning
     active: true
 
+  - id: qyl-tfm-map
+    name: "qyl TFM Map"
+    category: dotnet-platform
+    scope: domain
+    priority: 1
+    trigger: "target framework, TFM, netstandard2.0, net10, source generator, roslyn analyzer, IsRoslynComponent, multi-target, polyfill, AOT trim, can I use HashCode / System.Text.Json / Span here, qyl workspace"
+    activation: manual
+    path: "skills/packs/qyl-tfm-map"
+    license: "MIT repo wrapper; project-specific TFM facts read directly from the qyl-workspace csproj files"
+    compatibility: "Portable Markdown skill. Project-scoped to ~/RiderProjects/qyl-workspace; the map is re-derivable from the csprojs via the command in SKILL.md if the projects change."
+    description: |
+      Know, without being told, which target framework every project in the qyl-workspace compiles for — the
+      net10.0 baseline (full modern BCL, AOT/trim-aware) versus the small netstandard2.0 Roslyn island (source
+      generators, analyzers, and the multi-targeted OpenTelemetry libs) — and what each allows or forbids. The
+      load-bearing nuance it exists to override: on netstandard2.0 modern C# syntax is legal (polyfilled via
+      ANcpLua.Roslyn.Utilities.Sources) but the net10 runtime BCL is not. Includes the per-project TFM table,
+      the false-friend projects, the net10-BCL → netstandard2.0 substitution cookbook, and the live analyzer gates.
+    capabilities:
+      - dotnet_tfm
+      - source_generators
+      - roslyn_analyzers
+      - netstandard20_constraints
+      - aot_trim_awareness
+    active: true
+
+  - id: maf-dotnet-source-of-truth
+    name: "MAF .NET Source-of-Truth"
+    category: dotnet-ai
+    scope: domain
+    priority: 1
+    trigger: "microsoft agent framework, Microsoft.Agents.AI, AIAgent, ChatClientAgent, AgentSession, AgentResponse, RunAsync, RunStreamingAsync, IChatClient, AgentThread rename, CompleteAsync gone, MAF dotnet, agent-framework source"
+    activation: manual
+    path: "skills/packs/maf-dotnet-source-of-truth"
+    license: "MIT repo wrapper; every API fact grep-verified from a local microsoft/agent-framework checkout (>= dotnet-1.10.0)"
+    compatibility: "Portable Markdown skill. Requires a local clone of microsoft/agent-framework; grep paths assume the dotnet subtree layout (src/, tests/)."
+    description: |
+      Write Microsoft Agent Framework (.NET) code against the cloned, SHA-pinned source instead of memory or
+      Microsoft Learn, which lag the source and keep renamed pre-GA signatures alive. Encodes the verified
+      stale-rename traps (AgentThread→AgentSession, AgentRunResponse→AgentResponse, GetNewThread→CreateSessionAsync,
+      IChatClient.CompleteAsync→GetResponseAsync), the wrap-in-an-agent-vs-hand-rolled-IChatClient rule, the real
+      ChatClientAgent/AIAgent signatures, a pre-emit self-check, and the re-grep refresh ritual.
+    capabilities:
+      - microsoft_agent_framework
+      - dotnet_ai_agents
+      - source_of_truth_grounding
+      - api_signature_verification
+      - stale_doc_rename_traps
+    active: true
+
   - id: self-hosted-ci-orchestration
     name: "Self-Hosted CI Orchestration"
     category: ci-automation

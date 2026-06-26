@@ -2,5 +2,29 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>ANcpLua/github-settings-automation"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^skills/packs/maf-dotnet-source-of-truth/SKILL\\.md$"],
+      "matchStrings": [
+        "<!-- renovate-pin: microsoft/agent-framework dotnet-(?<currentValue>[\\d.]+) -->"
+      ],
+      "depNameTemplate": "microsoft/agent-framework",
+      "packageNameTemplate": "microsoft/agent-framework",
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver",
+      "extractVersionTemplate": "^dotnet-(?<version>.+)$"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDepNames": ["microsoft/agent-framework"],
+      "matchDatasources": ["github-releases"],
+      "commitMessageTopic": "MAF .NET source pin",
+      "prBodyNotes": [
+        "Pin bump only - NOT a verified update. A new Microsoft Agent Framework release can rename APIs. Before merging, run the skill's refresh ritual: re-grep the rename table against the new dotnet-* tag and update the prose/provenance in skills/packs/maf-dotnet-source-of-truth/SKILL.md. Renovate only bumped the machine anchor."
+      ]
+    }
   ]
 }
