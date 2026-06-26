@@ -137,7 +137,7 @@ gh api repos/microsoft/agent-framework/releases \
 
 > 💡 Hands-off path (wired): Renovate watches this repo and the `dotnet-*` releases of `microsoft/agent-framework` (see `renovate.json` → `customManagers`). When a newer one ships it opens a PR bumping the machine anchor below. **Treat that PR as a prompt to re-verify, never a blind merge** — re-grep the rename table at the new tag; Renovate only changed the anchor, not the verified prose.
 
-<!-- renovate-pin: microsoft/agent-framework dotnet-1.10.0 -->
+<!-- renovate-pin: microsoft/agent-framework dotnet-1.11.1 -->
 <!-- ^ Renovate bumps the version in the line above when a newer dotnet-* release ships; the prose/table stay until a human re-greps. -->
 
 
