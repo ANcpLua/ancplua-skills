@@ -72,6 +72,14 @@ categories:
     description: |
       > Skills for .NET AI / agent SDK correctness — Microsoft Agent Framework, Microsoft.Extensions.AI, Foundry — grounded in pinned source over lagging docs.
     order: 15
+  - id: ci-automation
+    name: "CI Automation"
+    prefix: ci
+    icon: "C"
+    scope: domain
+    description: |
+      > Skills for CI/CD orchestration — self-hosted runner lifecycle, draining queued runs, VM/engine bring-up and teardown, and scoped cleanup.
+    order: 16
 
   - id: review-quality
     name: "Review & Quality"

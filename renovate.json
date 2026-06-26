@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>ANcpLua/renovate-config"
+    "github>ANcpLua/github-settings-automation"
   ],
   "customManagers": [
     {

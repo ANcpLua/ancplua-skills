@@ -29,7 +29,7 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 2 | 2 |
-| Domain | 7 | 7 |
+| Domain | 8 | 8 |
 | Session | 1 | 1 |
 
 ---
@@ -52,6 +52,7 @@
   - [A Architecture Diagramming](#architecture-diagramming) (1)
   - [N .NET Platform](#.net-platform) (1)
   - [A .NET AI & Agent SDKs](#.net-ai--agent-sdks) (1)
+  - [C CI Automation](#ci-automation) (1)
 
 - **Session Skills (On-Demand)**
   - [Q Review & Quality](#review--quality) (1)
@@ -314,6 +315,38 @@ ChatClientAgent/AIAgent signatures, a pre-emit self-check, and the re-grep refre
 
 </details>
 
+<details open>
+<summary><h3>C CI Automation</h3></summary>
+
+> Skills for CI/CD orchestration — self-hosted runner lifecycle, draining queued runs, VM/engine bring-up and teardown, and scoped cleanup.
+
+**`Self-Hosted CI Orchestration`** &nbsp; `self-hosted-ci-orchestration` &nbsp; 👆 Manual &nbsp; P1
+
+Drive a self-hosted CI runner to a green verdict and back to sleep: wake-safe status, bring the runner
+(and its VM/engine) online, drain runs that are queued only because the runner was down, snapshot the
+result once (never a live watch), then tear down and reap leaked test containers by label (never a blanket
+prune, never named volumes). Encodes the status -> up -> drain -> snapshot -> down+reap loop, the "a stopped
+runner is not a blocker" rule, and the two human-gated edges (runner topology / repo visibility; deleting
+outside the test-container label).
+
+<details>
+<summary>Capabilities</summary>
+
+- `self_hosted_ci`
+- `runner_lifecycle`
+- `queued_run_draining`
+- `scoped_container_reap`
+- `teardown_discipline`
+
+</details>
+> **Path:** `skills/packs/self-hosted-ci-orchestration`
+> **License:** `MIT repo wrapper`
+> **Compatibility:** Portable Markdown skill. Assumes a forge with a runner API (e.g. gh) and an idempotent project-local control tool exposing status/up/down/reset/run; machine, VM, and repo specifics live in that tool, not in this skill.
+> **Trigger:** `self-hosted runner, runner offline, ci queued not starting, bring the VM up for CI, ci up, ci down, get CI green, self-hosted job not picking up, runner lifecycle, drain queued runs`
+
+
+</details>
+
 ## ⚡ Session Skills
 
 <details open>
@@ -380,4 +413,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-06-13 19:44:01 UTC | Skills: 10 | Categories: 8</sub>
+<sub>Generated: 2026-06-26 07:27:53 UTC | Skills: 11 | Categories: 9</sub>
