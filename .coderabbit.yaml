@@ -1,29 +1,16 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 #
-# Canonical CodeRabbit baseline for ANcpLua + O-ANcppLua repos.
-# Synced into target repos by .github/workflows/enforce-repo-settings.yml.
+# CodeRabbit configuration for ANcpLua/ancplua-skills — maxed advisory.
 #
-# Posture: advisory, never blocking. CodeRabbit comments on every PR but
-# does NOT submit formal CHANGES_REQUESTED reviews and is NOT a required
-# reviewer at the branch-protection level. Merges go through GitHub native
-# auto-merge driven by Renovate's `platformAutomerge: true` (see
-# ANcpLua/renovate-config) plus per-PR opt-in for human-authored work.
-#
-# Why this shape:
-#   - Sticky CHANGES_REQUESTED reviews from CodeRabbit were the only reason
-#     the legacy destructive-auto-merge.yml workflow needed --admin bypass.
-#     Removing the formal-review path removes the need for the bypass.
-#   - Tools and slop detection stay on — the review value is in the
-#     comments, not in the gate.
-#
-# Per-repo overrides: drop a `.coderabbit.yaml` in the target repo to
-# override anything below. Repos with bespoke path_instructions (e.g. qyl)
-# carry their own file; this template is the default for everything else.
+# Posture: advisory, never blocking. CodeRabbit comments on every PR but never
+# submits CHANGES_REQUESTED, never fails a commit status, and never gates a merge.
+# Skip a review per PR with the `skip-review` label or `[skip review]` in the title.
+# Repo: agent-skills marketplace — SKILL.md packs, cross-agent adapters, NUKE build.
+# Owned by this repo (seed-only fleet policy: this file is never overwritten).
+# Schema: https://coderabbit.ai/integrations/schema.v2.json
 
 language: en-US
-tone_instructions: >-
-  Principal-level stewardship. Architecture, maintainability, correctness only.
-  Flag duplication, spec drift, silent behavior changes. No praise. No nits.
+tone_instructions: "Fast senior reviewer with an ego. One definitive, evidence-backed review: file:line or silence. No open questions, no invented sources or versions, no praise, no nits. Solo-dev repo: breaking changes are normal; never flag backward compatibility."
 early_access: true
 enable_free_tier: false
 
@@ -81,6 +68,50 @@ reviews:
     - '!**/yarn.lock'
     - '!Artifacts/**'
 
+  path_instructions:
+    - path: "**"
+      instructions: |
+        Operating principles (solo-dev, agentic SDLC — reviews are advisory, agents act on them):
+        1. LAZY: one self-contained, correct review beats ten partial ones. Every finding is
+           definitive — concrete evidence with file:line, a concrete fix, no "consider maybe",
+           no open or ambiguous questions back to the author. If you cannot decide a point
+           from the diff plus repo context, stay silent on it. Never cite a source, API, or
+           version you have not verified; an unverifiable claim is a dropped claim.
+        2. IMPATIENT: never stall a PR. There are no compatibility obligations here — internal
+           and dogfooding code has NO public-API contract; removing shims, breaking signatures,
+           and deleting dead paths are normal, desirable changes. Do not flag backward
+           compatibility, deprecation ceremony, or migration paths. (SemVer applies only to
+           commercially sold libraries — this repo has none.)
+        3. EGO: hold the bar of the best reviewer on the market — flag real correctness,
+           security, data-loss, and structural problems precisely; produce zero noise.
+    - path: "skills/**/SKILL.md"
+      instructions: |
+        Skill definitions. The frontmatter `description` is the ONLY trigger mechanism:
+        verify it states concretely WHEN to use the skill, stays under ~1024 chars, and has
+        no colon-space sequence that breaks YAML. Flag vague trigger phrasing and skills
+        whose body contradicts their own description.
+    - path: "adapters/**"
+      instructions: |
+        Cross-agent adapters. Portability is the contract: no Claude-only tool names,
+        absolute user paths, or platform assumptions in files meant for other agents.
+        An agent definition that can spawn sub-agents must carry an explicit cost bound.
+    - path: "build/**"
+      instructions: |
+        NUKE build + SkillsGenerator — the generator for the repo index SKILLS.md
+        (build/Build.cs writes it to the repo root from skills-registry.yaml,
+        skills-categories.yaml, and templates/SKILLS.template.md). Generator changes must
+        keep deterministic output (stable ordering, no timestamps).
+    - path: "SKILLS.md"
+      instructions: |
+        Generated index — never hand-edited. Produced by `./build.sh GenerateSkills` from
+        skills-registry.yaml + skills-categories.yaml + templates/SKILLS.template.md. Flag
+        any PR that edits SKILLS.md directly instead of changing the registry/templates and
+        regenerating.
+    - path: ".github/workflows/**"
+      instructions: |
+        Check event triggers, permissions, token scope, concurrency, and whether a workflow
+        can spam comments, trigger reviewer bots, or run on a high-frequency schedule.
+
   auto_review:
     enabled: true
     auto_incremental_review: true
@@ -89,7 +120,13 @@ reviews:
     ignore_title_keywords:
       - '[skip review]'
     ignore_usernames:
+      # Loop brake: never review CodeRabbit's own PRs; bot bumps auto-merge unreviewed.
+      - 'coderabbitai[bot]'
       - 'renovate[bot]'
+      - 'dependabot[bot]'
+    # Per-PR bool toggle: label a PR `skip-review` and CodeRabbit stays away.
+    labels:
+      - '!skip-review'
 
   finishing_touches:
     docstrings:
@@ -235,9 +272,12 @@ knowledge_base:
     filePatterns:
       - 'CLAUDE.md'
       - 'AGENTS.md'
+      - 'SKILLS.md'
       - '**/CLAUDE.md'
       - '**/AGENTS.md'
       - '.editorconfig'
+  # Cross-repo context (Pro Plus): related ANcpLua repos inform reviews here.
+  automatic_repository_linking: true
   jira:
     usage: disabled
   linear:

@@ -46,6 +46,41 @@ categories:
       - id: react
         name: "React"
 
+  - id: architecture-diagramming
+    name: "Architecture Diagramming"
+    prefix: arch
+    icon: "A"
+    scope: domain
+    description: |
+      > Skills for generating architecture diagrams, C4 views, and editable diagram artifacts.
+    order: 13
+
+  - id: dotnet-platform
+    name: ".NET Platform"
+    prefix: net
+    icon: "N"
+    scope: domain
+    description: |
+      > Skills for .NET target frameworks, SDK/project configuration, source generators, analyzers, and the API/feature constraints those impose.
+    order: 14
+
+  - id: dotnet-ai
+    name: ".NET AI & Agent SDKs"
+    prefix: ai
+    icon: "A"
+    scope: domain
+    description: |
+      > Skills for .NET AI / agent SDK correctness — Microsoft Agent Framework, Microsoft.Extensions.AI, Foundry — grounded in pinned source over lagging docs.
+    order: 15
+  - id: ci-automation
+    name: "CI Automation"
+    prefix: ci
+    icon: "C"
+    scope: domain
+    description: |
+      > Skills for CI/CD orchestration — self-hosted runner lifecycle, draining queued runs, VM/engine bring-up and teardown, and scoped cleanup.
+    order: 16
+
   - id: review-quality
     name: "Review & Quality"
     prefix: review

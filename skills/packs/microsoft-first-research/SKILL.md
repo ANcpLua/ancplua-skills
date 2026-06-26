@@ -37,11 +37,27 @@ Fire at the top of the turn — before drafting an answer — for any of:
 If you catch yourself about to answer a substantive Microsoft-adjacent question straight from memory, that hesitation
 is the trigger. Ground it.
 
+## Use this skill when — and how to ground
+
+Use this skill whenever you are about to answer a Microsoft-adjacent question from memory. Concretely:
+
+- **Always** ground before stating a preview-SDK signature, version, or API shape — Learn for breadth first, then the local checkout for the exact call.
+- **Never** emit a `Microsoft.Agents.AI.*`, Foundry, or Copilot Studio type from memory; grep the cloned source and copy the real signature.
+- **Use** `microsoft_docs_search` for concepts, then verify the precise symbol against the checkout and the compiler.
+
+```bash
+# ground-then-verify: docs for breadth (cheap), source for the exact signature (authoritative)
+#   1) microsoft_docs_search "<topic>"      (MCP; cap size with ?maxTokenBudget=…)
+#   2) confirm the real symbol in the local checkout before you write the call:
+grep -rl --include=*.cs 'ChatClientAgent' \
+  ~/RiderProjects/qyl-workspace/agent-framework-dotnet-rootsource/src
+```
+
 ## Where to route
 
 | Signal | Route to |
 |---|---|
-| Concept, tutorial, "how/why", limits, best practice | `microsoft-docs` skill + `microsoft_docs_search` → `microsoft_docs_fetch` |
+| Concept, tutorial, "how/why", limits, recommended guidance | `microsoft-docs` skill + `microsoft_docs_search` → `microsoft_docs_fetch` |
 | Code, API signature, SDK error, idiomatic sample | `microsoft-code-reference` skill + `microsoft_code_sample_search`, **then** local checkout below |
 | "Is this current / last updated / which version" | `microsoft-learn-grounding` skill (freshness + the date mechanism the MCP hides) |
 | Need a new reusable MS-tech skill | `microsoft-skill-creator` skill |

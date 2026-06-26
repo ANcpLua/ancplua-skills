@@ -29,10 +29,13 @@ The generated index is [SKILLS.md](SKILLS.md).
 
 Current core skills:
 
+- `c4-diagram`
 - `forgejo-direct-api`
+- `maf-dotnet-source-of-truth`
 - `mcp-csharp-sdk-1.4.0`
 - `microsoft-first-research`
 - `microsoft-learn-grounding`
+- `qyl-tfm-map`
 - `react-bits-pro`
 - `supercritical-code-quality-review`
 

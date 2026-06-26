@@ -1,6 +1,6 @@
 ---
 name: supercritical-code-quality-review
-description: Run a maximally strict structural code review that hunts complexity-collapse opportunities, oversized files, creeping conditionals, and unearned abstractions, then defends every finding against refutation before reporting it. Use for a supercritical review, deep maintainability audit, especially harsh code-quality review, or when the user asks for a thermo-nuclear-style review.
+description: Run a maximally strict structural code review that hunts complexity-collapse opportunities, oversized files, creeping conditionals, and unearned abstractions, then defends every finding against refutation before reporting it. Scope the diff first, review against eight standards, and gate approval hard. Use for a supercritical review, deep maintainability audit, especially harsh code-quality review, or when the user asks for a thermo-nuclear-style review.
 license: MIT
 disable-model-invocation: true
 metadata:
@@ -17,6 +17,25 @@ A review at criticality: every finding must either start a chain reaction of sim
 Audit the current branch's changes for implementation quality, maintainability, and abstraction health. Do not settle for local polish. Hunt for the **collapse move**: a reframing of the change that makes whole conditionals, helpers, modes, or layers vanish while behavior stays identical. A good collapse move feels inevitable in hindsight; if nothing about your strongest suggestion feels inevitable, keep looking before you write it down.
 
 Measure twice, cut once: depth of analysis first, volume of comments never.
+
+## Scope the review first
+
+Pull the exact diff and surface the structural smells before reading line-by-line. The diff — not the whole repo — is the unit of review; never approve from a summary, read the actual `git diff`.
+
+```bash
+# what changed, and which files the PR grows
+git diff --stat origin/main...HEAD
+
+# files this PR pushes toward / past the 1000-line smell threshold (standard 2)
+git diff --name-only origin/main...HEAD | while read -r f; do
+  [ -f "$f" ] && printf '%6s  %s\n' "$(wc -l < "$f")" "$f"
+done | sort -rn | awk '$1 > 800'
+
+# the conditional-creep smell: new ad-hoc branches added into existing flows (standard 3)
+git diff origin/main...HEAD | grep -nE '^\+\s*(if|else if|switch|case )' | head -40
+```
+
+Carry the cross-file view from here into every standard below — collapse moves usually live *between* files, not inside one.
 
 ## Standards
 
