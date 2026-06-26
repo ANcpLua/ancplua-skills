@@ -20,7 +20,7 @@ Categories:
 - `qyl-tfm-map` skill + new `dotnet-platform` category: maps qyl-workspace projects to their target frameworks (net10.0 baseline vs the netstandard2.0 Roslyn island) and the API/feature constraints each imposes.
 
 ### Changed
-- Raised `microsoft-first-research` and `thermo-nuclear-code-quality-review` to Gold on the TomeVault quality rubric: added activation triggers, runnable code blocks, named tools, and imperative guidance (all 10 packs now Gold).
+- Raised `microsoft-first-research` to Gold on the TomeVault quality rubric: added activation triggers, runnable code blocks, named tools, and imperative guidance.
 - Public AI-agnostic skill pack layout under `skills/packs/`.
 - Compatibility documentation for Claude, Codex, and other agents.
 - Claude adapter area under `adapters/claude/`.
@@ -37,6 +37,11 @@ Categories:
 - Root Directory.Build.props for solution-wide configuration
 - Dockerfile for .NET 10 multi-stage build
 - MIT License
+- `supercritical-code-quality-review` skill: original strict structural review with adversarial refutation, plus a Claude nested-agent cascade adapter (`supercritical-review-orchestrator`). Carries forward the original diff-scoping workflow (1000-line and conditional-creep smell scans) so no Gold scoping content is lost in the rename.
+- Nested sub-agent delegation guidance in the Claude expert agents (Claude Code 2.1.172+ allows sub-agents to spawn sub-agents, 5 levels deep).
+
+### Removed
+- `thermo-nuclear-code-quality-review` pack — it was a verbatim copy of Cursor team-kit's unlicensed skill; replaced by the original `supercritical-code-quality-review`.
 
 ### Changed
 - Replaced placeholder registry entries with the active local skills.

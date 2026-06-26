@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Text.RegularExpressions;
 using Nuke.Common;
 using Nuke.Common.IO;
 using Serilog;
@@ -16,6 +18,15 @@ class Build : NukeBuild
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+
+    private static readonly string[] SearchDirectories = ["skills", "adapters", "docs"];
+    private static readonly string[] ValidateExtensions = [".md", ".toml", ".yaml", ".yml", ".json", ".sh", ".cmd", ".ps1", ".cs", ".txt"];
+    private static readonly Regex[] MachineLocalPathRegexes =
+    [
+        new(@"(?<path>/(?:(?:Users)|(?:home))/[^/\s""'`\\]+(?:/[^/\s""'`\\]+)+)", RegexOptions.Compiled),
+        new(@"(?<path>~\/RiderProjects\/[^/\s""'`\\]+(?:\/[^/\s""'`\\]+)*)", RegexOptions.Compiled),
+        new(@"(?<path>[A-Za-z]:[\\/]+Users[\\/]+[^\\/\s""'`]+(?:[\\/][^\\/\s""'`]+)+)", RegexOptions.Compiled)
+    ];
 
     // Paths
     AbsolutePath SkillsDirectory => RootDirectory / "skills";
@@ -91,8 +102,91 @@ class Build : NukeBuild
                 throw new Exception("Categories file not found");
             }
 
+            var violations = ValidateNoMachineLocalAbsolutePaths();
+            if (violations.Any())
+            {
+                foreach (var violation in violations)
+                {
+                    Log.Error("❌ {File}:{Line} contains machine-local path: {Path}", violation.FilePath, violation.Line, violation.Path);
+                }
+
+                throw new Exception("Machine-local absolute paths found in committed skill/adapter/docs content");
+            }
+
             Log.Information("✅ All skill files validated successfully");
         });
+
+    private static List<PathViolation> ValidateNoMachineLocalAbsolutePaths()
+    {
+        var violations = new List<PathViolation>();
+
+        foreach (var directory in SearchDirectories)
+        {
+            var directoryPath = Path.Combine(Environment.CurrentDirectory, directory);
+            if (!Directory.Exists(directoryPath))
+            {
+                continue;
+            }
+
+            var files = Directory.EnumerateFiles(directoryPath, "*", SearchOption.AllDirectories)
+                .Where(IsEligibleFile);
+
+            foreach (var file in files)
+            {
+                CheckFileForMachineLocalPaths(file, violations);
+            }
+        }
+
+        return violations;
+    }
+
+    private static bool IsEligibleFile(string path)
+    {
+        var extension = System.IO.Path.GetExtension(path);
+        return ValidateExtensions.Contains(extension, StringComparer.OrdinalIgnoreCase);
+    }
+
+    private static void CheckFileForMachineLocalPaths(string filePath, List<PathViolation> violations)
+    {
+        var lines = File.ReadLines(filePath).ToList();
+
+        for (var index = 0; index < lines.Count; index++)
+        {
+            var line = lines[index];
+
+            foreach (var regex in MachineLocalPathRegexes)
+            {
+                foreach (Match match in regex.Matches(line))
+                {
+                    var path = match.Groups["path"].Value;
+
+                    if (IsAllowedPlaceholderPath(path))
+                    {
+                        continue;
+                    }
+
+                    violations.Add(new(
+                        filePath,
+                        index + 1,
+                        path));
+                }
+            }
+        }
+    }
+
+    private static bool IsAllowedPlaceholderPath(string path)
+    {
+        return path.Contains("<repo-root>", StringComparison.OrdinalIgnoreCase)
+               || path.Contains("~/.claude", StringComparison.OrdinalIgnoreCase)
+               || path.StartsWith("/home/user/projects/", StringComparison.Ordinal)
+               // Documented, ~-relative qyl workspace root: the project-scoped home that
+               // qyl-tfm-map / maf-dotnet-source-of-truth declare in their compatibility
+               // field. Not a username leak (no /Users/<name>/). Other ~/RiderProjects/<x>
+               // paths and all absolute /Users//home/ leaks stay banned.
+               || path.StartsWith("~/RiderProjects/qyl-workspace", StringComparison.Ordinal);
+    }
+
+    private record struct PathViolation(string FilePath, int Line, string Path);
 
     /// <summary>
     /// Full generation pipeline: validate + generate

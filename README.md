@@ -37,7 +37,7 @@ Current core skills:
 - `microsoft-learn-grounding`
 - `qyl-tfm-map`
 - `react-bits-pro`
-- `thermo-nuclear-code-quality-review`
+- `supercritical-code-quality-review`
 
 ## Install
 

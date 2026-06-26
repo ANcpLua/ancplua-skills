@@ -354,9 +354,9 @@ outside the test-container label).
 
 > On-demand skills for code review, maintainability audits, and implementation-quality judgement.
 
-**`Thermo-Nuclear Code Quality Review`** &nbsp; `thermo-code-quality-review` &nbsp; 👆 Manual &nbsp; P1
+**`Supercritical Code Quality Review`** &nbsp; `supercritical-code-quality-review` &nbsp; 👆 Manual &nbsp; P1
 
-Extremely strict maintainability review prompt focused on abstraction quality, giant files, spaghetti-condition growth, and structural simplification opportunities.
+Maximally strict structural review that hunts complexity-collapse opportunities, oversized files, conditional creep, and unearned abstractions, and defends every finding against refutation before reporting it.
 
 <details>
 <summary>Capabilities</summary>
@@ -365,12 +365,13 @@ Extremely strict maintainability review prompt focused on abstraction quality, g
 - `maintainability`
 - `abstraction_quality`
 - `simplification`
+- `adversarial_verification`
 
 </details>
-> **Path:** `skills/packs/thermo-nuclear-code-quality-review`
-> **License:** `MIT repo wrapper`
-> **Compatibility:** Portable review prompt. Frontmatter field disable-model-invocation is runtime-specific and safe to ignore when unsupported.
-> **Trigger:** `thermo-nuclear code quality review, thermonuclear review, deep maintainability audit, harsh code quality review`
+> **Path:** `skills/packs/supercritical-code-quality-review`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable review prompt with an optional Claude nested-agent cascade (adapters/claude/agents/supercritical-review-orchestrator.md). Frontmatter field disable-model-invocation is runtime-specific and safe to ignore when unsupported.
+> **Trigger:** `supercritical review, supercritical code quality review, deep maintainability audit, harsh code quality review, thermo-nuclear review`
 
 
 </details>
@@ -413,4 +414,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-06-26 07:29:52 UTC | Skills: 11 | Categories: 9</sub>
+<sub>Generated: 2026-06-26 08:16:41 UTC | Skills: 11 | Categories: 9</sub>

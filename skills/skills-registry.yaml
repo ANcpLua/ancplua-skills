@@ -129,23 +129,24 @@ skills:
       - container_diagrams
     active: true
 
-  - id: thermo-code-quality-review
-    name: "Thermo-Nuclear Code Quality Review"
+  - id: supercritical-code-quality-review
+    name: "Supercritical Code Quality Review"
     category: review-quality
     scope: session
     priority: 1
-    trigger: "thermo-nuclear code quality review, thermonuclear review, deep maintainability audit, harsh code quality review"
+    trigger: "supercritical review, supercritical code quality review, deep maintainability audit, harsh code quality review, thermo-nuclear review"
     activation: manual
-    path: "skills/packs/thermo-nuclear-code-quality-review"
-    license: "MIT repo wrapper"
-    compatibility: "Portable review prompt. Frontmatter field disable-model-invocation is runtime-specific and safe to ignore when unsupported."
+    path: "skills/packs/supercritical-code-quality-review"
+    license: "MIT (original text in this repo)"
+    compatibility: "Portable review prompt with an optional Claude nested-agent cascade (adapters/claude/agents/supercritical-review-orchestrator.md). Frontmatter field disable-model-invocation is runtime-specific and safe to ignore when unsupported."
     description: |
-      Extremely strict maintainability review prompt focused on abstraction quality, giant files, spaghetti-condition growth, and structural simplification opportunities.
+      Maximally strict structural review that hunts complexity-collapse opportunities, oversized files, conditional creep, and unearned abstractions, and defends every finding against refutation before reporting it.
     capabilities:
       - code_review
       - maintainability
       - abstraction_quality
       - simplification
+      - adversarial_verification
     active: true
 
   - id: nuget-trusted-publishing

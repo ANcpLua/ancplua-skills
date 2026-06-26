@@ -104,7 +104,7 @@ These are the guards for the cases the user "hasn't considered." Check them; the
   actually matters, cite *which* field you used (`updated_at` vs `ms.date` vs git commit), and prefer the git
   commit for "was this really touched recently".
 - **Local ground truth beats preview docs.** For bleeding-edge `Microsoft.Agents.AI.*` / Foundry / Copilot Studio
-  / Fabric, the installed package and its NuGet `.xml` sidecar + the `~/RiderProjects/agent-framework` checkout are
+  / Fabric, the installed package and its NuGet `.xml` sidecar + an `<agent-framework-checkout>` local source checkout are
   the deciding source. When Learn (often preview-era) and the local checkout disagree, **trust compile/run + the
   checkout**, and say so. Learn is for concepts and breadth; it is not API-exact for preview packages.
 - **The MCP is not a REST API.** Don't script direct HTTP calls against `/api/mcp` expecting stable
