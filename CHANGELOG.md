@@ -16,6 +16,7 @@ Categories:
 ## [Unreleased]
 
 ### Added
+- `prompt-engineering-expert` skill + new `prompt-engineering` category: diagnose-first help for writing, refining, and debugging prompts, system prompts, agent instructions, CLAUDE.md/AGENTS.md files, and skill trigger descriptions. Ships five references (principles, techniques, failure-modes, examples) plus a Claude Fable 5 / Mythos 5 section: prune-before-you-add migration, symptom→fix snippets, long-run scaffolding, effort selection, and the reasoning-extraction refusal trap.
 - `maf-dotnet-source-of-truth` skill + new `dotnet-ai` category: Microsoft Agent Framework (.NET) API guardrails, every rename trap grep-verified against a pinned `microsoft/agent-framework` checkout (AgentThread→AgentSession, AgentRunResponse→AgentResponse, IChatClient.CompleteAsync→GetResponseAsync, …).
 - `qyl-tfm-map` skill + new `dotnet-platform` category: maps qyl-workspace projects to their target frameworks (net10.0 baseline vs the netstandard2.0 Roslyn island) and the API/feature constraints each imposes.
 

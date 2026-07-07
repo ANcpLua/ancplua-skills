@@ -30,7 +30,7 @@
 |-------|--------|-------|
 | Global | 2 | 2 |
 | Domain | 8 | 8 |
-| Session | 1 | 1 |
+| Session | 2 | 2 |
 
 ---
 
@@ -56,6 +56,7 @@
 
 - **Session Skills (On-Demand)**
   - [Q Review & Quality](#review--quality) (1)
+  - [P Prompt Engineering](#prompt-engineering) (1)
 
 </details>
 
@@ -376,6 +377,39 @@ Maximally strict structural review that hunts complexity-collapse opportunities,
 
 </details>
 
+<details open>
+<summary><h3>P Prompt Engineering</h3></summary>
+
+> On-demand skills for writing, refining, debugging, and evaluating prompts, system prompts, agent instructions, and skill descriptions — including model-specific guidance.
+
+**`Prompt Engineering Expert`** &nbsp; `prompt-engineering-expert` &nbsp; 👆 Manual &nbsp; P1
+
+Diagnose-first help for writing, refining, debugging, and evaluating prompts, system prompts, agent
+instructions, CLAUDE.md/AGENTS.md files, and skill trigger descriptions. Leads with locating the failure
+case and proposing the smallest change over best-practice checklists, and treats heavy-handed MUSTs as a
+code smell to replace with reasoning. Includes model-specific guidance for Claude Fable 5 / Mythos 5:
+prune-before-you-add migration, symptom→fix snippets (verbosity, fabricated progress, unrequested actions,
+early stopping, context-budget anxiety), scaffolding patterns for long-running agents, effort selection,
+and the reasoning-extraction refusal trap.
+
+<details>
+<summary>Capabilities</summary>
+
+- `prompt_engineering`
+- `system_prompt_design`
+- `skill_description_authoring`
+- `failure_mode_diagnosis`
+- `fable5_migration`
+
+</details>
+> **Path:** `skills/packs/prompt-engineering-expert`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill; references are model-agnostic prompt-engineering guidance plus a Claude Fable 5 / Mythos 5 section that maps to Anthropic model behavior.
+> **Trigger:** `improve this prompt, write a system prompt, review my instructions, this prompt isn't working, why isn't Claude doing X, the model keeps doing Y, how should I phrase this, agent prompt, skill description, CLAUDE.md, AGENTS.md, few-shot examples, Fable 5, Mythos 5, prompt migration, effort tuning, unexpected refusal`
+
+
+</details>
+
 ---
 
 ## Skill Loading Order
@@ -414,4 +448,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-06-26 08:16:41 UTC | Skills: 11 | Categories: 9</sub>
+<sub>Generated: 2026-07-07 00:29:25 UTC | Skills: 12 | Categories: 10</sub>
