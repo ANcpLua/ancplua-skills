@@ -89,3 +89,12 @@ categories:
     description: |
       > On-demand skills for code review, maintainability audits, and implementation-quality judgement.
     order: 20
+
+  - id: prompt-engineering
+    name: "Prompt Engineering"
+    prefix: prompt
+    icon: "P"
+    scope: session
+    description: |
+      > On-demand skills for writing, refining, debugging, and evaluating prompts, system prompts, agent instructions, and skill descriptions — including model-specific guidance.
+    order: 21

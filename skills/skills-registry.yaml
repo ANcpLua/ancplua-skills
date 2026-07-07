@@ -221,6 +221,32 @@ skills:
       - stale_doc_rename_traps
     active: true
 
+  - id: prompt-engineering-expert
+    name: "Prompt Engineering Expert"
+    category: prompt-engineering
+    scope: session
+    priority: 1
+    trigger: "improve this prompt, write a system prompt, review my instructions, this prompt isn't working, why isn't Claude doing X, the model keeps doing Y, how should I phrase this, agent prompt, skill description, CLAUDE.md, AGENTS.md, few-shot examples, Fable 5, Mythos 5, prompt migration, effort tuning, unexpected refusal"
+    activation: manual
+    path: "skills/packs/prompt-engineering-expert"
+    license: "MIT (original text in this repo)"
+    compatibility: "Portable Markdown skill; references are model-agnostic prompt-engineering guidance plus a Claude Fable 5 / Mythos 5 section that maps to Anthropic model behavior."
+    description: |
+      Diagnose-first help for writing, refining, debugging, and evaluating prompts, system prompts, agent
+      instructions, CLAUDE.md/AGENTS.md files, and skill trigger descriptions. Leads with locating the failure
+      case and proposing the smallest change over best-practice checklists, and treats heavy-handed MUSTs as a
+      code smell to replace with reasoning. Includes model-specific guidance for Claude Fable 5 / Mythos 5:
+      prune-before-you-add migration, symptom→fix snippets (verbosity, fabricated progress, unrequested actions,
+      early stopping, context-budget anxiety), scaffolding patterns for long-running agents, effort selection,
+      and the reasoning-extraction refusal trap.
+    capabilities:
+      - prompt_engineering
+      - system_prompt_design
+      - skill_description_authoring
+      - failure_mode_diagnosis
+      - fable5_migration
+    active: true
+
   - id: self-hosted-ci-orchestration
     name: "Self-Hosted CI Orchestration"
     category: ci-automation
