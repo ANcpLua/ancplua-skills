@@ -1,7 +1,0 @@
-<Solution>
-  <Folder Name="/Solution Items/">
-    <File Path="compose.yaml" />
-  </Folder>
-  <Project Path="ancplua-skills/ancplua-skills.csproj" />
-  <Project Path="build/build.csproj" />
-</Solution>
