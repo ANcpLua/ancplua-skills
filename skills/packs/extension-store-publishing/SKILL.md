@@ -45,6 +45,7 @@ commit only the env var names.
 
 ### Chrome (Web Store API v2 — v1.1 is deprecated, EOL 2026-10-15; do NOT write new v1.1 code)
 - Token: `POST https://oauth2.googleapis.com/token` (client_id, client_secret, refresh_token, grant_type=refresh_token) — refresh-token auth works fine with v2; a service account is optional, not required
+- **Refresh-token time bomb**: if the OAuth consent screen is in **Testing** publishing status (the default fast path), Google expires refresh tokens after **7 days** — publishes silently start failing with `invalid_grant`. Fix once: Audience page → **Publish app** (production; no verification needed since `chromewebstore` isn't a sensitive/restricted scope, consent just shows an "unverified app" interstitial only you will ever see), then re-run the consent flow to mint a fresh token — tokens minted while in Testing keep their 7-day fuse.
 - Root `https://chromewebstore.googleapis.com`; paths need BOTH the publisher id (dashboard URL / Publisher → Settings) and the item id
 - Upload: `POST /upload/v2/publishers/{publisherId}/items/{itemId}:upload` (zip bytes; manifest version must be bumped)
 - Publish: `POST /v2/publishers/{publisherId}/items/{itemId}:publish` (publishes with existing visibility settings)
