@@ -66,9 +66,15 @@ commit only the env var names.
 
 - **First submission is always manual** on every store (listing, privacy, screenshots). The APIs only update
   existing listings; enable/wire the API after the first hand-submission.
-- Edge: **"Can't publish extension as your extension submission is in progress"** right after a green upload
-  usually means the publish DID get accepted and a retry raced it — check Partner Center; if the version shows
-  **In review**, the release succeeded. Don't resubmit.
+- Edge allows only **one submission in flight per product**. "Can't publish extension as your extension
+  submission is in progress" has two causes, same message: (a) right after a green upload, the publish DID get
+  accepted and a retry raced it — check Partner Center; if the version shows **In review**, the release
+  succeeded, don't resubmit; (b) a *previous* version is still in Microsoft's ~7-day review — the new package
+  still uploads into the draft, only the publish is blocked; it goes through once the pending review clears
+  (re-run the publish then, no re-upload needed).
+- CI consequence of (b): in a multi-store release job, make the store steps independent
+  (`if: ${{ !cancelled() }}` on each publish step in GitHub Actions) — otherwise Edge's expected
+  one-in-flight rejection blocks Chrome/Firefox publishes that would have succeeded.
 - Chrome: **"The item cannot be updated now because it is in pending review…"** means a version is already in
   review (check state via `:fetchStatus`) — expected state, not an error to fix.
 - Edge API key and AMO JWT secret are displayed **only once**. If lost, regenerate/rotate — you cannot re-read
