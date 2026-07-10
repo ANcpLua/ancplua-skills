@@ -194,27 +194,28 @@ references (policy form traps, index lag, orphaned v-tags, 409s).
 > **Trigger:** `nuget publish, trusted publishing, nuget api key, dotnet nuget push, nuget-publish.yml, release workflow, authenticate to nuget, NuGet/login, package not on nuget.org, automate nuget release`
 
 
-**`Edge Add-ons Publishing`** &nbsp; `edge-addons-publishing` &nbsp; 👆 Manual &nbsp; P1
+**`Extension Store Publishing`** &nbsp; `extension-store-publishing` &nbsp; 👆 Manual &nbsp; P1
 
-Automated Microsoft Edge Add-ons store publishing via the Partner Center Publish API (ApiKey auth,
-REST v1.1): enabling the API and minting credentials, upload/poll/publish flow, and verified failure
-modes (first submission is manual, key shown only once, "submission in progress" race after a green
-upload). Kills the wrong "can't publish, credentials missing" diagnosis.
+Automated browser-extension publishing to all three stores: Edge Add-ons (Partner Center Publish API,
+ApiKey), Chrome Web Store (v1.1, OAuth refresh token), Firefox AMO (v5, HS256 JWT). Credential
+provisioning per store, upload/poll/publish flows, and verified failure modes (first submission is
+manual, secrets shown only once, in-progress/pending-review races, AMO release_notes lang-code object).
+Kills the wrong "can't publish, credentials missing" diagnosis.
 
 <details>
 <summary>Capabilities</summary>
 
 - `edge_addons_publishing`
-- `partner_center_api`
-- `extension_release_automation`
+- `chrome_web_store_publishing`
+- `firefox_amo_publishing`
 - `credential_provisioning`
-- `github_actions`
+- `extension_release_automation`
 
 </details>
-> **Path:** `skills/packs/edge-addons-publishing`
-> **License:** `Apache-2.0 repo wrapper; Edge Add-ons API facts from Microsoft Learn, verified end-to-end 2026-07-10`
-> **Compatibility:** Portable Markdown skill; reference script is dependency-free Node (global fetch). Credentials via env vars only.
-> **Trigger:** `edge add-ons, edge extension publish, publish:edge, partner center publish api, EDGE_PRODUCT_ID, EDGE_API_KEY, EDGE_CLIENT_ID, microsoftedge addons api, extension submission, edge store upload`
+> **Path:** `skills/packs/extension-store-publishing`
+> **License:** `Apache-2.0 repo wrapper; store API facts from Microsoft Learn / Google / Mozilla docs, verified end-to-end 2026-07-10`
+> **Compatibility:** Portable Markdown skill; reference scripts are dependency-free Node (global fetch). Credentials via env vars only.
+> **Trigger:** `extension publish, edge add-ons, chrome web store, firefox add-ons, amo, publish:edge, publish:chrome, publish:firefox, partner center publish api, EDGE_API_KEY, CWS_REFRESH_TOKEN, AMO_JWT_ISSUER, extension submission, store upload`
 
 
 </details>
@@ -471,4 +472,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-07-10 13:53:36 UTC | Skills: 13 | Categories: 10</sub>
+<sub>Generated: 2026-07-10 14:43:16 UTC | Skills: 13 | Categories: 10</sub>

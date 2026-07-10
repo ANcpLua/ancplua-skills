@@ -272,25 +272,26 @@ skills:
       - teardown_discipline
     active: true
 
-  - id: edge-addons-publishing
-    name: "Edge Add-ons Publishing"
+  - id: extension-store-publishing
+    name: "Extension Store Publishing"
     category: source-control
     scope: domain
     priority: 1
-    trigger: "edge add-ons, edge extension publish, publish:edge, partner center publish api, EDGE_PRODUCT_ID, EDGE_API_KEY, EDGE_CLIENT_ID, microsoftedge addons api, extension submission, edge store upload"
+    trigger: "extension publish, edge add-ons, chrome web store, firefox add-ons, amo, publish:edge, publish:chrome, publish:firefox, partner center publish api, EDGE_API_KEY, CWS_REFRESH_TOKEN, AMO_JWT_ISSUER, extension submission, store upload"
     activation: manual
-    path: "skills/packs/edge-addons-publishing"
-    license: "Apache-2.0 repo wrapper; Edge Add-ons API facts from Microsoft Learn, verified end-to-end 2026-07-10"
-    compatibility: "Portable Markdown skill; reference script is dependency-free Node (global fetch). Credentials via env vars only."
+    path: "skills/packs/extension-store-publishing"
+    license: "Apache-2.0 repo wrapper; store API facts from Microsoft Learn / Google / Mozilla docs, verified end-to-end 2026-07-10"
+    compatibility: "Portable Markdown skill; reference scripts are dependency-free Node (global fetch). Credentials via env vars only."
     description: |
-      Automated Microsoft Edge Add-ons store publishing via the Partner Center Publish API (ApiKey auth,
-      REST v1.1): enabling the API and minting credentials, upload/poll/publish flow, and verified failure
-      modes (first submission is manual, key shown only once, "submission in progress" race after a green
-      upload). Kills the wrong "can't publish, credentials missing" diagnosis.
+      Automated browser-extension publishing to all three stores: Edge Add-ons (Partner Center Publish API,
+      ApiKey), Chrome Web Store (v1.1, OAuth refresh token), Firefox AMO (v5, HS256 JWT). Credential
+      provisioning per store, upload/poll/publish flows, and verified failure modes (first submission is
+      manual, secrets shown only once, in-progress/pending-review races, AMO release_notes lang-code object).
+      Kills the wrong "can't publish, credentials missing" diagnosis.
     capabilities:
       - edge_addons_publishing
-      - partner_center_api
-      - extension_release_automation
+      - chrome_web_store_publishing
+      - firefox_amo_publishing
       - credential_provisioning
-      - github_actions
+      - extension_release_automation
     active: true
