@@ -6,7 +6,7 @@ description: >-
   and Firefox Add-ons / AMO (API v5, HS256 JWT). Use whenever the task touches publishing or updating a
   browser extension on any store, a publish:edge / publish:chrome / publish:firefox script, the env vars
   EDGE_PRODUCT_ID / EDGE_API_KEY / EDGE_CLIENT_ID / CWS_CLIENT_ID / CWS_CLIENT_SECRET / CWS_REFRESH_TOKEN /
-  CWS_ITEM_ID / AMO_JWT_ISSUER / AMO_JWT_SECRET, enabling a store publish API, a failing upload, "submission
+  CWS_PUBLISHER_ID / CWS_ITEM_ID / AMO_JWT_ISSUER / AMO_JWT_SECRET, enabling a store publish API, a failing upload, "submission
   in progress" / "pending review" errors, or automating extension releases — and ESPECIALLY when you are
   tempted to conclude publishing is blocked because API credentials are missing. Missing credentials are a
   minutes-long console fix, never a blocker.
@@ -28,7 +28,7 @@ pending-review item. Reference implementations: `savemedia/packages/extension/sc
 | Store | Where | What you get | Auth on the wire |
 |---|---|---|---|
 | Edge | partner.microsoft.com → Edge program → Publish API → **Turn on API** | Client ID + API key (key shown once, ~14-month expiry) | `Authorization: ApiKey …` + `X-ClientID: …` |
-| Chrome | Google Cloud project → enable Chrome Web Store API → OAuth client → one-time consent for a refresh token | client id/secret + refresh token + item id | `Authorization: Bearer <access token from refresh grant>` |
+| Chrome | Google Cloud project → enable Chrome Web Store API → OAuth client → one-time consent for a refresh token | client id/secret + refresh token + publisher id + item id | `Authorization: Bearer <access token from refresh grant>` (API v2) |
 | Firefox | addons.mozilla.org/developers/addon/api/key/ (email-confirmation link, then keys appear) | JWT issuer (`user:…`) + JWT secret (shown once) | `Authorization: JWT <self-signed HS256, exp ≤ 5 min>` |
 
 Store values in CI secrets and/or macOS keychain (`security add-generic-password -U -a "$USER" -s NAME -w '…'`);
@@ -43,11 +43,12 @@ commit only the env var names.
 - Publish: `POST /v1/products/{productId}/submissions` with `{"notes":"…"}` → `202`; poll `…/submissions/operations/{id}`
 - Credential sanity check: GET an operations URL with a bogus GUID — **404 = auth OK** (401 = bad creds)
 
-### Chrome (Web Store API v1.1)
-- Token: `POST https://oauth2.googleapis.com/token` (client_id, client_secret, refresh_token, grant_type=refresh_token)
-- Upload: `PUT https://www.googleapis.com/upload/chromewebstore/v1.1/items/{itemId}` (zip bytes)
-- Publish: `POST https://www.googleapis.com/chromewebstore/v1.1/items/{itemId}/publish?publishTarget=default`
-- Status: `GET …/items/{itemId}?projection=DRAFT` → `crxVersion`, `uploadState`
+### Chrome (Web Store API v2 — v1.1 is deprecated, EOL 2026-10-15; do NOT write new v1.1 code)
+- Token: `POST https://oauth2.googleapis.com/token` (client_id, client_secret, refresh_token, grant_type=refresh_token) — refresh-token auth works fine with v2; a service account is optional, not required
+- Root `https://chromewebstore.googleapis.com`; paths need BOTH the publisher id (dashboard URL / Publisher → Settings) and the item id
+- Upload: `POST /upload/v2/publishers/{publisherId}/items/{itemId}:upload` (zip bytes; manifest version must be bumped)
+- Publish: `POST /v2/publishers/{publisherId}/items/{itemId}:publish` (publishes with existing visibility settings)
+- Status: `GET /v2/publishers/{publisherId}/items/{itemId}:fetchStatus` → `publishedItemRevisionStatus.state`, `crxVersion`
 
 ### Firefox (AMO API v5)
 - JWT: HS256, payload `{iss, jti: uuid, iat: now-5, exp: now+240}` — AMO rejects exp > 5 min
@@ -89,7 +90,7 @@ export EDGE_CLIENT_ID=$(security find-generic-password -a "$USER" -s EDGE_CLIENT
 node scripts/publish-edge.mjs release --notes "vX.Y.Z automated release"
 
 # Chrome
-export CWS_CLIENT_ID=… CWS_CLIENT_SECRET=… CWS_REFRESH_TOKEN=… CWS_ITEM_ID=…   # same keychain pattern
+export CWS_CLIENT_ID=… CWS_CLIENT_SECRET=… CWS_REFRESH_TOKEN=… CWS_PUBLISHER_ID=… CWS_ITEM_ID=…   # same keychain pattern
 node scripts/publish-chrome.mjs release
 
 # Firefox (attach source zip for bundled builds)
