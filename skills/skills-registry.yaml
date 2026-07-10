@@ -271,3 +271,26 @@ skills:
       - scoped_container_reap
       - teardown_discipline
     active: true
+
+  - id: edge-addons-publishing
+    name: "Edge Add-ons Publishing"
+    category: source-control
+    scope: domain
+    priority: 1
+    trigger: "edge add-ons, edge extension publish, publish:edge, partner center publish api, EDGE_PRODUCT_ID, EDGE_API_KEY, EDGE_CLIENT_ID, microsoftedge addons api, extension submission, edge store upload"
+    activation: manual
+    path: "skills/packs/edge-addons-publishing"
+    license: "Apache-2.0 repo wrapper; Edge Add-ons API facts from Microsoft Learn, verified end-to-end 2026-07-10"
+    compatibility: "Portable Markdown skill; reference script is dependency-free Node (global fetch). Credentials via env vars only."
+    description: |
+      Automated Microsoft Edge Add-ons store publishing via the Partner Center Publish API (ApiKey auth,
+      REST v1.1): enabling the API and minting credentials, upload/poll/publish flow, and verified failure
+      modes (first submission is manual, key shown only once, "submission in progress" race after a green
+      upload). Kills the wrong "can't publish, credentials missing" diagnosis.
+    capabilities:
+      - edge_addons_publishing
+      - partner_center_api
+      - extension_release_automation
+      - credential_provisioning
+      - github_actions
+    active: true

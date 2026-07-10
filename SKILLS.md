@@ -29,7 +29,7 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 2 | 2 |
-| Domain | 8 | 8 |
+| Domain | 9 | 9 |
 | Session | 2 | 2 |
 
 ---
@@ -46,7 +46,7 @@
 - **Domain Skills (Project-Scoped)**
   - [M Model Context Protocol](#model-context-protocol) (1)
     - [.NET](#.net) (1)
-  - [S Source Control Platforms](#source-control-platforms) (2)
+  - [S Source Control Platforms](#source-control-platforms) (3)
   - [F Frontend UI](#frontend-ui) (1)
     - [React](#react) (1)
   - [A Architecture Diagramming](#architecture-diagramming) (1)
@@ -192,6 +192,29 @@ references (policy form traps, index lag, orphaned v-tags, 409s).
 > **License:** `MIT repo wrapper; NuGet.org facts from Microsoft Learn, workflow pattern from the ANcpLua fleet`
 > **Compatibility:** Portable Markdown skill; the bundled workflow targets GitHub Actions + nuget.org Trusted Publishing (NuGet/login OIDC).
 > **Trigger:** `nuget publish, trusted publishing, nuget api key, dotnet nuget push, nuget-publish.yml, release workflow, authenticate to nuget, NuGet/login, package not on nuget.org, automate nuget release`
+
+
+**`Edge Add-ons Publishing`** &nbsp; `edge-addons-publishing` &nbsp; 👆 Manual &nbsp; P1
+
+Automated Microsoft Edge Add-ons store publishing via the Partner Center Publish API (ApiKey auth,
+REST v1.1): enabling the API and minting credentials, upload/poll/publish flow, and verified failure
+modes (first submission is manual, key shown only once, "submission in progress" race after a green
+upload). Kills the wrong "can't publish, credentials missing" diagnosis.
+
+<details>
+<summary>Capabilities</summary>
+
+- `edge_addons_publishing`
+- `partner_center_api`
+- `extension_release_automation`
+- `credential_provisioning`
+- `github_actions`
+
+</details>
+> **Path:** `skills/packs/edge-addons-publishing`
+> **License:** `Apache-2.0 repo wrapper; Edge Add-ons API facts from Microsoft Learn, verified end-to-end 2026-07-10`
+> **Compatibility:** Portable Markdown skill; reference script is dependency-free Node (global fetch). Credentials via env vars only.
+> **Trigger:** `edge add-ons, edge extension publish, publish:edge, partner center publish api, EDGE_PRODUCT_ID, EDGE_API_KEY, EDGE_CLIENT_ID, microsoftedge addons api, extension submission, edge store upload`
 
 
 </details>
@@ -448,4 +471,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-07-07 00:29:25 UTC | Skills: 12 | Categories: 10</sub>
+<sub>Generated: 2026-07-10 13:53:36 UTC | Skills: 13 | Categories: 10</sub>
