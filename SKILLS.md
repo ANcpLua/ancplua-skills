@@ -472,4 +472,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-07-10 14:43:16 UTC | Skills: 13 | Categories: 10</sub>
+<sub>Generated: 2026-07-10 15:29:48 UTC | Skills: 13 | Categories: 10</sub>

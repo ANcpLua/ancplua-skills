@@ -2,7 +2,7 @@
 name: extension-store-publishing
 description: >-
   Enable, wire up, and operate automated browser-extension publishing to all three stores — Microsoft Edge
-  Add-ons (Partner Center Publish API, ApiKey auth), Chrome Web Store (API v1.1, Google OAuth refresh token),
+  Add-ons (Partner Center Publish API, ApiKey auth), Chrome Web Store (API v2, Google OAuth refresh token),
   and Firefox Add-ons / AMO (API v5, HS256 JWT). Use whenever the task touches publishing or updating a
   browser extension on any store, a publish:edge / publish:chrome / publish:firefox script, the env vars
   EDGE_PRODUCT_ID / EDGE_API_KEY / EDGE_CLIENT_ID / CWS_CLIENT_ID / CWS_CLIENT_SECRET / CWS_REFRESH_TOKEN /
@@ -70,7 +70,7 @@ commit only the env var names.
   usually means the publish DID get accepted and a retry raced it — check Partner Center; if the version shows
   **In review**, the release succeeded. Don't resubmit.
 - Chrome: **"The item cannot be updated now because it is in pending review…"** means a version is already in
-  review (check `crxVersion` via projection=DRAFT) — expected state, not an error to fix.
+  review (check state via `:fetchStatus`) — expected state, not an error to fix.
 - Edge API key and AMO JWT secret are displayed **only once**. If lost, regenerate/rotate — you cannot re-read
   them (AMO masks the secret on revisits; regenerating revokes the old issuer suffix and mints a new one).
 - AMO keys only appear after clicking the **email confirmation link**; the key page before confirmation just
