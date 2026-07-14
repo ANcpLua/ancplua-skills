@@ -6,7 +6,9 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^skills/packs/maf-dotnet-source-of-truth/SKILL\\.md$"],
+      "managerFilePatterns": [
+        "/^skills/packs/maf-dotnet-source-of-truth/SKILL\\.md$/"
+      ],
       "matchStrings": [
         "<!-- renovate-pin: microsoft/agent-framework dotnet-(?<currentValue>[\\d.]+) -->"
       ],
