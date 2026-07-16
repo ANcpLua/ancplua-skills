@@ -199,19 +199,19 @@ await client.PollTaskUntilCompleteAsync(taskId, ct);
 await client.GetTaskResultAsync(taskId, ct);
 ```
 
-The 1.4.0 doc shows the canonical entry point is `CallToolAsync(CallToolRequestParams { ..., Task = new McpTaskMetadata { ... } })`, NOT a separate `CallToolAsTaskAsync` method. Verify the method still exists or is gone in 1.4.0 — if gone, rewrite to:
+**Resolved against the v1.4.1 release tree** (`McpClient.Methods.cs`): `CallToolAsTaskAsync` EXISTS as a client method, marked `[Experimental(MCPEXP001)]`, returning `ValueTask<McpTask>`:
 
 ```csharp
-var result = await client.CallToolAsync(new CallToolRequestParams
-{
-    Name = toolName,
-    Arguments = arguments,
-    Task = new McpTaskMetadata { TimeToLive = ... }
-}, ct);
-var taskId = result.Task!.TaskId;
-var completed = await client.PollTaskUntilCompleteAsync(taskId, ct);
-var resultJson = await client.GetTaskResultAsync(taskId, ct);
+public ValueTask<McpTask> CallToolAsTaskAsync(
+    string toolName,
+    IReadOnlyDictionary<string, object?>? arguments = null,
+    McpTaskMetadata? taskMetadata = null,      // ← new 3rd parameter
+    IProgress<ProgressNotificationValue>? progress = null,
+    RequestOptions? options = null,
+    CancellationToken cancellationToken = default)
 ```
+
+`GetTaskAsync`, `GetTaskResultAsync` (returns `JsonElement`), and `PollTaskUntilCompleteAsync` also exist on `McpClient`. The old positional call `CallToolAsTaskAsync(name, args, progress, ct)` no longer compiles — `taskMetadata` now sits where `progress` was. Rewrite to named arguments: `CallToolAsTaskAsync(name, args, progress: progress, cancellationToken: ct)`.
 
 Also the doc emphasises: **progress notifications are NOT the task-progress mechanism**. Task status moves through Working → Completed via the polling path. The `IProgress<ProgressNotificationValue>` flow in `QylMcpTaskExtensions` likely targets *intra-task* progress reports (server emits during work), not task lifecycle — verify with the Progress page.
 

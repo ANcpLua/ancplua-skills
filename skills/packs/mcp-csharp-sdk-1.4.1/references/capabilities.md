@@ -79,19 +79,7 @@ Calling a capability-required method on a peer that didn't advertise it throws `
 
 ## Protocol version negotiation
 
-Auto-handled by the SDK. SDK 1.4.0 defaults to the latest stable protocol (`2025-11-25`) unless you explicitly pin. To opt into draft MRTR, the client pins `DRAFT-2026-v1`:
-
-```csharp
-var options = new McpClientOptions
-{
-    ProtocolVersion = "DRAFT-2026-v1",
-    Handlers = new McpClientHandlers
-    {
-        ElicitationHandler = HandleElicitationAsync,
-        SamplingHandler = HandleSamplingAsync,
-    }
-};
-```
+Auto-handled by the SDK. SDK 1.4.1 defaults to the latest stable protocol (`2025-11-25`) unless you explicitly pin via `McpClientOptions.ProtocolVersion`. Supported revisions in 1.4.x: `2024-11-05`, `2025-03-26`, `2025-06-18`, `2025-11-25`. There is no draft revision to opt into — `DRAFT-2026-v1` / MRTR is not shipped in 1.4.x (see `mrtr.md`).
 
 After `initialize`:
 

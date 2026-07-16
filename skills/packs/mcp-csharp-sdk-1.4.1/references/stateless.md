@@ -6,8 +6,7 @@
 
 | Need | Mode |
 | --- | --- |
-| Legacy direct server-to-client requests: sampling / elicitation / roots | **Stateful** |
-| MRTR client input via `InputRequiredException` and `DRAFT-2026-v1` | **Stateless** |
+| Direct server-to-client requests: sampling / elicitation / roots | **Stateful** |
 | Unsolicited notifications (resource updates, async logs) | **Stateful** |
 | Resource subscriptions | **Stateful** |
 | Legacy SSE clients (`/sse` endpoint) | **Stateful + `EnableLegacySse = true`** |
@@ -39,7 +38,6 @@ builder.Services.AddMcpServer()
 - **DI scopes** — uses `HttpContext.RequestServices` directly. `ScopeRequests` forced to `false`. Middleware-set scoped state is visible to handlers
 - **Request cancellation** — handler `CancellationToken = HttpContext.RequestAborted`. Client disconnect = immediate cancel
 - **Distributed tracing** — `traceparent`/`tracestate` propagate via `_meta`, same as stateful
-- **MRTR** — `InputRequiredException` works in stateless when `DRAFT-2026-v1` is negotiated. Current stable stateless sessions cannot resolve MRTR input requests
 
 ## What stateful adds
 
@@ -124,9 +122,7 @@ In stateless this header is always null — but in that mode each request *is* t
 
 ## MRTR note
 
-SDK 1.4.0 includes experimental MRTR support for `DRAFT-2026-v1`. MRTR brings sampling / elicitation / roots to stateless-compatible tool flows by inverting the model: the server returns an incomplete result requesting input, and the client retries with `InputResponses` plus optional `RequestState`.
-
-Use `server.IsMrtrSupported` before throwing `InputRequiredException`. It is true for native draft MRTR, and for current-protocol stateful sessions where the SDK can resolve input requests through a compatibility path. It is false for current-protocol stateless sessions.
+**MRTR is not shipped in any 1.4.x package** — an earlier revision of this skill wrongly documented it as 1.4.0 surface (see `mrtr.md` for the verification and the correct 1.4.x alternatives). In 1.4.x there is no stateless-compatible path for sampling, form elicitation, or roots; only `UrlElicitationRequiredException` works statelessly.
 
 ## qyl.mcp implication
 
@@ -137,4 +133,4 @@ Use `server.IsMrtrSupported` before throwing `InputRequiredException`. It is tru
 - DI scoping uses ASP.NET request scope = `IQylConstraintInjector<TScope>` resolves through `HttpContext.RequestServices` as expected
 - `[Authorize]` + `AddAuthorizationFilters()` work the same — middleware populates `User` before MCP dispatch
 
-The Stateless-blocking features (legacy direct sampling/elicitation/roots/unsolicited notifications) are exactly the features that don't exist in qyl's tool inventory. If qyl needs interactive client input later, prefer MRTR over reverting to stateful sessions unless resource subscriptions or unsolicited notifications are also required.
+The Stateless-blocking features (direct sampling/elicitation/roots/unsolicited notifications) are exactly the features that don't exist in qyl's tool inventory. If qyl needs interactive client input later on 1.4.x, the choices are stateful sessions or `UrlElicitationRequiredException` (browser-resolvable flows only) — MRTR only arrives with the 2.0.0-preview line.

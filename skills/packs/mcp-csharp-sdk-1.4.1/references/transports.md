@@ -101,17 +101,9 @@ app.Run();
 
 ### Protocol version header
 
-Streamable HTTP carries the negotiated version in `MCP-Protocol-Version`. SDK 1.4.0's latest stable protocol is `2025-11-25`; draft MRTR uses `DRAFT-2026-v1`.
+Streamable HTTP carries the negotiated version in `MCP-Protocol-Version`. SDK 1.4.1 supports exactly these protocol revisions (grep-verified in the release tree's `McpSessionHandler.cs`): `2024-11-05`, `2025-03-26`, `2025-06-18`, `2025-11-25`. The latest, `2025-11-25`, is the default.
 
-Client opt-in:
-
-```csharp
-await using var client = await McpClient.CreateAsync(
-    transport,
-    new McpClientOptions { ProtocolVersion = "DRAFT-2026-v1" });
-```
-
-The draft also gates stricter HTTP-standardization behavior, including standard request headers such as `Mcp-Method`, `Mcp-Name`, and `Mcp-Param-*` values emitted from `[McpHeader]`.
+There is **no** `DRAFT-2026-v1` in 1.4.x — that draft revision, MRTR, and the `Mcp-Method` / `Mcp-Name` / `[McpHeader]` request headers are main-branch work for 2.0.0-preview (see `mrtr.md`).
 
 ### Host name validation
 
@@ -123,7 +115,7 @@ CORS off by default. If you need browser cross-origin requests, configure the mo
 
 ## Legacy SSE
 
-Disabled by default in 1.4.0 (`EnableLegacySse = false`, marked `[Obsolete]` with diagnostic `MCP9004`). Endpoints: `/sse` (long-lived GET) and `/message` (POST returns `202 Accepted`).
+Disabled by default in 1.4.x (`EnableLegacySse = false`, marked `[Obsolete]` with diagnostic `MCP9004`). Endpoints: `/sse` (long-lived GET) and `/message` (POST returns `202 Accepted`).
 
 ### Why disabled
 

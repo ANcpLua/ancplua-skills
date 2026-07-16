@@ -2,7 +2,7 @@
 
 Server-to-client LLM completion. The server delegates reasoning back to the client's LLM — typical use: summarisation, decision-making, generation from inside a tool.
 
-> Direct `SampleAsync` / `AsSamplingChatClient()` requires stateful HTTP or stdio. Stateless-compatible sampling uses MRTR; see `mrtr.md`.
+> `SampleAsync` / `AsSamplingChatClient()` requires stateful HTTP or stdio. **1.4.x has no stateless-compatible sampling path** — MRTR is not shipped in 1.4.x (see `mrtr.md`).
 
 ## Flow
 
@@ -84,42 +84,12 @@ if (server.ClientCapabilities?.Sampling is null)
 
 Calling `SampleAsync` on a client that doesn't advertise sampling, or from stateless HTTP, throws `InvalidOperationException`.
 
-## MRTR alternative in 1.4.0
+## No stateless sampling in 1.4.x
 
-`DRAFT-2026-v1` removes the legacy Streamable HTTP `sampling/createMessage` request method. For tools that must work in stateless HTTP or draft protocol, throw `InputRequiredException` and request sampling through MRTR:
-
-```csharp
-if (context.Params?.InputResponses?.TryGetValue("llm_call", out var response) is true)
-{
-    var sampled = response.Deserialize(InputResponse.CreateMessageResultJsonTypeInfo);
-    return sampled?.Content.OfType<TextContentBlock>().FirstOrDefault()?.Text ?? "";
-}
-
-if (!server.IsMrtrSupported)
-    return "This tool requires MRTR support.";
-
-throw new InputRequiredException(
-    inputRequests: new Dictionary<string, InputRequest>
-    {
-        ["llm_call"] = InputRequest.ForSampling(new CreateMessageRequestParams
-        {
-            Messages =
-            [
-                new SamplingMessage
-                {
-                    Role = Role.User,
-                    Content = [new TextContentBlock { Text = "Summarise this document." }]
-                }
-            ],
-            MaxTokens = 256
-        })
-    });
-```
-
-Use `server.IsMrtrSupported` before throwing. On current stable protocol, MRTR only resolves in stateful sessions; on `DRAFT-2026-v1`, it is native and works in stateless.
+There is no MRTR / `InputRequiredException` path in any shipped 1.4.x package (`mrtr.md` has the verification). A tool that needs a client-side LLM call must run under a stateful HTTP session or stdio. If the deployment must stay stateless, restructure: do the LLM work server-side, or split the tool so the client performs the reasoning between calls.
 
 ## Important
 
 - Latency: each `SampleAsync` is a network roundtrip *plus* an LLM inference on the client. Don't chain unguarded.
 - Cost / consent: the client's LLM is paying — show prompts to the user where appropriate
-- Stateless servers can't use direct `SampleAsync`; use MRTR for the stateless-compatible path
+- Stateless servers can't use `SampleAsync` at all in 1.4.x — there is no stateless-compatible sampling path

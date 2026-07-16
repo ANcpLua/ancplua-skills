@@ -86,6 +86,6 @@ Use when you want a single observer for multiple in-flight calls, or for cross-c
 
 Today's extension registers an `IProgress<ProgressNotificationValue>` and passes it via `CallToolAsTaskAsync(toolName, args, progress: ..., ct)`. That's pattern A and is correct in principle.
 
-Two things to verify against the SDK in 1.4.0:
-1. Does `CallToolAsTaskAsync(toolName, args, IProgress<>, ct)` exist as a method, or has it been replaced by `CallToolAsync(CallToolRequestParams { ..., Task = ... })` with progress passed separately? See `tasks.md` — the canonical 1.4.0 task entry is `CallToolAsync` with `Task` metadata, not a separate method.
+Resolved against the v1.4.1 release tree, plus one open design point:
+1. `CallToolAsTaskAsync` exists in 1.4.x (`[Experimental(MCPEXP001)]`, returns `ValueTask<McpTask>`) — but its signature is `(toolName, arguments, taskMetadata, progress, options, ct)`, so the old positional `(toolName, args, progress, ct)` call no longer compiles. Pass `progress:` by name. See `tasks.md` for the full signature.
 2. The bridge currently emits `mcp.task.progress` ActivityEvents. This conflates two things: task lifecycle (Working → Completed) and intra-task progress. They are distinct in the SDK — progress fires via `notifications/progress`, task status via `tasks/status`. Consider separating the two event sources.

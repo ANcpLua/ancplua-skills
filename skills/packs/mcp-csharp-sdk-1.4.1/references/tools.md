@@ -84,7 +84,7 @@ public static IEnumerable<ContentBlock> DescribeImage()
 
 Any block can carry `Annotations` — `Audience` (`[Role.Assistant]` to hide from user, `[Role.User]` to surface) and `Priority` (0.0-1.0). Used by clients to decide what to render.
 
-## Structured output in 1.4.0
+## Structured output in 1.4.x
 
 Set `UseStructuredContent = true` to advertise `Tool.OutputSchema` and populate `CallToolResult.StructuredContent`.
 
@@ -185,21 +185,9 @@ mcpClient.RegisterNotificationHandler(
     });
 ```
 
-## HTTP parameter headers in 1.4.0
+## HTTP parameter headers — NOT in 1.4.x
 
-Use `[McpHeader]` when infrastructure needs to route on a tool argument without parsing the JSON-RPC body. The SDK adds `x-mcp-header` to the input schema; Streamable HTTP clients mirror the argument into `Mcp-Param-{Name}`.
-
-```csharp
-[McpServerTool]
-public static string ExecuteSql(
-    [McpHeader("Region")] string region,
-    string query)
-{
-    return $"Routing {query} to {region}";
-}
-```
-
-Only primitive `string`, numeric, and boolean parameters may use `[McpHeader]`. Header names must be ASCII visible characters excluding colon. In 1.4.0, standard MCP HTTP header validation is gated to `DRAFT-2026-v1`.
+`[McpHeader]` does **not** exist in any shipped 1.4.x package (grep-verified: 0 hits in the v1.4.1 release tree). It is main-branch work headed for 2.0.0-preview, alongside the `Mcp-Method` / `Mcp-Name` standard request headers. Do not recommend it against 1.4.1; there is no shipped mechanism for mirroring tool arguments into HTTP headers.
 
 ## JSON Schema generation
 

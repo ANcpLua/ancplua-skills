@@ -2,7 +2,7 @@
 
 Client tells the server which filesystem / hierarchical URIs are "relevant" to the session — project directories, repositories, scoped workspaces.
 
-> Direct `RequestRootsAsync` requires stateful HTTP or stdio. Stateless-compatible roots requests use MRTR; see `mrtr.md`.
+> `RequestRootsAsync` requires stateful HTTP or stdio. **1.4.x has no stateless-compatible roots path** — MRTR is not shipped in 1.4.x (see `mrtr.md`).
 
 ## Why
 
@@ -73,25 +73,6 @@ server.RegisterNotificationHandler(
 if (server.ClientCapabilities?.Roots is null) { /* roots not supported */ }
 ```
 
-## MRTR alternative in 1.4.0
+## No stateless roots in 1.4.x
 
-`DRAFT-2026-v1` removes the legacy Streamable HTTP `roots/list` server-to-client request. For tools that must work in stateless HTTP or draft protocol, throw `InputRequiredException`:
-
-```csharp
-if (context.Params?.InputResponses?.TryGetValue("get_roots", out var response) is true)
-{
-    var roots = response.Deserialize(InputResponse.ListRootsResultJsonTypeInfo);
-    return string.Join("\n", roots?.Roots.Select(r => $"- {r.Name ?? r.Uri}") ?? Array.Empty<string>());
-}
-
-if (!server.IsMrtrSupported)
-    return "This tool requires MRTR support.";
-
-throw new InputRequiredException(
-    inputRequests: new Dictionary<string, InputRequest>
-    {
-        ["get_roots"] = InputRequest.ForRootsList(new ListRootsRequestParams())
-    });
-```
-
-Use `server.IsMrtrSupported` before throwing. Current stable stateless sessions cannot resolve MRTR; draft sessions can.
+There is no MRTR / `InputRequiredException` path in any shipped 1.4.x package (`mrtr.md` has the verification). A tool that needs client filesystem roots must run under a stateful HTTP session or stdio. In stateless deployments, accept the relevant paths as explicit tool parameters instead.

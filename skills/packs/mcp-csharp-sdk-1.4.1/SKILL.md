@@ -1,13 +1,27 @@
 ---
-name: mcp-csharp-sdk-1.4.0
-description: Authoritative reference for the Model Context Protocol C#/.NET SDK 1.4.0. Use for MCP servers, clients, tools, prompts, resources, transports, sessions, tasks, sampling, elicitation, roots, identity, auth, filters, completions, logging, pagination, HTTP context, McpServer, McpClient, and ModelContextProtocol.* APIs. Always load the relevant reference file before answering.
+name: mcp-csharp-sdk-1.4.1
+description: Authoritative reference for the Model Context Protocol C#/.NET SDK 1.4.1. Use for MCP servers, clients, tools, prompts, resources, transports, sessions, tasks, sampling, elicitation, roots, identity, auth, filters, completions, logging, pagination, HTTP context, McpServer, McpClient, and ModelContextProtocol.* APIs. Always load the relevant reference file before answering.
 ---
 
-# MCP C# SDK 1.4.0 — Expert Reference
+# MCP C# SDK 1.4.1 — Expert Reference
 
-This skill is the authoritative reference for the MCP C# SDK at v1.4.0. It mirrors the conceptual documentation at https://csharp.sdk.modelcontextprotocol.io/concepts/index.html, distilled to load-bearing API surfaces, code patterns, and sharp edges.
+This skill is the authoritative reference for the MCP C# SDK at v1.4.1. It mirrors the conceptual documentation at https://csharp.sdk.modelcontextprotocol.io/concepts/index.html, distilled to load-bearing API surfaces, code patterns, and sharp edges.
 
-**Always consult the right reference file before answering** — pre-1.4.0 patterns (e.g. `CallToolAsTaskAsync(toolName, args, progress, ct)` as a standalone method, the older `WithSubscribeToResourcesHandler` shape, lifecycle changes in `IMcpTaskStore`) are not canonical.
+**Always consult the right reference file before answering** — pre-1.4.x patterns (e.g. the old positional `CallToolAsTaskAsync(toolName, args, progress, ct)` signature — the method exists but `taskMetadata` is now the 3rd parameter, the older `WithSubscribeToResourcesHandler` shape, lifecycle changes in `IMcpTaskStore`) are not canonical. Neither are post-1.4.x main-branch features (MRTR, `DRAFT-2026-v1`, `[McpHeader]`, MCP Apps) — main is the 2.0.0-preview line; see `references/mrtr.md`.
+
+## What changed in 1.4.1 (vs 1.4.0)
+
+Exactly one code change (verified: `diff` of the two release trees touches only `src/ModelContextProtocol.Core/Server/StreamableHttpServerTransport.cs`, `Directory.Build.props`, and `PACKAGE.md`):
+
+- **SSE memory-leak fix** (PR #1628): `StreamableHttpServerTransport` now disposes its `SseEventWriter` (and thus releases the SSE response-stream reference) in a `finally` block as soon as the GET request ends, instead of holding it until the session is disposed via explicit DELETE or idle timeout. Long-lived SSE clients that disconnect without DELETE no longer pin the Kestrel connection and its memory-pool buffers (~20 MiB/session). `SendMessageAsync` now null-checks the writer (messages still go to the resumability event store when configured, so `Last-Event-ID` replay is unaffected).
+
+No API surface changed. Everything else in this pack applies to 1.4.0 and 1.4.1 equally.
+
+## Provenance — how this pack was verified (and a trap to avoid)
+
+Claims here were grep-verified against the **actual release tree**: `github.com/modelcontextprotocol/csharp-sdk` commit `2b7fd35` = tag `v1.4.1` on branch `release/1.x` (`src/Directory.Build.props` → `VersionPrefix 1.4.1`), cross-checked against string contents of the shipped `ModelContextProtocol.Core.dll` (`InformationalVersion 1.4.1+2b7fd35...`). `git log v1.4.0..v1.4.1` contains only the #1628 backport plus release prep. A full clone lives at `~/RiderProjects/qyl-references/csharp-sdk` for future verification — but note its default checkout is `main` (= 2.0.0-preview); always `git switch --detach v1.4.1` (or diff against the tag) before grounding 1.4.x claims.
+
+⚠️ **Trap:** a source checkout resolved from nupkg commit metadata can silently contain the wrong tree (observed 2026-07-16: an opensrc cache directory named by the 1.4.x release SHA actually held main-branch 2.0.0-preview source). Before grounding any claim in a checkout, confirm its `src/Directory.Build.props` `VersionPrefix` matches the package version. An earlier revision of this pack documented main-only MRTR APIs as 1.4.0 surface because of exactly this failure.
 
 ## How to use this skill
 
@@ -24,7 +38,7 @@ When a request touches an MCP concept, read the matching reference file from `re
 | Progress notifications, `IProgress<>`, progressToken | `references/progress.md` |
 | Cancellation, `notifications/cancelled`, `tasks/cancel` | `references/cancellation.md` |
 | Long-running operations, `IMcpTaskStore`, `InMemoryMcpTaskStore`, `ToolTaskSupport`, fault tolerance | `references/tasks.md` |
-| MRTR / `DRAFT-2026-v1`, `InputRequiredException`, stateless client input | `references/mrtr.md` |
+| MRTR / `DRAFT-2026-v1` / `InputRequiredException` (**not shipped in 1.4.x** — read before denying or affirming) | `references/mrtr.md` |
 | Sampling (server→client LLM calls) | `references/sampling.md` |
 | Roots (client filesystem URIs) | `references/roots.md` |
 | Elicitation, Form vs URL mode, `UrlElicitationRequiredException` | `references/elicitation.md` |
@@ -34,7 +48,7 @@ When a request touches an MCP concept, read the matching reference file from `re
 | Completions — `[AllowedValues]`, `WithCompleteHandler` | `references/completions.md` |
 | Logging — server→client log notifications, level mapping | `references/logging.md` |
 | Pagination, cursors, manual page-by-page | `references/pagination.md` |
-| Stateless vs stateful, sessions, `Mcp-Session-Id`, DI scope, backpressure, MRTR | `references/stateless.md` |
+| Stateless vs stateful, sessions, `Mcp-Session-Id`, DI scope, backpressure | `references/stateless.md` |
 | `IHttpContextAccessor`, headers / query / route values | `references/httpcontext.md` |
 | Filters — message filters, request filters, common patterns | `references/filters.md` |
 | Identity, `ClaimsPrincipal` injection, `[Authorize]`, `AddAuthorizationFilters`, stdio identity | `references/identity.md` |
@@ -46,8 +60,7 @@ When a request touches an MCP concept, read the matching reference file from `re
 ```
 Local single-process integration (IDE, CLI tool) → stdio
 Remote / multi-user, no GET-channel features needed → Streamable HTTP, Stateless = true
-Remote with legacy sampling / elicitation / roots / resource subscriptions → Streamable HTTP, Stateless = false
-Remote with sampling / elicitation / roots through MRTR → Streamable HTTP, Stateless = true + DRAFT-2026-v1
+Remote with sampling / elicitation / roots / resource subscriptions → Streamable HTTP, Stateless = false
 Legacy clients only speak SSE → Stateful + EnableLegacySse = true (transitional)
 ```
 
@@ -61,7 +74,6 @@ Legacy clients only speak SSE → Stateful + EnableLegacySse = true (transitiona
 | Multi-replica deployment without sticky sessions? | ✗ | ✓ |
 | Serverless / Lambda / Functions? | ✗ | ✓ |
 | Local dev where editor "reset" = new session? | ✓ | ✗ |
-| MRTR via `InputRequiredException` and `DRAFT-2026-v1`? | ✓ | ✓ |
 
 **Always set explicitly.** The current SDK default (`false`) is expected to change. Setting it explicitly insulates you from that.
 
@@ -126,7 +138,6 @@ The full list is in `references/stateless.md`. Quick summary of what *only works
 What **does still work in stateless**:
 - `notifications/progress` — written into the open POST response stream during a handler, not via GET channel
 - Tasks (full lifecycle) — store is shared across ephemeral server instances
-- MRTR via `InputRequiredException` when `DRAFT-2026-v1` is negotiated
 - `ClaimsPrincipal` injection, `[Authorize]`, `AddAuthorizationFilters()`
 - `IHttpContextAccessor`
 - `UrlElicitationRequiredException` (stateless escape hatch for OAuth-style flows)
@@ -230,5 +241,5 @@ Including those you may have forgotten to delete. Prefer explicit `WithTools<T>(
   - `LongRunningTasks` — File-based `IMcpTaskStore` + `McpTask` returning tools
   - `AspNetCoreMcpPerSessionTools` — Per-session tool filtering via `ConfigureSessionOptions`
   - `InMemoryTransport` — Custom transport setup with `McpServer.Create`
-- MRTR docs: `references/mrtr.md` and SDK docs `docs/concepts/mrtr/mrtr.md`
+- MRTR: `references/mrtr.md` — a correction note; MRTR is NOT in 1.4.x (the upstream `docs/concepts/mrtr/` docs describe main-branch 2.0.0-preview surface)
 - Protocol spec: https://modelcontextprotocol.io/specification/2025-11-25

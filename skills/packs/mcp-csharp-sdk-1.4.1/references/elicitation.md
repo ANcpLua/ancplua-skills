@@ -7,7 +7,7 @@ Server-to-client request for **additional input from the user** mid-tool-executi
 | **Form (in-band)** | Structured fields — strings, numbers, booleans, single-/multi-select enums. Client renders a form |
 | **URL (out-of-band)** | OAuth flows, payment, sensitive credential entry. Client opens a URL in a browser |
 
-> Direct form `ElicitAsync` requires stateful HTTP or stdio. Stateless-compatible form input uses MRTR; URL mode also has a stateless-compatible escape hatch via `UrlElicitationRequiredException`.
+> Form-mode `ElicitAsync` requires stateful HTTP or stdio — **1.4.x has no stateless-compatible form-input path** (MRTR is not shipped in 1.4.x; see `mrtr.md`). URL mode has a stateless-compatible escape hatch via `UrlElicitationRequiredException`.
 
 ## Server — Form mode
 
@@ -103,39 +103,9 @@ public async Task<string> AccessThirdParty(McpServer server, CancellationToken c
 
 Works in stateless mode because it's a *result* sent down the POST stream, not an in-flight server→client request. The client opens the URL, gets consent, and **retries the original call**. Optional `notifications/elicitation/complete` notification when the out-of-band step finishes.
 
-## Server — MRTR form mode in 1.4.0
+## No stateless form elicitation in 1.4.x
 
-For stateless-compatible structured input, throw `InputRequiredException` instead of calling `ElicitAsync`:
-
-```csharp
-if (context.Params?.InputResponses?.TryGetValue("user_input", out var response) is true)
-{
-    var result = response.Deserialize(InputResponse.ElicitResultJsonTypeInfo);
-    return result?.Content?["name"].ToString() ?? "";
-}
-
-if (!server.IsMrtrSupported)
-    return "This tool requires MRTR support.";
-
-throw new InputRequiredException(
-    inputRequests: new Dictionary<string, InputRequest>
-    {
-        ["user_input"] = InputRequest.ForElicitation(new ElicitRequestParams
-        {
-            Message = "Configure your preferences",
-            RequestedSchema = new()
-            {
-                Properties = new Dictionary<string, ElicitRequestParams.PrimitiveSchemaDefinition>
-                {
-                    ["name"] = new ElicitRequestParams.StringSchema { Description = "Display name" }
-                }
-            }
-        })
-    },
-    requestState: "awaiting-user-input");
-```
-
-Direct `ElicitAsync` still works for stdio and current-protocol stateful HTTP. Under draft Streamable HTTP, prefer MRTR.
+There is no MRTR / `InputRequiredException` path in any shipped 1.4.x package (`mrtr.md` has the verification). Form-mode `ElicitAsync` works only for stdio and stateful HTTP. In stateless deployments the options are: accept the input as an explicit tool parameter up front, or — for browser-resolvable flows (OAuth, payment, credential entry) — throw `UrlElicitationRequiredException`, which IS stateless-compatible.
 
 ## Client — handler
 

@@ -164,4 +164,4 @@ qyl uses resources for UI Apps:
 - `UriTemplate = "ui://qyl/error-explorer"` (Anthropic MCP UI Apps convention)
 - `MimeType = "text/html;profile=mcp-app"`
 
-That pattern stays valid in 1.4.0 — direct resources with HTML content. The MIME profile is purely a client-side hint (Anthropic uses it to recognise renderable UI). No SDK changes touch it.
+That pattern stays valid in 1.4.x — direct resources with HTML content. The MIME profile is purely a client-side hint (Anthropic uses it to recognise renderable UI). No SDK changes touch it.
