@@ -2,6 +2,8 @@
 
 **Status:** Experimental in spec (`2025-11-25` draft). API may change.
 
+**Scope: 1.4.x only.** In `v2.0.0-preview.3` (2026-07-15) the entire task API left `ModelContextProtocol.Core` for a separate `ModelContextProtocol.Extensions.Tasks` package, `PollTaskUntilCompleteAsync`/`GetTaskResultAsync` were deleted, and the `IProgress` parameter and `[Experimental]` gating are gone. If the target is `2.0.0-preview.*`, read `tasks-2.0-preview.md` instead — none of this file applies.
+
 ## What it is
 
 A "call-now, fetch-later" pattern. Client initiates a tool call with a `Task` augmentation, server creates a task record and returns `taskId` immediately, client polls / receives notifications, then fetches the result. Lets clients disconnect/reconnect across long operations.
@@ -167,6 +169,8 @@ The `FileBasedMcpTaskStore` in the LongRunningTasks sample is the simplest examp
 
 ## Delta vs ANcpLua.Agents.Mcp.Hosting.Tasks
 
+> **Package deleted.** `ANcpLua.Agents.Mcp.Hosting` was removed from `ANcpLua.Agents` in commit `83a8b5d` ("Purge agents toolkit to instrumentation core", 2026-06-04); that repo's `CLAUDE.md` now forbids re-adding MCP wrappers. The `0.1.0` package remains listed on nuget.org. Kept as a design record — the action items below are not live work.
+
 Today's `WithInMemoryTaskStore` extension in the library:
 
 ```csharp
@@ -190,6 +194,8 @@ Action when rewriting `WithInMemoryTaskStore`:
 4. Add `sendStatusNotifications` param defaulting to `false` and apply to `McpServerOptions.SendTaskStatusNotifications`
 
 ## Delta vs ANcpLua.Agents.Mcp.QylMcpTaskExtensions
+
+> **Package deleted** (same commit `83a8b5d`). Kept as a design record. Note that on 2.0 this wrapper has no straightforward port: two of its three calls no longer exist, and the `IProgress` bridge it was built around is not a parameter of the 2.0 task API at all — see `tasks-2.0-preview.md`.
 
 The client-side `RunQylToolAsTaskAsync` uses signatures from an older API surface:
 

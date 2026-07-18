@@ -7,7 +7,7 @@ description: Authoritative reference for the Model Context Protocol C#/.NET SDK 
 
 This skill is the authoritative reference for the MCP C# SDK at v1.4.1. It mirrors the conceptual documentation at https://csharp.sdk.modelcontextprotocol.io/concepts/index.html, distilled to load-bearing API surfaces, code patterns, and sharp edges.
 
-**Always consult the right reference file before answering** — pre-1.4.x patterns (e.g. the old positional `CallToolAsTaskAsync(toolName, args, progress, ct)` signature — the method exists but `taskMetadata` is now the 3rd parameter, the older `WithSubscribeToResourcesHandler` shape, lifecycle changes in `IMcpTaskStore`) are not canonical. Neither are post-1.4.x main-branch features (MRTR, `DRAFT-2026-v1`, `[McpHeader]`, MCP Apps) — main is the 2.0.0-preview line; see `references/mrtr.md`.
+**Always consult the right reference file before answering** — pre-1.4.x patterns (e.g. the old positional `CallToolAsTaskAsync(toolName, args, progress, ct)` signature — the method exists but `taskMetadata` is now the 3rd parameter, the older `WithSubscribeToResourcesHandler` shape, lifecycle changes in `IMcpTaskStore`) are not canonical. Neither are post-1.4.x main-branch features (MRTR, `DRAFT-2026-v1`, `[McpHeader]`, MCP Apps, and the extraction of tasks into `ModelContextProtocol.Extensions.Tasks`) — main is the 2.0.0-preview line; see `references/mrtr.md` and `references/tasks-2.0-preview.md`.
 
 ## What changed in 1.4.1 (vs 1.4.0)
 
@@ -38,6 +38,7 @@ When a request touches an MCP concept, read the matching reference file from `re
 | Progress notifications, `IProgress<>`, progressToken | `references/progress.md` |
 | Cancellation, `notifications/cancelled`, `tasks/cancel` | `references/cancellation.md` |
 | Long-running operations, `IMcpTaskStore`, `InMemoryMcpTaskStore`, `ToolTaskSupport`, fault tolerance | `references/tasks.md` |
+| Tasks on `2.0.0-preview.*` — `ModelContextProtocol.Extensions.Tasks`, `CallToolWithPollingAsync`, `WithTasks` (**different package and shape than 1.4.x**) | `references/tasks-2.0-preview.md` |
 | MRTR / `DRAFT-2026-v1` / `InputRequiredException` (**not shipped in 1.4.x** — read before denying or affirming) | `references/mrtr.md` |
 | Sampling (server→client LLM calls) | `references/sampling.md` |
 | Roots (client filesystem URIs) | `references/roots.md` |
@@ -242,4 +243,5 @@ Including those you may have forgotten to delete. Prefer explicit `WithTools<T>(
   - `AspNetCoreMcpPerSessionTools` — Per-session tool filtering via `ConfigureSessionOptions`
   - `InMemoryTransport` — Custom transport setup with `McpServer.Create`
 - MRTR: `references/mrtr.md` — a correction note; MRTR is NOT in 1.4.x (the upstream `docs/concepts/mrtr/` docs describe main-branch 2.0.0-preview surface)
+- Tasks on 2.0: `references/tasks-2.0-preview.md` — a correction note; the task API left `Core` for the separate `ModelContextProtocol.Extensions.Tasks` package in `v2.0.0-preview.3` (2026-07-15). The upstream tasks docs at `csharp.sdk.modelcontextprotocol.io` now describe that surface, not 1.4.x.
 - Protocol spec: https://modelcontextprotocol.io/specification/2025-11-25

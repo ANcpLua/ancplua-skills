@@ -84,6 +84,10 @@ Use when you want a single observer for multiple in-flight calls, or for cross-c
 
 ## qyl.mcp implication for `QylMcpTaskExtensions.RunQylToolAsTaskAsync`
 
+> **Package deleted.** `ANcpLua.Agents.Mcp` was removed in commit `83a8b5d` (2026-06-04). Kept as a design record.
+>
+> **On 2.0 this pattern has no port.** `CallToolAsTaskAsync` takes a `CallToolRequestParams` and a `CancellationToken` — nothing else. `IProgress`, `ProgressNotificationValue`, and `ProgressToken` have zero occurrences in the whole `ModelContextProtocol.Extensions.Tasks` package. A telemetry bridge on 2.0 has to hang off the client's notification handler instead of the call. See `tasks-2.0-preview.md`.
+
 Today's extension registers an `IProgress<ProgressNotificationValue>` and passes it via `CallToolAsTaskAsync(toolName, args, progress: ..., ct)`. That's pattern A and is correct in principle.
 
 Resolved against the v1.4.1 release tree, plus one open design point:
