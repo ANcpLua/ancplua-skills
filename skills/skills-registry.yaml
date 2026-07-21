@@ -295,3 +295,90 @@ skills:
       - credential_provisioning
       - extension_release_automation
     active: true
+
+  - id: emil-design-eng
+    name: "Emil Design Engineering"
+    category: frontend
+    scope: domain
+    priority: 2
+    trigger: "ui polish, design engineering, interface feel, component design philosophy, invisible details"
+    activation: manual
+    path: "skills/packs/emil-design-eng"
+    license: "MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)"
+    compatibility: "Portable Markdown skill; upstream README kept as README-upstream.md for provenance."
+    description: |
+      Emil Kowalski's design-engineering philosophy: UI polish, component design, animation decisions, and the
+      invisible details that make software feel great.
+    capabilities:
+      - ui_polish
+      - component_design
+      - design_philosophy
+    active: true
+
+  - id: animation-vocabulary
+    name: "Animation Vocabulary"
+    category: frontend
+    scope: domain
+    priority: 2
+    trigger: "animation vocabulary, easing, spring animation, duration curves, motion language"
+    activation: manual
+    path: "skills/packs/animation-vocabulary"
+    license: "MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)"
+    compatibility: "Portable Markdown skill."
+    description: |
+      Shared vocabulary for describing and choosing web UI motion: easing, springs, durations, and when to use which.
+    capabilities:
+      - animation
+      - motion_design
+    active: true
+
+  - id: apple-design
+    name: "Apple Design"
+    category: frontend
+    scope: domain
+    priority: 2
+    trigger: "apple design, hig, human interface guidelines, apple-like ui, native feel"
+    activation: manual
+    path: "skills/packs/apple-design"
+    license: "MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)"
+    compatibility: "Portable Markdown skill."
+    description: |
+      Apple-inspired interface design principles for building UIs with native-quality feel.
+    capabilities:
+      - apple_hig
+      - ui_design
+    active: true
+
+  - id: improve-animations
+    name: "Improve Animations"
+    category: frontend
+    scope: session
+    priority: 2
+    trigger: "improve animations, animation audit, fix janky animation, motion review"
+    activation: manual
+    path: "skills/packs/improve-animations"
+    license: "MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)"
+    compatibility: "Portable Markdown skill with AUDIT.md and PLAN-TEMPLATE.md worksheets."
+    description: |
+      Audit existing UI animations and produce a concrete improvement plan (worksheet-driven).
+    capabilities:
+      - animation_audit
+      - motion_improvement
+    active: true
+
+  - id: review-animations
+    name: "Review Animations"
+    category: frontend
+    scope: session
+    priority: 2
+    trigger: "review animations, animation standards, motion quality check"
+    activation: manual
+    path: "skills/packs/review-animations"
+    license: "MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)"
+    compatibility: "Portable Markdown skill with STANDARDS.md reference."
+    description: |
+      Review UI animations against a written motion-quality standard.
+    capabilities:
+      - animation_review
+      - motion_standards
+    active: true

@@ -16,13 +16,13 @@ license: Apache-2.0
 
 # MAF .NET Source-of-Truth — grep the pinned tree, never the docs
 
-**Provenance: every API claim below was grep-verified on 2026-07-16 against tag `dotnet-1.13.0` (`ee65f5329`) in the local clone at `~/RiderProjects/qyl-references/agent-framework-dotnet` (sparse, `dotnet/` only, blob-less).** Not from Microsoft Learn, not from memory. The renames are real: `AgentThread` has **0** references in `dotnet/src/*.cs` at the tag; `AgentSession` has **371**. Treat anything you remember about `AgentThread` / `AgentRunResponse` as outdated.
+**Provenance: every API claim below was grep-verified on 2026-07-16 against tag `dotnet-1.13.0` (`ee65f5329`) in a local `microsoft/agent-framework` reference clone (in this workspace: `qyl-references/agent-framework-dotnet`; sparse, `dotnet/` only, blob-less).** Not from Microsoft Learn, not from memory. The renames are real: `AgentThread` has **0** references in `dotnet/src/*.cs` at the tag; `AgentSession` has **371**. Treat anything you remember about `AgentThread` / `AgentRunResponse` as outdated.
 
 Breaking-change scan `dotnet-1.10.0..dotnet-1.13.0`: 7 .NET `[BREAKING]` commits, **all in hosting / skills / file-access surfaces** (OpenAI Hosting OptionsMapping #6855, FileAccess/FileMemory store API #6807 #6474, Azure.AI.AgentServer 2.0 + Foundry.Hosting #6800, AgentSkillsProvider approval defaults #6729 #6521, AgentMcpSkillsSource archive skills #6631). The core agent API (`AIAgent`, `ChatClientAgent`, `AgentSession`, `AgentResponse`, run/session/serialize methods) is unchanged since 1.10.0 — every signature below re-verified at 1.13.0. If you touch MAF hosting, file tools, or skills providers, read those PRs first.
 
 > 🚨 **Microsoft Learn and devblogs lag the source by weeks-to-months and silently keep pre-GA and GA-era (`1.0`, April 2026) signatures alive long after they were renamed. The cloned, SHA-pinned source is the only authority for any type name, method name, or signature.** Docs are allowed only for conceptual "why" and migration narrative.
 
-Local source root (set this): `MAF_SRC=~/RiderProjects/qyl-references/agent-framework-dotnet/dotnet`. (The previous `qyl-workspace/agent-framework-dotnet-rootsource` checkout was deleted.) This is a full `microsoft/agent-framework` clone, so source is `$MAF_SRC/src/**` and tests `$MAF_SRC/tests/**` under the `dotnet/` subtree. ⚠️ The clone's working tree is `main`, which drifts ahead of releases — for signature claims, grep **at the tag**: `git -C "$MAF_SRC/.." grep '<symbol>' dotnet-1.13.0 -- 'dotnet/src/*.cs'` (blob-less clone fetches blobs on demand).
+Local source root (set this): `MAF_SRC=<your agent-framework clone>/dotnet` (in this workspace the clone is `qyl-references/agent-framework-dotnet`). (The previous `qyl-workspace/agent-framework-dotnet-rootsource` checkout was deleted.) This is a full `microsoft/agent-framework` clone, so source is `$MAF_SRC/src/**` and tests `$MAF_SRC/tests/**` under the `dotnet/` subtree. ⚠️ The clone's working tree is `main`, which drifts ahead of releases — for signature claims, grep **at the tag**: `git -C "$MAF_SRC/.." grep '<symbol>' dotnet-1.13.0 -- 'dotnet/src/*.cs'` (blob-less clone fetches blobs on demand).
 
 ## When to Use
 
@@ -147,7 +147,7 @@ gh api repos/microsoft/agent-framework/releases \
 ## Refresh ritual (when you bump the pinned version)
 
 ```bash
-MAF_REPO=~/RiderProjects/qyl-references/agent-framework-dotnet   # full clone; dotnet code under dotnet/
+MAF_REPO=<your agent-framework clone>   # e.g. qyl-references/agent-framework-dotnet; dotnet code under dotnet/
 NEW_TAG=dotnet-X.Y.Z    # ← the tag you are refreshing to (this file's current pin: dotnet-1.13.0)
 
 # 0. Fetch tags (the clone drifts) and record the tag SHA you verify against.

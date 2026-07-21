@@ -94,4 +94,4 @@ Before answering any task question, check the actual package version.
 - `1.4.x` → `tasks.md`. Three-step lifecycle, `IProgress` parameter, `[Experimental(MCPEXP001)]`, `McpServerOptions.TaskStore`.
 - `2.0.0-preview.*` → this file. One-call polling, no `IProgress`, no `[Experimental]`, `WithTasks(...)`, separate package.
 
-Confirm the checkout's `src/Directory.Build.props` `VersionPrefix` before grounding any claim in source — the local clone at `~/RiderProjects/qyl-references/csharp-sdk` defaults to `main`.
+Confirm the checkout's `src/Directory.Build.props` `VersionPrefix` before grounding any claim in source — a local clone of `modelcontextprotocol/csharp-sdk` typically defaults to `main`.

@@ -29,8 +29,8 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 2 | 2 |
-| Domain | 9 | 9 |
-| Session | 2 | 2 |
+| Domain | 12 | 12 |
+| Session | 4 | 4 |
 
 ---
 
@@ -47,7 +47,7 @@
   - [M Model Context Protocol](#model-context-protocol) (1)
     - [.NET](#.net) (1)
   - [S Source Control Platforms](#source-control-platforms) (3)
-  - [F Frontend UI](#frontend-ui) (1)
+  - [F Frontend UI](#frontend-ui) (6)
     - [React](#react) (1)
   - [A Architecture Diagramming](#architecture-diagramming) (1)
   - [N .NET Platform](#.net-platform) (1)
@@ -224,6 +224,93 @@ Kills the wrong "can't publish, credentials missing" diagnosis.
 <summary><h3>F Frontend UI</h3></summary>
 
 > Skills for UI libraries, component registries, page sections, and frontend integration workflows.
+
+**`Emil Design Engineering`** &nbsp; `emil-design-eng` &nbsp; 👆 Manual &nbsp; P2
+
+Emil Kowalski's design-engineering philosophy: UI polish, component design, animation decisions, and the
+invisible details that make software feel great.
+
+<details>
+<summary>Capabilities</summary>
+
+- `ui_polish`
+- `component_design`
+- `design_philosophy`
+
+</details>
+> **Path:** `skills/packs/emil-design-eng`
+> **License:** `MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)`
+> **Compatibility:** Portable Markdown skill; upstream README kept as README-upstream.md for provenance.
+> **Trigger:** `ui polish, design engineering, interface feel, component design philosophy, invisible details`
+
+
+**`Animation Vocabulary`** &nbsp; `animation-vocabulary` &nbsp; 👆 Manual &nbsp; P2
+
+Shared vocabulary for describing and choosing web UI motion: easing, springs, durations, and when to use which.
+
+<details>
+<summary>Capabilities</summary>
+
+- `animation`
+- `motion_design`
+
+</details>
+> **Path:** `skills/packs/animation-vocabulary`
+> **License:** `MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)`
+> **Compatibility:** Portable Markdown skill.
+> **Trigger:** `animation vocabulary, easing, spring animation, duration curves, motion language`
+
+
+**`Apple Design`** &nbsp; `apple-design` &nbsp; 👆 Manual &nbsp; P2
+
+Apple-inspired interface design principles for building UIs with native-quality feel.
+
+<details>
+<summary>Capabilities</summary>
+
+- `apple_hig`
+- `ui_design`
+
+</details>
+> **Path:** `skills/packs/apple-design`
+> **License:** `MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)`
+> **Compatibility:** Portable Markdown skill.
+> **Trigger:** `apple design, hig, human interface guidelines, apple-like ui, native feel`
+
+
+**`Improve Animations`** &nbsp; `improve-animations` &nbsp; 👆 Manual &nbsp; P2
+
+Audit existing UI animations and produce a concrete improvement plan (worksheet-driven).
+
+<details>
+<summary>Capabilities</summary>
+
+- `animation_audit`
+- `motion_improvement`
+
+</details>
+> **Path:** `skills/packs/improve-animations`
+> **License:** `MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)`
+> **Compatibility:** Portable Markdown skill with AUDIT.md and PLAN-TEMPLATE.md worksheets.
+> **Trigger:** `improve animations, animation audit, fix janky animation, motion review`
+
+
+**`Review Animations`** &nbsp; `review-animations` &nbsp; 👆 Manual &nbsp; P2
+
+Review UI animations against a written motion-quality standard.
+
+<details>
+<summary>Capabilities</summary>
+
+- `animation_review`
+- `motion_standards`
+
+</details>
+> **Path:** `skills/packs/review-animations`
+> **License:** `MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)`
+> **Compatibility:** Portable Markdown skill with STANDARDS.md reference.
+> **Trigger:** `review animations, animation standards, motion quality check`
+
 
 #### React
 
@@ -472,4 +559,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-07-10 15:29:48 UTC | Skills: 13 | Categories: 10</sub>
+<sub>Generated: 2026-07-21 08:23:29 UTC | Skills: 18 | Categories: 10</sub>
