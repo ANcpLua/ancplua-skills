@@ -305,7 +305,7 @@ skills:
     activation: manual
     path: "skills/packs/emil-design-eng"
     license: "MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)"
-    compatibility: "Portable Markdown skill; upstream README kept as README-upstream.md for provenance."
+    compatibility: "Portable Markdown skill."
     description: |
       Emil Kowalski's design-engineering philosophy: UI polish, component design, animation decisions, and the
       invisible details that make software feel great.

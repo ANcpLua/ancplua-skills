@@ -240,7 +240,7 @@ invisible details that make software feel great.
 </details>
 > **Path:** `skills/packs/emil-design-eng`
 > **License:** `MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)`
-> **Compatibility:** Portable Markdown skill; upstream README kept as README-upstream.md for provenance.
+> **Compatibility:** Portable Markdown skill.
 > **Trigger:** `ui polish, design engineering, interface feel, component design philosophy, invisible details`
 
 
@@ -559,4 +559,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-07-21 08:23:29 UTC | Skills: 18 | Categories: 10</sub>
+<sub>Generated: 2026-07-21 09:08:42 UTC | Skills: 18 | Categories: 10</sub>
