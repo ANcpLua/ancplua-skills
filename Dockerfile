@@ -3,7 +3,7 @@
 # Multi-stage build for .NET 10 Nuke build system
 # ═══════════════════════════════════════════════════════════════════════════════
 
-FROM mcr.microsoft.com/dotnet/sdk:10.0@sha256:ea8bde36c11b6e7eec2656d0e59101d4462f6bd630730f2c8201ed0572b295d5 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0@sha256:ed034a8bf0b24ded0cbbac07e17825d8e9ebfe21e308191d0f7421eaf5ad4664 AS build
 WORKDIR /src
 
 # Copy project files
@@ -26,7 +26,7 @@ RUN dotnet run --project build/build.csproj -- GenerateSkills
 # ─────────────────────────────────────────────────────────────────────────────────
 # Runtime stage - minimal image with generated artifacts
 # ─────────────────────────────────────────────────────────────────────────────────
-FROM mcr.microsoft.com/dotnet/runtime:10.0@sha256:6a40d375e9c8432fcf4adebae05d7e0a276e9a90dd01174df6709a090771bebc AS runtime
+FROM mcr.microsoft.com/dotnet/runtime:10.0@sha256:ed5d539b27842d656a06a5984dbcb5114d3e885fbada612a49a5a7c3c3a44e1c AS runtime
 WORKDIR /app
 
 # Copy generated SKILLS.md and skills registry
