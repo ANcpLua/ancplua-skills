@@ -151,6 +151,26 @@ skills:
       - adversarial_verification
     active: true
 
+  - id: improve
+    name: "Improve"
+    category: review-quality
+    scope: session
+    priority: 1
+    trigger: "improve, audit this codebase, find improvement opportunities, what should I work on next, roadmap, tech debt audit, handoff plan, write a plan for another agent, /improve, execute plan, reconcile plans"
+    activation: manual
+    path: "skills/packs/improve"
+    license: "MIT — (c) shadcn, vendored from github.com/shadcn/improve; Fable 5 adaptation by Alex"
+    compatibility: "Portable Markdown skill plus three references (audit-playbook, plan-template, closing-the-loop). The execute variant needs a host that can spawn subagents in an isolated git worktree; planning works without one."
+    description: |
+      Survey a codebase as a senior advisor and produce prioritized, self-contained handoff plans for other agents to execute. Strictly read-only on source: writes only under plans/, never edits code. Fable 5 advisor with Opus 5 workers, matching the standing multi-agent-teams model policy.
+    capabilities:
+      - codebase_audit
+      - prioritization
+      - handoff_planning
+      - product_direction
+      - plan_execution_review
+    active: true
+
   - id: nuget-trusted-publishing
     name: "NuGet Trusted Publishing"
     category: source-control
