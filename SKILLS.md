@@ -30,7 +30,7 @@
 |-------|--------|-------|
 | Global | 2 | 2 |
 | Domain | 12 | 12 |
-| Session | 4 | 4 |
+| Session | 6 | 6 |
 
 ---
 
@@ -55,7 +55,7 @@
   - [C CI Automation](#ci-automation) (1)
 
 - **Session Skills (On-Demand)**
-  - [Q Review & Quality](#review--quality) (1)
+  - [Q Review & Quality](#review--quality) (3)
   - [P Prompt Engineering](#prompt-engineering) (1)
 
 </details>
@@ -316,7 +316,9 @@ Review UI animations against a written motion-quality standard.
 
 **`React Bits Pro`** &nbsp; `react-bits-pro` &nbsp; 👆 Manual &nbsp; P1
 
-Install and integrate React Bits Pro premium animated UI components and page blocks into React/Next.js apps using the shadcn registry CLI.
+Install and integrate React Bits Pro premium animated UI components, page-section blocks, and
+landing-page templates into React/Next.js apps via the shadcn registry CLI with license-key
+authentication. Covers 101 components, 238 blocks across 21 categories, and 11 templates.
 
 <details>
 <summary>Capabilities</summary>
@@ -331,7 +333,7 @@ Install and integrate React Bits Pro premium animated UI components and page blo
 > **Path:** `skills/packs/react-bits-pro`
 > **License:** `Proprietary upstream component access; this repo stores instructions only`
 > **Compatibility:** Portable instructions, but actual component installation requires the user's own React Bits Pro license key and registry access.
-> **Trigger:** `react bits, reactbits, animated react components, shadcn registry, premium landing blocks`
+> **Trigger:** `react bits, reactbits, @reactbits-starter, @reactbits-pro, animated react components, shadcn registry, premium landing blocks, page sections, landing page template`
 
 
 </details>
@@ -486,6 +488,45 @@ Maximally strict structural review that hunts complexity-collapse opportunities,
 > **Trigger:** `supercritical review, supercritical code quality review, deep maintainability audit, harsh code quality review, thermo-nuclear review`
 
 
+**`Improve`** &nbsp; `improve` &nbsp; 👆 Manual &nbsp; P1
+
+Survey a codebase as a senior advisor and produce prioritized, self-contained handoff plans for other agents to execute. Strictly read-only on source: writes only under plans/, never edits code. Fable 5 advisor with Opus 5 workers, matching the standing multi-agent-teams model policy.
+
+<details>
+<summary>Capabilities</summary>
+
+- `codebase_audit`
+- `prioritization`
+- `handoff_planning`
+- `product_direction`
+- `plan_execution_review`
+
+</details>
+> **Path:** `skills/packs/improve`
+> **License:** `MIT — (c) shadcn, vendored from github.com/shadcn/improve; Fable 5 adaptation by Alex`
+> **Compatibility:** Portable Markdown skill plus three references (audit-playbook, plan-template, closing-the-loop). The execute variant needs a host that can spawn subagents in an isolated git worktree; planning works without one.
+> **Trigger:** `improve, audit this codebase, find improvement opportunities, what should I work on next, roadmap, tech debt audit, handoff plan, write a plan for another agent, /improve, execute plan, reconcile plans`
+
+
+**`Grounding Audit`** &nbsp; `grounding-audit` &nbsp; 👆 Manual &nbsp; P1
+
+Sweep a repository for poisoned grounding: claims ABOUT the code (doc comments, examples, README API sketches, prose test assertions, CHANGELOG current-state claims) that the code never satisfied or has drifted from. Verify each claim against actual behavior, classify true/lie/stale/unverifiable, trace the poisoning chain, fix with code-wins-unless-intent rules, and restructure (golden prose test, structured API, invariant output) so the lie cannot recur.
+
+<details>
+<summary>Capabilities</summary>
+
+- `claim_verification`
+- `doc_truth_audit`
+- `prose_to_structure_refactor`
+- `poisoning_chain_tracing`
+
+</details>
+> **Path:** `skills/packs/grounding-audit`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill; needs only repo read access plus the ability to build/run for output-claim verification.
+> **Trigger:** `grounding audit, doku lügt, docs lie, poisoned grounding, doc example wrong, stale docs, verify claims against code, prose assertion, bauchgefühl code smell, docs don't match code, /grounding-audit`
+
+
 </details>
 
 <details open>
@@ -559,4 +600,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-07-21 09:08:42 UTC | Skills: 18 | Categories: 10</sub>
+<sub>Generated: 2026-07-30 18:29:12 UTC | Skills: 20 | Categories: 10</sub>

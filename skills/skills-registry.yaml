@@ -404,3 +404,22 @@ skills:
       - animation_review
       - motion_standards
     active: true
+
+  - id: grounding-audit
+    name: "Grounding Audit"
+    category: review-quality
+    scope: session
+    priority: 1
+    trigger: "grounding audit, doku lügt, docs lie, poisoned grounding, doc example wrong, stale docs, verify claims against code, prose assertion, bauchgefühl code smell, docs don't match code, /grounding-audit"
+    activation: manual
+    path: "skills/packs/grounding-audit"
+    license: "MIT (original text in this repo)"
+    compatibility: "Portable Markdown skill; needs only repo read access plus the ability to build/run for output-claim verification."
+    description: |
+      Sweep a repository for poisoned grounding: claims ABOUT the code (doc comments, examples, README API sketches, prose test assertions, CHANGELOG current-state claims) that the code never satisfied or has drifted from. Verify each claim against actual behavior, classify true/lie/stale/unverifiable, trace the poisoning chain, fix with code-wins-unless-intent rules, and restructure (golden prose test, structured API, invariant output) so the lie cannot recur.
+    capabilities:
+      - claim_verification
+      - doc_truth_audit
+      - prose_to_structure_refactor
+      - poisoning_chain_tracing
+    active: true
