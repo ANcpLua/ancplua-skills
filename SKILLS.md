@@ -29,7 +29,7 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 2 | 2 |
-| Domain | 12 | 12 |
+| Domain | 13 | 13 |
 | Session | 6 | 6 |
 
 ---
@@ -44,8 +44,9 @@
     - [Microsoft](#microsoft) (2)
 
 - **Domain Skills (Project-Scoped)**
-  - [M Model Context Protocol](#model-context-protocol) (1)
+  - [M Model Context Protocol](#model-context-protocol) (2)
     - [.NET](#.net) (1)
+    - [TypeScript](#typescript) (1)
   - [S Source Control Platforms](#source-control-platforms) (3)
   - [F Frontend UI](#frontend-ui) (6)
     - [React](#react) (1)
@@ -120,9 +121,9 @@ Operating guide for Microsoft Learn grounding: search/fetch/code-sample retrieva
 
 #### .NET
 
-**`MCP C# SDK 1.4.0`** &nbsp; `mcp-csharp-sdk-140` &nbsp; 👆 Manual &nbsp; P1
+**`MCP C# SDK 1.4.1`** &nbsp; `mcp-csharp-sdk-141` &nbsp; 👆 Manual &nbsp; P1
 
-Authoritative condensed reference for ModelContextProtocol C#/.NET SDK 1.4.0, including servers, clients, tools,
+Authoritative condensed reference for ModelContextProtocol C#/.NET SDK 1.4.1, including servers, clients, tools,
 prompts, resources, transports, sessions, tasks, MRTR, sampling, elicitation, roots, identity, auth, filters,
 completions, logging, pagination, HTTP context, McpServer, and McpClient.
 
@@ -136,10 +137,36 @@ completions, logging, pagination, HTTP context, McpServer, and McpClient.
 - `protocol_correctness`
 
 </details>
-> **Path:** `skills/packs/mcp-csharp-sdk-1.4.0`
+> **Path:** `skills/packs/mcp-csharp-sdk-1.4.1`
 > **License:** `MIT repo wrapper; references summarize public SDK/docs`
 > **Compatibility:** Portable Markdown skill. Optional Claude subagent adapter is in adapters/claude/agents/mcp-csharp-sdk-expert.md.
 > **Trigger:** `mcp csharp, modelcontextprotocol, mcp server, mcp client, streamable http, mcp tasks, mcp sampling, mcp elicitation, mcp roots`
+
+
+#### TypeScript
+
+**`MCP TypeScript SDK v2`** &nbsp; `mcp-typescript-sdk-v2` &nbsp; 👆 Manual &nbsp; P1
+
+Authoritative reference for the MCP TypeScript SDK v2 package family (core, server, client, node, express),
+as used by qyl.mcp: registerTool/registerResource/registerPrompt with Zod v4, tool-error vs protocol-error
+channels, input_required/MRTR with requestState codec, createMcpHandler and serveStdio serving, protocol
+eras (legacy 2025 vs modern 2026-07-28), sessions, subscriptions, notifications, and client era negotiation.
+
+<details>
+<summary>Capabilities</summary>
+
+- `mcp`
+- `typescript`
+- `streamable_http`
+- `input_required`
+- `protocol_eras`
+- `protocol_correctness`
+
+</details>
+> **Path:** `skills/packs/mcp-typescript-sdk-v2`
+> **License:** `MIT repo wrapper; references summarize public SDK/docs`
+> **Compatibility:** Portable Markdown skill. Verified against installed @modelcontextprotocol/* 2.0.0 packages and upstream typescript-sdk docs (main @ 3924de9, 2026-08-18).
+> **Trigger:** `mcp typescript, modelcontextprotocol server, registerTool, createMcpHandler, serveStdio, ProtocolError, inputRequired, protocol era, server/discover, versionNegotiation, qyl.mcp sdk`
 
 
 </details>
@@ -600,4 +627,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-07-30 18:29:12 UTC | Skills: 20 | Categories: 10</sub>
+<sub>Generated: 2026-08-21 03:37:47 UTC | Skills: 21 | Categories: 10</sub>

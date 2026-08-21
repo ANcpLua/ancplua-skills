@@ -32,7 +32,8 @@ Current core skills:
 - `c4-diagram`
 - `forgejo-direct-api`
 - `maf-dotnet-source-of-truth`
-- `mcp-csharp-sdk-1.4.0`
+- `mcp-csharp-sdk-1.4.1`
+- `mcp-typescript-sdk-v2`
 - `microsoft-first-research`
 - `microsoft-learn-grounding`
 - `qyl-tfm-map`

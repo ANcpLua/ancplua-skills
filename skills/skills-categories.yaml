@@ -24,6 +24,8 @@ categories:
     subcategories:
       - id: dotnet
         name: ".NET"
+      - id: typescript
+        name: "TypeScript"
 
   - id: source-control
     name: "Source Control Platforms"

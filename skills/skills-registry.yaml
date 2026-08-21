@@ -24,19 +24,19 @@ skills:
       - swagger_grounding
     active: true
 
-  - id: mcp-csharp-sdk-140
-    name: "MCP C# SDK 1.4.0"
+  - id: mcp-csharp-sdk-141
+    name: "MCP C# SDK 1.4.1"
     category: model-context-protocol
     subcategory: dotnet
     scope: domain
     priority: 1
     trigger: "mcp csharp, modelcontextprotocol, mcp server, mcp client, streamable http, mcp tasks, mcp sampling, mcp elicitation, mcp roots"
     activation: manual
-    path: "skills/packs/mcp-csharp-sdk-1.4.0"
+    path: "skills/packs/mcp-csharp-sdk-1.4.1"
     license: "MIT repo wrapper; references summarize public SDK/docs"
     compatibility: "Portable Markdown skill. Optional Claude subagent adapter is in adapters/claude/agents/mcp-csharp-sdk-expert.md."
     description: |
-      Authoritative condensed reference for ModelContextProtocol C#/.NET SDK 1.4.0, including servers, clients, tools,
+      Authoritative condensed reference for ModelContextProtocol C#/.NET SDK 1.4.1, including servers, clients, tools,
       prompts, resources, transports, sessions, tasks, MRTR, sampling, elicitation, roots, identity, auth, filters,
       completions, logging, pagination, HTTP context, McpServer, and McpClient.
     capabilities:
@@ -44,6 +44,31 @@ skills:
       - dotnet
       - streamable_http
       - mrtr
+      - protocol_correctness
+    active: true
+
+  - id: mcp-typescript-sdk-v2
+    name: "MCP TypeScript SDK v2"
+    category: model-context-protocol
+    subcategory: typescript
+    scope: domain
+    priority: 1
+    trigger: "mcp typescript, modelcontextprotocol server, registerTool, createMcpHandler, serveStdio, ProtocolError, inputRequired, protocol era, server/discover, versionNegotiation, qyl.mcp sdk"
+    activation: manual
+    path: "skills/packs/mcp-typescript-sdk-v2"
+    license: "MIT repo wrapper; references summarize public SDK/docs"
+    compatibility: "Portable Markdown skill. Verified against installed @modelcontextprotocol/* 2.0.0 packages and upstream typescript-sdk docs (main @ 3924de9, 2026-08-18)."
+    description: |
+      Authoritative reference for the MCP TypeScript SDK v2 package family (core, server, client, node, express),
+      as used by qyl.mcp: registerTool/registerResource/registerPrompt with Zod v4, tool-error vs protocol-error
+      channels, input_required/MRTR with requestState codec, createMcpHandler and serveStdio serving, protocol
+      eras (legacy 2025 vs modern 2026-07-28), sessions, subscriptions, notifications, and client era negotiation.
+    capabilities:
+      - mcp
+      - typescript
+      - streamable_http
+      - input_required
+      - protocol_eras
       - protocol_correctness
     active: true
 
