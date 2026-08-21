@@ -30,7 +30,7 @@
 |-------|--------|-------|
 | Global | 2 | 2 |
 | Domain | 15 | 15 |
-| Session | 4 | 4 |
+| Session | 6 | 6 |
 
 ---
 
@@ -56,7 +56,7 @@
   - [C CI Automation](#ci-automation) (1)
 
 - **Session Skills (On-Demand)**
-  - [Q Review & Quality](#review--quality) (3)
+  - [Q Review & Quality](#review--quality) (5)
   - [P Prompt Engineering](#prompt-engineering) (1)
 
 </details>
@@ -515,6 +515,51 @@ Maximally strict structural review that hunts complexity-collapse opportunities,
 > **Trigger:** `supercritical review, supercritical code quality review, deep maintainability audit, harsh code quality review, thermo-nuclear review`
 
 
+**`Tech Debt Accretion Audit`** &nbsp; `tech-debt` &nbsp; 👆 Manual &nbsp; P1
+
+Evidence-grounded technical-debt audit hunting accretion — code that was added (shimmed, wrapped,
+re-validated, try/catch-padded) when it should have been deleted — plus .NET NativeAOT, trimming,
+and source-generator hazards. Every finding is path:line + snippet + the deletion that removes it;
+a required "looks bad but is fine" section protects intentional boundaries. Priority = (Impact + Risk) x (6 - Effort).
+
+<details>
+<summary>Capabilities</summary>
+
+- `accretion_hunting`
+- `deletion_first`
+- `nativeaot_trimming`
+- `source_generators`
+- `evidence_gate`
+
+</details>
+> **Path:** `skills/packs/tech-debt`
+> **License:** `MIT`
+> **Compatibility:** Portable Markdown skill. Eight Claude agent adapters in adapters/claude/agents/debt-*.md run it as a pipeline: router, three read-only hunters (accretion, lifecycle, aot), contracts brake, arbiter, and two writers (deleter, boundary-fix) with a net-negative line-delta gate.
+> **Trigger:** `tech debt, technical debt audit, what should we refactor, code health, refactoring priorities, maintenance backlog, accretion audit`
+
+
+**`Derot Dependency Verification`** &nbsp; `derot` &nbsp; 👆 Manual &nbsp; P1
+
+Audit dependency choices and migration claims against manifests, the resolved dependency graph,
+exact shipped package source, upstream releases, and official vendor documentation. Never asserts
+containment, replacement, or succession from memory; package naming similarity is not evidence;
+unverified claims are marked as such with the missing evidence named.
+
+<details>
+<summary>Capabilities</summary>
+
+- `dependency_graph`
+- `package_source_verification`
+- `migration_claims`
+- `evidence_gate`
+
+</details>
+> **Path:** `skills/packs/derot`
+> **License:** `MIT`
+> **Compatibility:** Portable Markdown skill with one reference (dependency-verification.md). Evidence-first and proposal-only: flags dependency changes, never applies them during an audit.
+> **Trigger:** `why do we have this dependency, redundant package, transitive dependency, meta package, superseded package, dependency migration, derot`
+
+
 **`Improve`** &nbsp; `improve-handoff` &nbsp; 👆 Manual &nbsp; P1
 
 Survey a codebase as a senior advisor and produce prioritized, self-contained handoff plans for other agents to execute. Strictly read-only on source: writes only under plans/, never edits code. Fable 5 advisor with Opus 5 workers, matching the standing multi-agent-teams model policy.
@@ -627,4 +672,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-08-21 03:41:02 UTC | Skills: 21 | Categories: 10</sub>
+<sub>Generated: 2026-08-21 04:00:32 UTC | Skills: 23 | Categories: 10</sub>

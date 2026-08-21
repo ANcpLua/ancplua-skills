@@ -176,6 +176,51 @@ skills:
       - adversarial_verification
     active: true
 
+  - id: tech-debt
+    name: "Tech Debt Accretion Audit"
+    category: review-quality
+    scope: session
+    priority: 1
+    trigger: "tech debt, technical debt audit, what should we refactor, code health, refactoring priorities, maintenance backlog, accretion audit"
+    activation: manual
+    path: "skills/packs/tech-debt"
+    license: "MIT"
+    compatibility: "Portable Markdown skill. Eight Claude agent adapters in adapters/claude/agents/debt-*.md run it as a pipeline: router, three read-only hunters (accretion, lifecycle, aot), contracts brake, arbiter, and two writers (deleter, boundary-fix) with a net-negative line-delta gate."
+    description: |
+      Evidence-grounded technical-debt audit hunting accretion — code that was added (shimmed, wrapped,
+      re-validated, try/catch-padded) when it should have been deleted — plus .NET NativeAOT, trimming,
+      and source-generator hazards. Every finding is path:line + snippet + the deletion that removes it;
+      a required "looks bad but is fine" section protects intentional boundaries. Priority = (Impact + Risk) x (6 - Effort).
+    capabilities:
+      - accretion_hunting
+      - deletion_first
+      - nativeaot_trimming
+      - source_generators
+      - evidence_gate
+    active: true
+
+  - id: derot
+    name: "Derot Dependency Verification"
+    category: review-quality
+    scope: session
+    priority: 1
+    trigger: "why do we have this dependency, redundant package, transitive dependency, meta package, superseded package, dependency migration, derot"
+    activation: manual
+    path: "skills/packs/derot"
+    license: "MIT"
+    compatibility: "Portable Markdown skill with one reference (dependency-verification.md). Evidence-first and proposal-only: flags dependency changes, never applies them during an audit."
+    description: |
+      Audit dependency choices and migration claims against manifests, the resolved dependency graph,
+      exact shipped package source, upstream releases, and official vendor documentation. Never asserts
+      containment, replacement, or succession from memory; package naming similarity is not evidence;
+      unverified claims are marked as such with the missing evidence named.
+    capabilities:
+      - dependency_graph
+      - package_source_verification
+      - migration_claims
+      - evidence_gate
+    active: true
+
   - id: improve-handoff
     name: "Improve"
     category: review-quality
