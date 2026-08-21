@@ -29,8 +29,8 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 2 | 2 |
-| Domain | 13 | 13 |
-| Session | 6 | 6 |
+| Domain | 15 | 15 |
+| Session | 4 | 4 |
 
 ---
 
@@ -627,4 +627,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-08-21 03:39:33 UTC | Skills: 21 | Categories: 10</sub>
+<sub>Generated: 2026-08-21 03:41:02 UTC | Skills: 21 | Categories: 10</sub>

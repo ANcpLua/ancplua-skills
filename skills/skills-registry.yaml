@@ -399,7 +399,7 @@ skills:
   - id: improve-animations
     name: "Improve Animations"
     category: frontend
-    scope: session
+    scope: domain
     priority: 2
     trigger: "improve animations, animation audit, fix janky animation, motion review"
     activation: manual
@@ -416,7 +416,7 @@ skills:
   - id: review-animations
     name: "Review Animations"
     category: frontend
-    scope: session
+    scope: domain
     priority: 2
     trigger: "review animations, animation standards, motion quality check"
     activation: manual
