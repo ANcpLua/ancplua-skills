@@ -538,7 +538,7 @@ a required "looks bad but is fine" section protects intentional boundaries. Prio
 > **Trigger:** `tech debt, technical debt audit, what should we refactor, code health, refactoring priorities, maintenance backlog, accretion audit`
 
 
-**`Derot Dependency Verification`** &nbsp; `derot` &nbsp; 👆 Manual &nbsp; P1
+**`Derot Dependency Verification`** &nbsp; `derot-deps` &nbsp; 👆 Manual &nbsp; P1
 
 Audit dependency choices and migration claims against manifests, the resolved dependency graph,
 exact shipped package source, upstream releases, and official vendor documentation. Never asserts
@@ -672,4 +672,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-08-21 04:00:32 UTC | Skills: 23 | Categories: 10</sub>
+<sub>Generated: 2026-08-21 04:02:36 UTC | Skills: 23 | Categories: 10</sub>
