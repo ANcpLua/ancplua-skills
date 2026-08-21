@@ -515,7 +515,7 @@ Maximally strict structural review that hunts complexity-collapse opportunities,
 > **Trigger:** `supercritical review, supercritical code quality review, deep maintainability audit, harsh code quality review, thermo-nuclear review`
 
 
-**`Improve`** &nbsp; `improve` &nbsp; 👆 Manual &nbsp; P1
+**`Improve`** &nbsp; `improve-handoff` &nbsp; 👆 Manual &nbsp; P1
 
 Survey a codebase as a senior advisor and produce prioritized, self-contained handoff plans for other agents to execute. Strictly read-only on source: writes only under plans/, never edits code. Fable 5 advisor with Opus 5 workers, matching the standing multi-agent-teams model policy.
 
@@ -627,4 +627,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-08-21 03:37:47 UTC | Skills: 21 | Categories: 10</sub>
+<sub>Generated: 2026-08-21 03:39:33 UTC | Skills: 21 | Categories: 10</sub>

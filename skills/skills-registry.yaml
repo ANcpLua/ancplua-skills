@@ -176,7 +176,7 @@ skills:
       - adversarial_verification
     active: true
 
-  - id: improve
+  - id: improve-handoff
     name: "Improve"
     category: review-quality
     scope: session
