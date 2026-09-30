@@ -19,8 +19,8 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    private static readonly string[] SearchDirectories = ["skills", "adapters", "docs"];
-    private static readonly string[] ValidateExtensions = [".md", ".toml", ".yaml", ".yml", ".json", ".sh", ".cmd", ".ps1", ".cs", ".txt"];
+    private static readonly string[] SearchDirectories = ["skills", "adapters", "docs", ".claude-plugin"];
+    private static readonly string[] ValidateExtensions = [".md", ".toml", ".yaml", ".yml", ".json", ".sh", ".cmd", ".ps1", ".cs", ".txt", ".py", ".csproj", ".props", ".targets", ".xml"];
     private static readonly Regex[] MachineLocalPathRegexes =
     [
         new(@"(?<path>/(?:(?:Users)|(?:home))/[^/\s""'`\\]+(?:/[^/\s""'`\\]+)+)", RegexOptions.Compiled),
@@ -110,7 +110,7 @@ class Build : NukeBuild
                     Log.Error("❌ {File}:{Line} contains machine-local path: {Path}", violation.FilePath, violation.Line, violation.Path);
                 }
 
-                throw new Exception("Machine-local absolute paths found in committed skill/adapter/docs content");
+                throw new Exception("Machine-local absolute paths found in committed skill/adapter/docs/plugin content");
             }
 
             Log.Information("✅ All skill files validated successfully");

@@ -14,7 +14,7 @@ the Read tool fails. pypdf is pure-Python and works everywhere `uvx` is
 available, which on most machines is already the default for ad-hoc Python.
 
 Usage:
-    uvx --with pypdf python ~/.claude/skills/paper-reader/scripts/extract_pages.py <pdf> [--pages 1-10] [--out file.txt]
+    uvx --with pypdf python scripts/extract_pages.py <pdf> [--pages 1-10] [--out file.txt]
 
 If --out is omitted, prints to stdout.
 """

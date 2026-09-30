@@ -59,6 +59,12 @@ if [[ -z "${FORGEJO_TOKEN:-}" ]]; then
   exit 0
 fi
 
+# The token goes only to an instance the caller named, never to the public default.
+if [[ -z "${1:-}" ]]; then
+  echo "live_private_probe=skipped reason=no_instance_argument"
+  exit 0
+fi
+
 api="${instance%/}/api/v1"
 auth=(-H "Authorization: token ${FORGEJO_TOKEN}")
 probe() {

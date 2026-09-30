@@ -23,7 +23,7 @@
     "./skills/documentation-grounding/microsoft-first-research",
     "./skills/documentation-grounding/microsoft-learn-grounding",
     "./skills/documentation-grounding/paper-reader",
-    "./skills/model-context-protocol/mcp-csharp-sdk-1.4.1",
+    "./skills/model-context-protocol/mcp-csharp-sdk-1-4-1",
     "./skills/model-context-protocol/mcp-typescript-sdk-v2",
     "./skills/source-control/extension-store-publishing",
     "./skills/source-control/forgejo-direct-api",

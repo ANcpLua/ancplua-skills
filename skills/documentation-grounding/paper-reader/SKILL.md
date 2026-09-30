@@ -47,10 +47,10 @@ Take whatever the user gave you (URL, DOI, title, arXiv ID) and resolve to a *so
 
 ### 2. Fetch the artifacts
 
-Run the bundled fetcher. It handles the source-specific download paths, bib lookup with fallbacks, slug computation, and directory layout. Keep this single source of truth instead of reinventing the steps per session:
+Run the bundled fetcher from this skill's folder. It handles the source-specific download paths, bib lookup with fallbacks, slug computation, and directory layout. Keep this single source of truth instead of reinventing the steps per session:
 
 ```bash
-python3 ~/.claude/skills/paper-reader/scripts/fetch_paper.py <input>
+python3 scripts/fetch_paper.py <input>
 ```
 
 `<input>` can be any of the forms above. The script:
@@ -71,7 +71,7 @@ If the script errors on fetching (paywall, dead URL, no network), report what fa
 The `Read` tool's PDF support depends on **poppler being installed on the host**. On many machines (Linux servers, sandboxed environments, most CI runners) it isn't, and `Read` will fail on `.pdf` files. Don't waste turns probing this. Use the bundled extractor as the primary path:
 
 ```bash
-uvx --with pypdf python ~/.claude/skills/paper-reader/scripts/extract_pages.py \
+uvx --with pypdf python scripts/extract_pages.py \
     ~/papers/<slug>/paper.pdf --pages 1-10 --out /tmp/<slug>-p1-10.txt
 ```
 

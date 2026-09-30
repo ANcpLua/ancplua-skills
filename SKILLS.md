@@ -159,7 +159,7 @@ completions, logging, pagination, HTTP context, McpServer, and McpClient.
 - `protocol_correctness`
 
 </details>
-> **Path:** `skills/model-context-protocol/mcp-csharp-sdk-1.4.1`
+> **Path:** `skills/model-context-protocol/mcp-csharp-sdk-1-4-1`
 > **License:** `MIT repo wrapper; references summarize public SDK/docs`
 > **Compatibility:** Portable Markdown skill. Optional Claude subagent adapter is in adapters/claude/agents/mcp-csharp-sdk-expert.md.
 > **Trigger:** `mcp csharp, modelcontextprotocol, mcp server, mcp client, streamable http, mcp tasks, mcp sampling, mcp elicitation, mcp roots`
@@ -891,7 +891,7 @@ API dead-ends, usage-limit interruptions — and turn them into config and routi
 
 </details>
 > **Path:** `skills/codebase-maturity/agent-log-scan`
-> **License:** `MIT (from ANcpLua/maturity-skills)`
+> **License:** `MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)`
 > **Compatibility:** Portable Markdown skill with Python helper scripts; Codex UI metadata in agents/openai.yaml.
 > **Trigger:** `scan agent logs, analyze session history, why do my agents keep failing, retry loops, permission thrash, usage-limit interruptions, cut permission prompts`
 
@@ -910,7 +910,7 @@ that corpus as permanent CI fixtures.
 
 </details>
 > **Path:** `skills/codebase-maturity/emitter-corpus`
-> **License:** `MIT (from ANcpLua/maturity-skills)`
+> **License:** `MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)`
 > **Compatibility:** Portable Markdown skill; Codex UI metadata in agents/openai.yaml.
 > **Trigger:** `does it work with X's files, format compatibility testing, interop validation, parser corpus, regression corpus, interop fixtures`
 
@@ -930,7 +930,7 @@ verification, a fixer fleet with disjoint ownership, single-writer integration, 
 
 </details>
 > **Path:** `skills/codebase-maturity/maintenance-run`
-> **License:** `MIT (from ANcpLua/maturity-skills)`
+> **License:** `MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)`
 > **Compatibility:** Portable Markdown skill with a Python findings helper; Codex UI metadata in agents/openai.yaml.
 > **Trigger:** `autonomous maintenance run, repo health pass, find and fix everything, scheduled repo maintenance, multi-agent bug hunt, when should the loop stop`
 
@@ -949,7 +949,7 @@ a regression gate that proves repeated maintenance runs did not weaken the suite
 
 </details>
 > **Path:** `skills/codebase-maturity/mutation-tester`
-> **License:** `MIT (from ANcpLua/maturity-skills)`
+> **License:** `MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)`
 > **Compatibility:** Portable Markdown skill; Codex UI metadata in agents/openai.yaml.
 > **Trigger:** `mutation testing, mutation score, stryker, how good are my tests really, test-suite strength, test gaps beyond coverage`
 
@@ -967,7 +967,7 @@ Measure a project's own performance claims (README, docs) against reality and at
 
 </details>
 > **Path:** `skills/codebase-maturity/perf-gate`
-> **License:** `MIT (from ANcpLua/maturity-skills)`
+> **License:** `MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)`
 > **Compatibility:** Portable Markdown skill; Codex UI metadata in agents/openai.yaml.
 > **Trigger:** `verify performance claim, benchmark a tool, does it really handle X MB, streaming claim, O(n) claim, perf baseline`
 

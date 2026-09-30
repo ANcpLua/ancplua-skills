@@ -1,6 +1,6 @@
 ---
 name: mutation-tester
-description: Stryker-style mutation testing: kill surviving mutants with targeted tests and gate on a mutation-score baseline. Use when asked for mutation testing, a mutation score, Stryker, "how good are my tests really", test gaps beyond line coverage, or proof maintenance did not weaken the suite. Not for Lean proofs (lean-verify) or test pruning (test-audit).
+description: 'Stryker-style mutation testing: kill surviving mutants with targeted tests and gate on a mutation-score baseline. Use when asked for mutation testing, a mutation score, Stryker, "how good are my tests really", test gaps beyond line coverage, or proof maintenance did not weaken the suite. Not for Lean proofs (lean-verify) or test pruning (test-audit).'
 ---
 
 # Mutation testing

@@ -32,7 +32,7 @@ skills:
     priority: 1
     trigger: "mcp csharp, modelcontextprotocol, mcp server, mcp client, streamable http, mcp tasks, mcp sampling, mcp elicitation, mcp roots"
     activation: manual
-    path: "skills/model-context-protocol/mcp-csharp-sdk-1.4.1"
+    path: "skills/model-context-protocol/mcp-csharp-sdk-1-4-1"
     license: "MIT repo wrapper; references summarize public SDK/docs"
     compatibility: "Portable Markdown skill. Optional Claude subagent adapter is in adapters/claude/agents/mcp-csharp-sdk-expert.md."
     description: |
@@ -588,7 +588,7 @@ skills:
     trigger: "scan agent logs, analyze session history, why do my agents keep failing, retry loops, permission thrash, usage-limit interruptions, cut permission prompts"
     activation: manual
     path: "skills/codebase-maturity/agent-log-scan"
-    license: "MIT (from ANcpLua/maturity-skills)"
+    license: "MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)"
     compatibility: "Portable Markdown skill with Python helper scripts; Codex UI metadata in agents/openai.yaml."
     description: |
       Scan Claude Code agent transcripts (session-history JSONL) for antipatterns — retry loops, permission thrash,
@@ -607,7 +607,7 @@ skills:
     trigger: "does it work with X's files, format compatibility testing, interop validation, parser corpus, regression corpus, interop fixtures"
     activation: manual
     path: "skills/codebase-maturity/emitter-corpus"
-    license: "MIT (from ANcpLua/maturity-skills)"
+    license: "MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)"
     compatibility: "Portable Markdown skill; Codex UI metadata in agents/openai.yaml."
     description: |
       Validate a parser or importer against a corpus of files as real upstream producers actually write them, and land
@@ -626,7 +626,7 @@ skills:
     trigger: "autonomous maintenance run, repo health pass, find and fix everything, scheduled repo maintenance, multi-agent bug hunt, when should the loop stop"
     activation: manual
     path: "skills/codebase-maturity/maintenance-run"
-    license: "MIT (from ANcpLua/maturity-skills)"
+    license: "MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)"
     compatibility: "Portable Markdown skill with a Python findings helper; Codex UI metadata in agents/openai.yaml."
     description: |
       Orchestrate a full autonomous maintenance run on a repo: parallel finders, root-cause dedupe, adversarial
@@ -646,7 +646,7 @@ skills:
     trigger: "mutation testing, mutation score, stryker, how good are my tests really, test-suite strength, test gaps beyond coverage"
     activation: manual
     path: "skills/codebase-maturity/mutation-tester"
-    license: "MIT (from ANcpLua/maturity-skills)"
+    license: "MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)"
     compatibility: "Portable Markdown skill; Codex UI metadata in agents/openai.yaml."
     description: |
       Run mutation testing and turn surviving mutants into targeted tests, or keep a recorded mutation-score baseline as
@@ -665,7 +665,7 @@ skills:
     trigger: "verify performance claim, benchmark a tool, does it really handle X MB, streaming claim, O(n) claim, perf baseline"
     activation: manual
     path: "skills/codebase-maturity/perf-gate"
-    license: "MIT (from ANcpLua/maturity-skills)"
+    license: "MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)"
     compatibility: "Portable Markdown skill; Codex UI metadata in agents/openai.yaml."
     description: |
       Measure a project's own performance claims (README, docs) against reality and attribute regressions to code.

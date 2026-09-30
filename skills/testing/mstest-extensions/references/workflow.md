@@ -49,6 +49,7 @@ directly. Load a deeper reference only when its branch applies.
 | Expected exceptions | `Assert.Throws`/`Assert.ThrowsExactly` and their async forms | [Assertions and execution](assertions-and-execution.md) |
 | A repeated domain expectation | Existing `Assert` methods, then an extension reached through `Assert.That` | [Assertions and execution](assertions-and-execution.md) |
 | Thread affinity, platform conditions, retry, custom test attributes | `STATestMethod`, condition attributes, `Retry`, a `TestMethodAttribute` subclass | [Assertions and execution](assertions-and-execution.md) |
+| Architecture rules as tests for a declared style | `[Monolith]`, `[Microservices]` or `[DistributedMonolith]` with a rule family | [Architecture attributes](architecture-attribute.md) |
 | Discovery, filtering, extensions, exit codes, coverage, flakiness | The configured runner and repository wrapper | [Runner and verification](runner-and-verification.md) |
 
 Use the relevant branch only. Keep scenario descriptions immutable and create

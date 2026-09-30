@@ -1,5 +1,5 @@
 ---
-name: mcp-csharp-sdk-1.4.1
+name: mcp-csharp-sdk-1-4-1
 description: Authoritative reference for the Model Context Protocol C#/.NET SDK 1.4.1. Use for MCP servers, clients, tools, prompts, resources, transports, sessions, tasks, sampling, elicitation, roots, identity, auth, filters, completions, logging, pagination, HTTP context, McpServer, McpClient, and ModelContextProtocol.* APIs. Always load the relevant reference file before answering.
 ---
 

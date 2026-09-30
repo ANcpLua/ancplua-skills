@@ -7,6 +7,13 @@ here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 fixture="$here/../_fixtures/tunit-mini"
 real_home="$(eval echo "~$(id -un)")"      # tilde uses the passwd entry, not $HOME
 
+# Everything below rewrites $HOME's NuGet config and the cwd; outside the harness that is
+# the user's real config and repository, so refuse before the first write.
+if [ "${HOME%/}" = "${real_home%/}" ]; then
+  echo "scaffold.sh: HOME is not remapped ($HOME); run it only through the eval harness" >&2
+  exit 1
+fi
+
 cp -R "$fixture/." .
 
 # 1. The first dotnet command below does the first-run setup (sentinels + NuGet migrations)
@@ -37,7 +44,8 @@ XML
 dotnet restore Shop.Tests.csproj --configfile "$seed_config" -v q
 old="$(mktemp -d)"
 cp Shop.Tests.csproj "$old/"
-sed -i '' 's/Version="1.68.17"/Version="1.68.0"/g' "$old/Shop.Tests.csproj"
+sed -i.bak 's/Version="1.68.17"/Version="1.68.0"/g' "$old/Shop.Tests.csproj"   # BSD and GNU sed
+rm "$old/Shop.Tests.csproj.bak"
 dotnet restore "$old/Shop.Tests.csproj" --configfile "$seed_config" -v q
 rm -rf "$old" "$(dirname "$seed_config")"
 test -f "$HOME/.local/share/NuGet/Migrations/1"

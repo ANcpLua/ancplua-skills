@@ -169,6 +169,18 @@ def arxiv_metadata(arxiv_id: str) -> dict:
     }
 
 
+def _safe_members(tf: tarfile.TarFile, dest: Path):
+    """Members of an author-uploaded e-print that stay inside dest: links,
+    devices and entries resolving outside it (`../x`, `/abs`) are skipped."""
+    root = dest.resolve()
+    for m in tf.getmembers():
+        if not (m.isfile() or m.isdir()):
+            continue
+        target = (root / m.name).resolve()
+        if target == root or root in target.parents:
+            yield m
+
+
 def fetch_arxiv_files(arxiv_id: str, paper_dir: Path) -> dict:
     bare = re.sub(r"v\d+$", "", arxiv_id)
     pdf_url = f"https://arxiv.org/pdf/{arxiv_id}.pdf"
@@ -181,7 +193,7 @@ def fetch_arxiv_files(arxiv_id: str, paper_dir: Path) -> dict:
         _http_download(eprint_url, tmp_path)
         try:
             with tarfile.open(tmp_path, "r:*") as tf:
-                tf.extractall(src_dir)
+                tf.extractall(src_dir, members=_safe_members(tf, src_dir))
         except tarfile.ReadError:
             # Some e-prints are a single gzipped .tex file, not a tar
             try:

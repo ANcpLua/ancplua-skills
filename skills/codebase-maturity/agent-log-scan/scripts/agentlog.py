@@ -118,6 +118,12 @@ _RE_UUID = re.compile(
     r"-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b"
 )
 _RE_HEX = re.compile(r"\b[0-9a-fA-F]{7,}\b")
+# Signatures are printed by default, so identities and credentials in the
+# error text must not survive: e-mail addresses, and token-like runs of 20+
+# word/dash characters mixing letters and digits (ghp_..., sk-..., JWTs).
+_RE_EMAIL = re.compile(r"[\w.+\-]+@[\w\-]+(?:\.[\w\-]+)+")
+_RE_SECRET = re.compile(r"(?<![\w\-])(?=[\w\-]*\d)(?=[\w\-]*[A-Za-z])"
+                        r"[\w\-]{20,}(?![\w\-])")
 _RE_NUM = re.compile(r"\d+")
 _RE_WS = re.compile(r"\s+")
 _RE_CTRL = re.compile(r"[\x00-\x1f\x7f]")
@@ -135,7 +141,8 @@ DETECTOR_GATE = ("retry-loop", "permission-thrash", "api-dead-end",
 
 def normalize_signature(text):
     """Collapse an error text to a stable cluster key: first meaningful
-    line with paths, uuids, hex runs, and numbers replaced."""
+    line with paths, uuids, hex runs, e-mail addresses, token-like
+    secrets, and numbers replaced."""
     t = text.strip()
     for ln in t.splitlines():
         ln = ln.strip()
@@ -146,6 +153,8 @@ def normalize_signature(text):
     t = _RE_PATH.sub("<path>", t)
     t = _RE_UUID.sub("<id>", t)
     t = _RE_HEX.sub("<hex>", t)
+    t = _RE_EMAIL.sub("<email>", t)
+    t = _RE_SECRET.sub("<secret>", t)
     t = _RE_NUM.sub("<n>", t)
     t = _RE_WS.sub(" ", t)
     return t[:160]

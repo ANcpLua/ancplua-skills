@@ -21,6 +21,16 @@ Categories:
 
 ### Changed
 - Skills live under `skills/<category>/<skill>/` (the registry category), each category with a README; `skills/packs/` is gone and every path in the registry, README, docs, renovate and adapters follows.
+- The five `codebase-maturity` imports record their upstream revision (`ANcpLua/maturity-skills` main @ 2ab662b).
+- CI parses every `SKILL.md` frontmatter, runs the bundled helper tests (`skills/**/scripts/test_*.py`) and checks the eval scaffold's HOME guard; `ValidateSkills` also scans `.py`, `.csproj`, `.props`, `.targets`, `.xml` and `.claude-plugin/` for machine-local paths.
+
+### Fixed
+- `agent-log-scan`: error signatures, printed without `--show-text`, no longer carry e-mail addresses or token-like secrets from the error text.
+- `paper-reader`: arXiv e-print extraction skips links and members that resolve outside `source/`; commands reference `scripts/` in the skill folder instead of `~/.claude/skills/paper-reader/`, which a plugin install never creates.
+- `mutation-tester`: the frontmatter description is quoted, so strict YAML parsers load it.
+- `prove-fix-across-versions` eval scaffold `_smoke/scaffold.sh` refuses to run when HOME is not remapped, instead of rewriting the real user's NuGet config, and pins OLD with a `sed -i` form that works on BSD and GNU sed.
+- `mcp-csharp-sdk-1.4.1` is renamed `mcp-csharp-sdk-1-4-1`: skill names allow only lowercase letters, digits and hyphens, and CI now enforces that.
+- `forgejo-direct-api`: `verify-forgejo-skill.sh` sends `FORGEJO_TOKEN` only to an instance given as its first argument, never to the public default.
 
 
 ### Added
