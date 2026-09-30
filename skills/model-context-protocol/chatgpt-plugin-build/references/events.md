@@ -84,4 +84,6 @@ A `2xx` acknowledges receipt. Retry transient failures with exponential backoff 
 
 ## Test
 
+Test on ChatGPT web or mobile: event-triggered tasks don't run in the desktop app, Codex CLI or the IDE extension, depend on the plan, and in a managed workspace need the admin permission **Allow event-triggered scheduled tasks** ([scheduled tasks](https://learn.chatgpt.com/docs/automations.md)). That page names only Gmail, Slack and GitHub as triggers, so record whether a developer-mode connection's events start a task. Events that arrive close together may share one run; **Scheduled** shows pending events and **Run now**.
+
 Follow the lifecycle list on the page's "Test in ChatGPT" section, then add: repeated subscription requests, expiry and refresh across a server restart, account disconnection, revoked access to a subscribed resource, invalid signatures, duplicate deliveries, and bursts with batching on and off. When the requested action changes data in the source app, check that the resulting events create no feedback loop.
