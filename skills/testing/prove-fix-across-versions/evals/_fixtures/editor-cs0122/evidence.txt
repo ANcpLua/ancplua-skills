@@ -1,0 +1,32 @@
+What I see (TUnit 1.68.0, TUnit.Mocks 1.68.0, .NET SDK 10, macOS)
+
+1) Editor (Rider / VS Code C# Dev Kit), Tests/QuotaTests.cs line 11:
+
+   error CS0122: 'IQuotaPolicy' is inaccessible due to its protection level
+
+2) Command line is fine:
+
+   $ dotnet build Tests/Tests.csproj
+   Build succeeded.
+       0 Warning(s)
+       0 Error(s)
+
+   $ dotnet run --project Tests/Tests.csproj
+   -> Internal_policy_is_mockable passes
+
+3) What the compiler gets:
+
+   $ dotnet msbuild Tests/Tests.csproj -t:Compile -p:SkipCompilerExecution=true \
+       -p:ProvideCommandLineArgs=true \
+       -getItem:ReferencePath -getItem:ReferencePathWithRefAssemblies
+   (SdkLib entries only)
+
+   ReferencePath
+      <repo>/SdkLib/bin/Debug/net10.0/SdkLib.dll
+   ReferencePathWithRefAssemblies
+      obj/Debug/net10.0/tunit-mocks-internals/b56e849a/SdkLib.dll
+
+   -> ReferencePath still has the ORIGINAL SdkLib.dll. Only
+      ReferencePathWithRefAssemblies has the publicized copy. csc uses
+      ReferencePathWithRefAssemblies, so the build works, but the IDE must be
+      reading ReferencePath and getting the original with IQuotaPolicy internal.

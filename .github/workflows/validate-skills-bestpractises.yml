@@ -16,11 +16,14 @@ on:
     branches: [ master ]
     paths:
       - 'skills/**'
+      - '.claude-plugin/**'
       - '.github/workflows/validate-skills-bestpractises.yml'
   pull_request:
     branches: [ master ]
     paths:
       - 'skills/**'
+      - '.claude-plugin/**'
+      - '.github/workflows/validate-skills-bestpractises.yml'
   workflow_dispatch:
 
 jobs:
@@ -413,6 +416,110 @@ jobs:
           echo "✅ Template validation passed"
 
       # ─────────────────────────────────────────────────────────────────────────
+      # SKILL.md Frontmatter Validation
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Validate SKILL.md frontmatter
+        run: |
+          echo "═══════════════════════════════════════════════════════════════"
+          echo "Validating SKILL.md Frontmatter"
+          echo "═══════════════════════════════════════════════════════════════"
+
+          python3 << 'EOF'
+          import json
+          import os
+          import re
+          import sys
+          import yaml
+
+          errors = []
+
+          with open('.claude-plugin/plugin.json', 'r') as f:
+              plugin_paths = {os.path.normpath(p) for p in json.load(f)['skills']}
+          with open('skills/skills-registry.yaml', 'r') as f:
+              registry_paths = {os.path.normpath(s['path']) for s in yaml.safe_load(f)['skills'] if s.get('path')}
+
+          for path in sorted(plugin_paths ^ registry_paths):
+              where = 'plugin.json' if path in plugin_paths else 'skills-registry.yaml'
+              errors.append(f"{path}: listed only in {where}")
+
+          for path in sorted(plugin_paths | registry_paths):
+              skill_md = os.path.join(path, 'SKILL.md')
+              if not os.path.isfile(skill_md):
+                  errors.append(f"{skill_md}: missing")
+                  continue
+              with open(skill_md, 'r', encoding='utf-8') as f:
+                  text = f.read()
+              m = re.match(r'---\r?\n(.*?)\r?\n---\r?\n', text, re.S)
+              if not m:
+                  errors.append(f"{skill_md}: no '---' frontmatter block at the top")
+                  continue
+              try:
+                  front = yaml.safe_load(m.group(1))
+              except yaml.YAMLError as e:
+                  errors.append(f"{skill_md}: frontmatter is not valid YAML ({str(e).splitlines()[0]})")
+                  continue
+              if not isinstance(front, dict):
+                  errors.append(f"{skill_md}: frontmatter is not a mapping")
+                  continue
+              for key in ('name', 'description'):
+                  if not isinstance(front.get(key), str) or not front[key].strip():
+                      errors.append(f"{skill_md}: '{key}' must be a non-empty string")
+              name = front.get('name')
+              if isinstance(name, str) and not re.fullmatch(r'[a-z0-9]+(-[a-z0-9]+)*', name):
+                  errors.append(f"{skill_md}: name '{name}' may use only lowercase letters, digits and single hyphens")
+              if isinstance(name, str) and name != os.path.basename(path):
+                  errors.append(f"{skill_md}: name '{name}' does not match folder '{os.path.basename(path)}'")
+              # Installed as a plugin the skill does not live under ~/.claude/skills/<name>/,
+              # so bundled files are referenced relative to the skill folder.
+              if isinstance(name, str) and f'.claude/skills/{name}/' in text:
+                  errors.append(f"{skill_md}: hardcodes its install location ~/.claude/skills/{name}/")
+
+          if errors:
+              print("❌ Frontmatter errors:")
+              for error in errors:
+                  print(f"   - {error}")
+              print()
+              print(f"❌ FAILED: {len(errors)} frontmatter error(s) found")
+              sys.exit(1)
+
+          print(f"✅ {len(plugin_paths)} SKILL.md frontmatter blocks parse, named after their folders")
+          EOF
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # Helper Behavior Tests
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Run bundled helper tests
+        run: |
+          echo "═══════════════════════════════════════════════════════════════"
+          echo "Running Bundled Helper Tests"
+          echo "═══════════════════════════════════════════════════════════════"
+
+          ERRORS=0
+          while IFS= read -r test; do
+            echo "── $test"
+            python3 "$test" || ERRORS=$((ERRORS + 1))
+          done < <(find skills -path '*/scripts/test_*.py' | sort)
+
+          if [ $ERRORS -gt 0 ]; then
+            echo "❌ FAILED: $ERRORS helper test file(s) failed"
+            exit 1
+          fi
+
+          echo "✅ Helper tests passed"
+
+      - name: Eval scaffolds refuse an unremapped HOME
+        run: |
+          # The runner's HOME is its passwd home, exactly the state the harness never leaves it in.
+          ws="$(mktemp -d)"
+          if (cd "$ws" && bash "$GITHUB_WORKSPACE/skills/testing/prove-fix-across-versions/evals/_smoke/scaffold.sh") 2> "$ws.err"; then
+            echo "❌ _smoke/scaffold.sh ran with an unremapped HOME"
+            exit 1
+          fi
+          grep -q "HOME is not remapped" "$ws.err" || { echo "❌ no refusal message:"; cat "$ws.err"; exit 1; }
+          [ -z "$(ls -A "$ws")" ] || { echo "❌ scaffold wrote into cwd:"; ls -A "$ws"; exit 1; }
+          echo "✅ _smoke/scaffold.sh refuses before its first write"
+
+      # ─────────────────────────────────────────────────────────────────────────
       # Final Summary
       # ─────────────────────────────────────────────────────────────────────────
       - name: Validation Summary
@@ -431,5 +538,8 @@ jobs:
           echo "  ✅ Categories schema"
           echo "  ✅ Skill-category cross references"
           echo "  ✅ Template placeholders"
+          echo "  ✅ SKILL.md frontmatter"
+          echo "  ✅ Bundled helper tests"
+          echo "  ✅ Eval scaffold HOME guard"
           echo ""
           echo "Your portable skills structure is valid."

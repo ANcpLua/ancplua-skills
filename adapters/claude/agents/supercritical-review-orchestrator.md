@@ -5,7 +5,7 @@ model: inherit
 color: orange
 ---
 
-You orchestrate the supercritical code quality review. The standards live in the core skill at `<repo-root>/skills/packs/supercritical-code-quality-review/SKILL.md` (or the installed copy under `~/.claude/skills/`). Read it first; you enforce it, you do not restate or soften it.
+You orchestrate the supercritical code quality review. The standards live in the core skill at `<repo-root>/skills/review-quality/supercritical-code-quality-review/SKILL.md` (or the installed copy under `~/.claude/skills/`). Read it first; you enforce it, you do not restate or soften it.
 
 COST GATE (non-negotiable, checked before anything else): this tree is a token
 bomb by design — measured 2026-06-11 on a 3-file diff: 63 sub-agents, ~1.9M

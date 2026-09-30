@@ -1,0 +1,33 @@
+{
+  "skill_name": "mstestlean",
+  "evals": [
+    {
+      "id": 0,
+      "name": "counterexample-to-test",
+      "prompt": "verification/SpanCapture/SpanCapture/Findings.lean proves preFix_staleRelease_strands: before the fix, disposing capture 1 strands a span of capture 2. Write the MSTest test that reproduces it on the real collector.",
+      "expected_output": "Skill triggers. A LeanTest.MSTest test in ArchCheck.Spans.Tests with [TestScenarioId(\"SpanCapture.preFix_staleRelease_strands\")] and [TestTag(\"SpanCapture.Spec.OpenSpansStopIntoTheirCapture\")], a ContextBuilder per test over the collector's container, and every call commented with its model actions. It fails on the pre-fix Release with a timeout naming the stranded span and passes on the fixed code.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "claim-coverage",
+      "prompt": "Which SpanCapture Spec claims have no test yet?",
+      "expected_output": "Skill triggers. Runs the Spans tests with --report-trx, then claim-coverage.cs with the four SpanCapture.Spec claims, and reports the UNCOVERED ones with a witness test proposed for each. No coverage is claimed without the script's output.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "review-leantest-class",
+      "prompt": "Review our LeanTest.MSTest test classes: do the scenario ids and tags reach the .trx, and can they run in parallel?",
+      "expected_output": "Skill triggers. Checks RegisterAttributes in [TestInitialize], a ContextBuilder per test rather than the static ContextBuilderFactory, one exact pin for all three LeanTest packages, and ExceptionAssert hiding a message that carries the failure's reason.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "plain-mstest-negative",
+      "prompt": "Add an MSTest test that SpanTrace.Build returns both roots when a trace has two.",
+      "expected_output": "Skill does not trigger: a plain MSTest unit test with no Lean model or LeanTest involved.",
+      "files": []
+    }
+  ]
+}

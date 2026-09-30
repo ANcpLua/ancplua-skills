@@ -1,0 +1,7 @@
+# Detector anchoring
+
+Substring detectors drown in conversational mentions: a transcript corpus is full of agents *talking about* errors, limits, and permissions. Every detector marker must be anchored **structurally** — to how the harness writes the event into the transcript — not to phrases that also occur in prose:
+
+- Canonical case: the limit-interrupt detector matched limit phrases anywhere and reported 89 hits; anchored structurally (harness injections are `isMeta` user turns whose content string *starts* with the sentinel; conversational text never fires) it reported 40, all true positives.
+- Same cure for permission-thrash: a **denial result** is a `tool_result` with `is_error: true` whose text starts with a verbatim harness denial sentinel; a **denial report** is an unquoted active-voice "classifier denied ..." in free text (peer messages, queue-operation records, prose). Documentation about permissions, the cross-session boilerplate that mentions "denied permission" hypothetically, ALLOW decisions, and tool results that merely quote a denial never fire.
+- When extending a detector, derive the anchor from observed real nodes (`slice` into confirmed events and read their structure: entry type, flags, block type, text position), add each false-positive class to the adversarial fixture, and re-verify the ground-truth counts. A sentinel nobody has observed is a guess, not a detector.

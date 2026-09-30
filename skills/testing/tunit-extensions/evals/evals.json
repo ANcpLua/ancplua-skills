@@ -1,0 +1,50 @@
+{
+  "skill_name": "tunit-extensions",
+  "evals": [
+    {
+      "id": 1,
+      "name": "suspended-read",
+      "prompt": "We use TUnit 1.67.0 on net10.0. Suggest concrete test code for a successful ParseAsync that really suspends and resumes its input read, for chunk sizes 1, 7 and 64. Make the scenarios reusable. Do we need our own incremental generator? The supplied API fixture is the complete contract. Do not implement the parser or stream. No tools are available: provide code and a verification plan, not claims of execution.",
+      "expected_output": "A typed factory data source and public parser test using the provided handshake, full-result checks, and failure-safe ownership.",
+      "files": ["evals/fixtures/stream-api.txt"],
+      "references": ["data-and-scenarios.md", "lifecycle-and-resources.md"],
+      "expectations": [
+        "Uses the existing public Parser.ParseAsync and expected total 42 rather than implementing or mocking the parser.",
+        "Provides reusable cases 1, 7 and 64 without a custom Roslyn generator; a custom typed source uses protected override and factories, with no live stream shared during discovery.",
+        "Waits for the provided Paused handshake, observes the parse is pending, resumes it, and checks the completed report without timing sleeps.",
+        "Releases and observes the parse operation on failure paths before disposing the caller-owned stream, with bounded waiting.",
+        "Checks stream ownership and async-only behavior, and distinguishes proposed discovery/execution from verified results."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "fixture-lifecycle",
+      "prompt": "TUnit tests run in parallel. We repeat an upload test for accepted, server-error and disconnected responses. Should I hide setup in a shared class fixture? Design the reusable fixture and its consuming tests from the fixture notes, with code for lifecycle and injection. Also describe where failure-only request diagnostics belong. Keep the real CLI client in the test; no new packages. No tools are available, so mark verification as proposed.",
+      "expected_output": "An unshared injected fixture with runtime initialization, rollback and awaited cleanup, exercising the client over loopback; outcome-aware diagnostics do not mask the failure.",
+      "files": ["evals/fixtures/upload-api.txt"],
+      "references": ["lifecycle-and-resources.md", "assertions-and-execution.md"],
+      "expectations": [
+        "Uses a fresh injected fixture for each independently executed case, without sharing the one-request mutable server or disabling all suite parallelism.",
+        "Starts the server during async initialization on loopback and port zero rather than blocking or acquiring the socket in a constructor.",
+        "Releases the owned session if readiness fails and joins/stops the request loop before releasing the socket on normal teardown.",
+        "Exercises Cli.RunAsync, asserting request semantics and success/server-error/disconnect exit behavior rather than replacing the client with a mock.",
+        "Places failure-only diagnostics at an outcome-aware lifecycle boundary before resource release, preserving the original failure; adds no packages and makes no execution claims."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "assertion-and-runner",
+      "prompt": "For our TUnit project, add the reusable expectation IsMeasuredPass for Measurement(HasData, ThresholdMet): both must be true. Should we install FluentAssertions/AwesomeAssertions or write a Roslyn incremental generator? Give the small extension and meaningful tests, then explain discovery, coverage and a flakiness comparison using our supplied runner facts. Is removing Coverlet required? No tools are available. Keep changes scoped and do not claim a run happened.",
+      "expected_output": "A TUnit-generated domain assertion with an executed rejection test design; retains native Coverlet MTP and uses the declared wrapper/runner modes correctly.",
+      "files": ["evals/fixtures/runner.txt"],
+      "references": ["assertions-and-execution.md", "runner-and-verification.md"],
+      "expectations": [
+        "Implements HasData AND ThresholdMet as a TUnit GenerateAssertion predicate (or a justified existing TUnit assertion alternative), without a new assertion library or custom Roslyn generator.",
+        "Tests the accepting and rejecting generated assertion paths with observed assertions, including missing data with a satisfied threshold, rather than only testing its boolean helper.",
+        "Retains coverlet.MTP and distinguishes it from legacy collector/msbuild integrations, preserving the configured provider filters and opt-in coverage.",
+        "Uses the supplied Fallout targets for routine verification and native MTP discovery/filtering without inventing VSTest flags or claiming commands ran.",
+        "Proposes isolated solo/sequential/parallel observations without retries or fail-fast and does not equate differing outcomes or coverage with proof of a specific bug."
+      ]
+    }
+  ]
+}

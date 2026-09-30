@@ -28,9 +28,9 @@
 
 | Scope | Active | Total |
 |-------|--------|-------|
-| Global | 2 | 2 |
-| Domain | 15 | 15 |
-| Session | 6 | 6 |
+| Global | 3 | 3 |
+| Domain | 23 | 23 |
+| Session | 14 | 14 |
 
 ---
 
@@ -40,7 +40,7 @@
 <summary>Table of Contents</summary>
 
 - **Global Skills (Always Loaded)**
-  - [D Documentation Grounding](#documentation-grounding) (2)
+  - [D Documentation Grounding](#documentation-grounding) (3)
     - [Microsoft](#microsoft) (2)
 
 - **Domain Skills (Project-Scoped)**
@@ -51,13 +51,17 @@
   - [F Frontend UI](#frontend-ui) (6)
     - [React](#react) (1)
   - [A Architecture Diagramming](#architecture-diagramming) (1)
-  - [N .NET Platform](#.net-platform) (1)
+  - [N .NET Platform](#.net-platform) (4)
   - [A .NET AI & Agent SDKs](#.net-ai--agent-sdks) (1)
   - [C CI Automation](#ci-automation) (1)
+  - [T Testing](#testing) (5)
+  - [X ArchCheck Thesis](#archcheck-thesis) (2)
 
 - **Session Skills (On-Demand)**
   - [Q Review & Quality](#review--quality) (5)
   - [P Prompt Engineering](#prompt-engineering) (1)
+  - [R Codebase Maturity](#codebase-maturity) (5)
+  - [P Productivity](#productivity) (1)
 
 </details>
 
@@ -69,6 +73,24 @@
 <summary><h3>D Documentation Grounding</h3></summary>
 
 > Skills that route work toward authoritative documentation, source, and freshness checks before answering from memory.
+
+**`Paper Reader`** &nbsp; `paper-reader` &nbsp; 👆 Manual &nbsp; P1
+
+Use whenever the user wants to read, summarize, discuss, cite, or pull a research paper. Any arXiv / OpenReview / ACL Anthology link, DOI, PDF URL, or a phrase like "read this paper", "pull this paper", "summarize", "what does X say", or "cite X". Always downloads the PDF (and the arXiv tex source when available), fetches a real BibTeX entry from an authoritative source via OpenAlex / Crossref / DBLP / ACL / Semantic Scholar (never fabricated), structures everything under ~/papers/, and enforces strict citation discipline. Every claim about the paper carries an inline locator with section or table/figure plus page number, and citations are never fabricated.
+
+<details>
+<summary>Capabilities</summary>
+
+- `paper_fetch`
+- `page_extraction`
+- `citation_discipline`
+
+</details>
+> **Path:** `skills/documentation-grounding/paper-reader`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill with Python scripts (fetch_paper.py, extract_pages.py) and references; needs network access for fetching.
+> **Trigger:** `read paper, summarize paper, cite paper, arxiv, openreview, acl anthology, doi, pdf url, bibtex`
+
 
 #### Microsoft
 
@@ -85,7 +107,7 @@ Routing skill that biases substantive Microsoft-shaped work toward Microsoft Lea
 - `api_freshness`
 
 </details>
-> **Path:** `skills/packs/microsoft-first-research`
+> **Path:** `skills/documentation-grounding/microsoft-first-research`
 > **License:** `Apache-2.0 as declared in SKILL.md`
 > **Compatibility:** Portable routing skill; depends on the consuming agent having some Microsoft Learn/doc lookup capability.
 > **Trigger:** `microsoft, azure, dotnet, foundry, agent framework, copilot studio, sdk docs, current api`
@@ -104,7 +126,7 @@ Operating guide for Microsoft Learn grounding: search/fetch/code-sample retrieva
 - `source_links`
 
 </details>
-> **Path:** `skills/packs/microsoft-learn-grounding`
+> **Path:** `skills/documentation-grounding/microsoft-learn-grounding`
 > **License:** `Apache-2.0 as declared in SKILL.md`
 > **Compatibility:** Portable instructions for using Microsoft Learn MCP-style retrieval; tool names may need mapping in non-MCP runtimes.
 > **Trigger:** `microsoft learn, learn mcp, azure docs, dotnet docs, m365 docs, foundry docs, doc freshness`
@@ -137,7 +159,7 @@ completions, logging, pagination, HTTP context, McpServer, and McpClient.
 - `protocol_correctness`
 
 </details>
-> **Path:** `skills/packs/mcp-csharp-sdk-1.4.1`
+> **Path:** `skills/model-context-protocol/mcp-csharp-sdk-1-4-1`
 > **License:** `MIT repo wrapper; references summarize public SDK/docs`
 > **Compatibility:** Portable Markdown skill. Optional Claude subagent adapter is in adapters/claude/agents/mcp-csharp-sdk-expert.md.
 > **Trigger:** `mcp csharp, modelcontextprotocol, mcp server, mcp client, streamable http, mcp tasks, mcp sampling, mcp elicitation, mcp roots`
@@ -163,7 +185,7 @@ eras (legacy 2025 vs modern 2026-07-28), sessions, subscriptions, notifications,
 - `protocol_correctness`
 
 </details>
-> **Path:** `skills/packs/mcp-typescript-sdk-v2`
+> **Path:** `skills/model-context-protocol/mcp-typescript-sdk-v2`
 > **License:** `MIT repo wrapper; references summarize public SDK/docs`
 > **Compatibility:** Portable Markdown skill. Verified against installed @modelcontextprotocol/* 2.0.0 packages and upstream typescript-sdk docs (main @ 3924de9, 2026-08-18).
 > **Trigger:** `mcp typescript, modelcontextprotocol server, registerTool, createMcpHandler, serveStdio, ProtocolError, inputRequired, protocol era, server/discover, versionNegotiation, qyl.mcp sdk`
@@ -192,7 +214,7 @@ and admin work.
 - `swagger_grounding`
 
 </details>
-> **Path:** `skills/packs/forgejo-direct-api`
+> **Path:** `skills/source-control/forgejo-direct-api`
 > **License:** `MIT repo wrapper; Forgejo API facts from public Swagger/docs`
 > **Compatibility:** Portable Markdown skill with shell helper scripts; requires caller-provided FORGEJO_TOKEN for private probes.
 > **Trigger:** `forgejo, forgejo api, forgejo actions, forgejo runners, forgejo pull request, forgejo release, forgejo packages`
@@ -215,7 +237,7 @@ references (policy form traps, index lag, orphaned v-tags, 409s).
 - `ci_owned_versioning`
 
 </details>
-> **Path:** `skills/packs/nuget-trusted-publishing`
+> **Path:** `skills/source-control/nuget-trusted-publishing`
 > **License:** `MIT repo wrapper; NuGet.org facts from Microsoft Learn, workflow pattern from the ANcpLua fleet`
 > **Compatibility:** Portable Markdown skill; the bundled workflow targets GitHub Actions + nuget.org Trusted Publishing (NuGet/login OIDC).
 > **Trigger:** `nuget publish, trusted publishing, nuget api key, dotnet nuget push, nuget-publish.yml, release workflow, authenticate to nuget, NuGet/login, package not on nuget.org, automate nuget release`
@@ -239,7 +261,7 @@ Kills the wrong "can't publish, credentials missing" diagnosis.
 - `extension_release_automation`
 
 </details>
-> **Path:** `skills/packs/extension-store-publishing`
+> **Path:** `skills/source-control/extension-store-publishing`
 > **License:** `Apache-2.0 repo wrapper; store API facts from Microsoft Learn / Google / Mozilla docs, verified end-to-end 2026-07-10`
 > **Compatibility:** Portable Markdown skill; reference scripts are dependency-free Node (global fetch). Credentials via env vars only.
 > **Trigger:** `extension publish, edge add-ons, chrome web store, firefox add-ons, amo, publish:edge, publish:chrome, publish:firefox, partner center publish api, EDGE_API_KEY, CWS_REFRESH_TOKEN, AMO_JWT_ISSUER, extension submission, store upload`
@@ -265,7 +287,7 @@ invisible details that make software feel great.
 - `design_philosophy`
 
 </details>
-> **Path:** `skills/packs/emil-design-eng`
+> **Path:** `skills/frontend/emil-design-eng`
 > **License:** `MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)`
 > **Compatibility:** Portable Markdown skill.
 > **Trigger:** `ui polish, design engineering, interface feel, component design philosophy, invisible details`
@@ -282,7 +304,7 @@ Shared vocabulary for describing and choosing web UI motion: easing, springs, du
 - `motion_design`
 
 </details>
-> **Path:** `skills/packs/animation-vocabulary`
+> **Path:** `skills/frontend/animation-vocabulary`
 > **License:** `MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)`
 > **Compatibility:** Portable Markdown skill.
 > **Trigger:** `animation vocabulary, easing, spring animation, duration curves, motion language`
@@ -299,7 +321,7 @@ Apple-inspired interface design principles for building UIs with native-quality 
 - `ui_design`
 
 </details>
-> **Path:** `skills/packs/apple-design`
+> **Path:** `skills/frontend/apple-design`
 > **License:** `MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)`
 > **Compatibility:** Portable Markdown skill.
 > **Trigger:** `apple design, hig, human interface guidelines, apple-like ui, native feel`
@@ -316,7 +338,7 @@ Audit existing UI animations and produce a concrete improvement plan (worksheet-
 - `motion_improvement`
 
 </details>
-> **Path:** `skills/packs/improve-animations`
+> **Path:** `skills/frontend/improve-animations`
 > **License:** `MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)`
 > **Compatibility:** Portable Markdown skill with AUDIT.md and PLAN-TEMPLATE.md worksheets.
 > **Trigger:** `improve animations, animation audit, fix janky animation, motion review`
@@ -333,7 +355,7 @@ Review UI animations against a written motion-quality standard.
 - `motion_standards`
 
 </details>
-> **Path:** `skills/packs/review-animations`
+> **Path:** `skills/frontend/review-animations`
 > **License:** `MIT — (c) Emil Kowalski, vendored from github.com/emilkowalski/skills (skills.sh)`
 > **Compatibility:** Portable Markdown skill with STANDARDS.md reference.
 > **Trigger:** `review animations, animation standards, motion quality check`
@@ -357,7 +379,7 @@ authentication. Covers 101 components, 238 blocks across 21 categories, and 11 t
 - `landing_blocks`
 
 </details>
-> **Path:** `skills/packs/react-bits-pro`
+> **Path:** `skills/frontend/react-bits-pro`
 > **License:** `Proprietary upstream component access; this repo stores instructions only`
 > **Compatibility:** Portable instructions, but actual component installation requires the user's own React Bits Pro license key and registry access.
 > **Trigger:** `react bits, reactbits, @reactbits-starter, @reactbits-pro, animated react components, shadcn registry, premium landing blocks, page sections, landing page template`
@@ -385,7 +407,7 @@ built-in shapes, and a required legend.
 - `container_diagrams`
 
 </details>
-> **Path:** `skills/packs/c4-diagram`
+> **Path:** `skills/architecture-diagramming/c4-diagram`
 > **License:** `MIT repo wrapper; no third-party assets included`
 > **Compatibility:** Portable Markdown skill that generates editable .drawio XML using built-in diagrams.net shapes.
 > **Trigger:** `c4 diagram, container diagram, architecture diagram, system diagram, draw.io, drawio`
@@ -417,10 +439,71 @@ the false-friend projects, the net10-BCL → netstandard2.0 substitution cookboo
 - `aot_trim_awareness`
 
 </details>
-> **Path:** `skills/packs/qyl-tfm-map`
+> **Path:** `skills/dotnet-platform/qyl-tfm-map`
 > **License:** `MIT repo wrapper; project-specific TFM facts read directly from the qyl-workspace csproj files`
 > **Compatibility:** Portable Markdown skill. Project-scoped to ~/RiderProjects/qyl-workspace; the map is re-derivable from the csprojs via the command in SKILL.md if the projects change.
 > **Trigger:** `target framework, TFM, netstandard2.0, net10, source generator, roslyn analyzer, IsRoslynComponent, multi-target, polyfill, AOT trim, can I use HashCode / System.Text.Json / Span here, qyl workspace`
+
+
+**`SLNX for Rider`** &nbsp; `slnx-rider` &nbsp; 👆 Manual &nbsp; P1
+
+Organize a .slnx solution file and make Rider index everything in it: creating, cleaning up, reorganizing, or
+migrating .slnx/.sln files; MSBuild config files (Directory.Build.props, Directory.Packages.props, global.json,
+nuget.config, .editorconfig) or docs missing from the solution tree; and validating a .slnx against Slnx.xsd.
+
+<details>
+<summary>Capabilities</summary>
+
+- `slnx`
+- `solution_organization`
+- `rider_indexing`
+- `xsd_validation`
+
+</details>
+> **Path:** `skills/dotnet-platform/slnx-rider`
+> **License:** `MIT; bundled Slnx.xsd under MIT (assets/Slnx.xsd.LICENSE)`
+> **Compatibility:** Portable Markdown skill with the Slnx.xsd schema in assets/ and an XSD-gap reference.
+> **Trigger:** `slnx, sln migration, solution file cleanup, rider not indexing, Directory.Build.props not showing, solution items, Slnx.xsd`
+
+
+**`Fallout Build`** &nbsp; `fallout-build` &nbsp; 👆 Manual &nbsp; P1
+
+Write, change, review, or run Fallout (NUKE) builds: exemplar-first layout, exact pins for SDK, packages, tools,
+images and actions, target chains with .Produces/Assert/ReportSummary, generated GitHub workflows, and a
+two-run reproducibility proof. Includes running ArchCheck's Containers/Tool/Analyze/Spans targets.
+
+<details>
+<summary>Capabilities</summary>
+
+- `fallout_build`
+- `exact_pinning`
+- `workflow_generation`
+- `archcheck_targets`
+
+</details>
+> **Path:** `skills/dotnet-platform/fallout-build`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill with references; exemplar paths are relative to a local examplefalloutbuilds checkout (<examples>).
+> **Trigger:** `fallout build, nuke build, Build.cs, _build.csproj, build.sh, pin build tools, GitHubActions workflow generation, add fallout target, run archcheck build`
+
+
+**`Gear 1`** &nbsp; `gear-1` &nbsp; 👆 Manual &nbsp; P1
+
+ANcpLua.Roslyn.Utilities compendium read live from the local checkout (helpers, extensions, guards, generator pipeline, black-box test fixtures, polyfills). Use for a reuse campaign over a repo, when writing or refactoring C# in the ANcpLua repos, before hand-rolling a helper, guard, polyfill, pipeline or Roslyn test, or when a reference to these packages breaks.
+
+<details>
+<summary>Capabilities</summary>
+
+- `compendium_index`
+- `helper_replacement`
+- `upstream_fix`
+- `skeptic_review`
+
+</details>
+> **Path:** `skills/dotnet-platform/gear-1`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill with an inline Python index over a local ANcpLua.Roslyn.Utilities checkout (ANCPLUA_UTILITIES_ROOT).
+> **Trigger:** `gear-1, compendium reuse, ANcpLua.Roslyn.Utilities, replace hand-rolled helpers, upstream a helper, source-only package sweep`
 
 
 </details>
@@ -448,7 +531,7 @@ ChatClientAgent/AIAgent signatures, a pre-emit self-check, and the re-grep refre
 - `stale_doc_rename_traps`
 
 </details>
-> **Path:** `skills/packs/maf-dotnet-source-of-truth`
+> **Path:** `skills/dotnet-ai/maf-dotnet-source-of-truth`
 > **License:** `MIT repo wrapper; every API fact grep-verified from a local microsoft/agent-framework checkout (>= dotnet-1.10.0)`
 > **Compatibility:** Portable Markdown skill. Requires a local clone of microsoft/agent-framework; grep paths assume the dotnet subtree layout (src/, tests/).
 > **Trigger:** `microsoft agent framework, Microsoft.Agents.AI, AIAgent, ChatClientAgent, AgentSession, AgentResponse, RunAsync, RunStreamingAsync, IChatClient, AgentThread rename, CompleteAsync gone, MAF dotnet, agent-framework source`
@@ -480,10 +563,165 @@ outside the test-container label).
 - `teardown_discipline`
 
 </details>
-> **Path:** `skills/packs/self-hosted-ci-orchestration`
+> **Path:** `skills/ci-automation/self-hosted-ci-orchestration`
 > **License:** `MIT repo wrapper`
 > **Compatibility:** Portable Markdown skill. Assumes a forge with a runner API (e.g. gh) and an idempotent project-local control tool exposing status/up/down/reset/run; machine, VM, and repo specifics live in that tool, not in this skill.
 > **Trigger:** `self-hosted runner, runner offline, ci queued not starting, bring the VM up for CI, ci up, ci down, get CI green, self-hosted job not picking up, runner lifecycle, drain queued runs`
+
+
+</details>
+
+<details open>
+<summary><h3>T Testing</h3></summary>
+
+> Skills for writing, reviewing, and proving tests — test frameworks and red-on-old/green-on-new proofs of dependency behaviour changes.
+
+**`Prove Fix Across Versions`** &nbsp; `prove-fix-across-versions` &nbsp; 👆 Manual &nbsp; P1
+
+Prove each behaviour change between two versions of a dependency with a test that is red on OLD and green on NEW.
+For "fixed in X" / "changed in X" claims, re-verifying version claims in docs or changelogs, confirming an upstream
+fix, and diagnosing a bug before reporting it upstream. Plain version bumps with no behavioural claim are out of scope.
+
+<details>
+<summary>Capabilities</summary>
+
+- `version_claim_proof`
+- `red_green_tests`
+- `changelog_verification`
+- `upstream_diagnosis`
+
+</details>
+> **Path:** `skills/testing/prove-fix-across-versions`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill with a .NET reference and graded evals (evals/ fixtures and scaffold scripts).
+> **Trigger:** `fixed in, changed in, version bump claim, verify changelog claim, upstream fix, red on old green on new, re-verify version claims, report upstream bug`
+
+
+**`TUnit Extensions`** &nbsp; `tunit-extensions` &nbsp; 👆 Manual &nbsp; P1
+
+Write, review, troubleshoot, or migrate tests using TUnit, TUnit.Assertions, or TUnit.Mocks: ordinary tests and
+assertions, data sources and matrices, fixture lifecycles, custom assertions, executors, async isolation, and
+TUnit/Microsoft.Testing.Platform runner problems.
+
+<details>
+<summary>Capabilities</summary>
+
+- `tunit`
+- `assertions`
+- `data_sources`
+- `fixture_lifecycle`
+- `mtp_runner`
+
+</details>
+> **Path:** `skills/testing/tunit-extensions`
+> **License:** `Derivative of the official TUnit skill v1.68.4 (MIT); attribution in UPSTREAM-NOTICE.md`
+> **Compatibility:** Portable Markdown skill with task-specific references and evals (evals/evals.json, trigger-queries.json).
+> **Trigger:** `tunit, TUnit.Assertions, TUnit.Mocks, data source, matrix tests, fixture lifecycle, custom assertion, test executor, async isolation, mtp runner`
+
+
+**`MSTest Extensions`** &nbsp; `mstest-extensions` &nbsp; 👆 Manual &nbsp; P1
+
+Write, review, troubleshoot, or migrate MSTest tests on Microsoft.Testing.Platform: data-driven cases, fixture
+lifecycle and TestContext, cooperative timeouts, parallel isolation, Assert.Throws and Assert.That extensions,
+custom test attributes, and MTP discovery, filters, exit codes, and extensions. The MSTest counterpart of tunit-extensions.
+
+<details>
+<summary>Capabilities</summary>
+
+- `mstest`
+- `data_driven_tests`
+- `fixture_lifecycle`
+- `mtp_runner`
+- `custom_assertions`
+
+</details>
+> **Path:** `skills/testing/mstest-extensions`
+> **License:** `MIT (original text in this repo; summarizes Microsoft Learn MSTest docs with links)`
+> **Compatibility:** Portable Markdown skill with task-specific references; written against MSTest 4.4 and Microsoft.Testing.Platform 2.4, with version notes for earlier releases.
+> **Trigger:** `mstest, MSTest.Sdk, DataRow, DynamicData, TestDataRow, CombinatorialData, TestContext, ClassInitialize, Assert.ThrowsExactly, Assert.That, mtp runner, --filter`
+
+
+**`Test Audit`** &nbsp; `test-audit` &nbsp; 👆 Manual &nbsp; P1
+
+Audit and prune an existing .NET test suite (MSTest on Microsoft.Testing.Platform) by finding tests that restate the implementation, duplicate stronger tests, or keep test-only production seams alive, then removing or consolidating them with evidence. Use when asked to audit, clean up, prune, dedupe, or consolidate tests, to cut test count against a coverage target, or to judge whether tests earn their keep.
+
+<details>
+<summary>Capabilities</summary>
+
+- `test_audit`
+- `duplicate_detection`
+- `mutation_check`
+- `coverage_guard`
+
+</details>
+> **Path:** `skills/testing/test-audit`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill; uses the C# LSP and the skeptic subagent when present.
+> **Trigger:** `test audit, prune tests, duplicate tests, tests that restate the implementation, mstest suite cleanup, coverage within points`
+
+
+**`MSTest LeanTest`** &nbsp; `mstestlean` &nbsp; 👆 Manual &nbsp; P1
+
+LeanTest.MSTest tests for Lean-verified .NET code. Use when a Lean counterexample or claim needs an MSTest test at the owner boundary, or when writing or reviewing LeanTest.MSTest tests.
+
+<details>
+<summary>Capabilities</summary>
+
+- `leantest_mstest`
+- `claim_coverage`
+- `counterexample_reproduction`
+
+</details>
+> **Path:** `skills/testing/mstestlean`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill with a C# script (claim-coverage.cs) run through dotnet run; pairs with the lean-verify skill of the ancplua-lean-verify plugin.
+> **Trigger:** `leantest, mstestlean, lean counterexample test, claim coverage, TestScenarioId, TestTag, trx claims`
+
+
+</details>
+
+<details open>
+<summary><h3>X ArchCheck Thesis</h3></summary>
+
+> Project skills for the ArchCheck thesis workspace — the twbook LaTeX document and ArchCheck rule evaluation. Project paths are relative to the thesis workspace.
+
+**`twbook (ArchCheck Thesis)`** &nbsp; `archcheck-twbook` &nbsp; 👆 Manual &nbsp; P1
+
+Edit the thesis workspace's twbook LaTeX class, document content, bibliography, and PDF layout: template
+configuration, bibliography handling, compilation, and PDF verification.
+
+<details>
+<summary>Capabilities</summary>
+
+- `latex_class`
+- `bibliography`
+- `pdf_verification`
+
+</details>
+> **Path:** `skills/archcheck-thesis/twbook`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Project skill for the ArchCheck thesis workspace; project paths are relative to the thesis repository root.
+> **Trigger:** `twbook, thesis latex class, bibliography, citation problem, pdf layout, document compilation`
+
+
+**`ArchCheck Evaluation`** &nbsp; `archcheck-evaluation` &nbsp; 👆 Manual &nbsp; P1
+
+Develop ArchCheck's static or runtime rules, analyze repository or trace evidence, and evaluate findings and
+coverage: SR1-SR6, RT1-RT3, inference, SARIF interpretation, and empirical result claims.
+
+<details>
+<summary>Capabilities</summary>
+
+- `static_rules`
+- `runtime_rules`
+- `sarif`
+- `precision_recall`
+
+</details>
+> **Path:** `skills/archcheck-thesis/archcheck-evaluation`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Project skill for ArchCheck; project paths are relative to the ArchCheck/ directory. Build targets: fallout-build references/archcheck.md.
+> **Trigger:** `archcheck rules, SR1-SR6, RT1-RT3, ownership inference, sarif, finding aggregation, precision recall, empirical claims`
 
 
 </details>
@@ -509,7 +747,7 @@ Maximally strict structural review that hunts complexity-collapse opportunities,
 - `adversarial_verification`
 
 </details>
-> **Path:** `skills/packs/supercritical-code-quality-review`
+> **Path:** `skills/review-quality/supercritical-code-quality-review`
 > **License:** `MIT (original text in this repo)`
 > **Compatibility:** Portable review prompt with an optional Claude nested-agent cascade (adapters/claude/agents/supercritical-review-orchestrator.md). Frontmatter field disable-model-invocation is runtime-specific and safe to ignore when unsupported.
 > **Trigger:** `supercritical review, supercritical code quality review, deep maintainability audit, harsh code quality review, thermo-nuclear review`
@@ -532,7 +770,7 @@ a required "looks bad but is fine" section protects intentional boundaries. Prio
 - `evidence_gate`
 
 </details>
-> **Path:** `skills/packs/tech-debt`
+> **Path:** `skills/review-quality/tech-debt`
 > **License:** `MIT`
 > **Compatibility:** Portable Markdown skill. Eight Claude agent adapters in adapters/claude/agents/debt-*.md run it as a pipeline: router, three read-only hunters (accretion, lifecycle, aot), contracts brake, arbiter, and two writers (deleter, boundary-fix) with a net-negative line-delta gate.
 > **Trigger:** `tech debt, technical debt audit, what should we refactor, code health, refactoring priorities, maintenance backlog, accretion audit`
@@ -554,7 +792,7 @@ unverified claims are marked as such with the missing evidence named.
 - `evidence_gate`
 
 </details>
-> **Path:** `skills/packs/derot`
+> **Path:** `skills/review-quality/derot`
 > **License:** `MIT`
 > **Compatibility:** Portable Markdown skill with one reference (dependency-verification.md). Evidence-first and proposal-only: flags dependency changes, never applies them during an audit.
 > **Trigger:** `why do we have this dependency, redundant package, transitive dependency, meta package, superseded package, dependency migration, derot`
@@ -574,7 +812,7 @@ Survey a codebase as a senior advisor and produce prioritized, self-contained ha
 - `plan_execution_review`
 
 </details>
-> **Path:** `skills/packs/improve`
+> **Path:** `skills/review-quality/improve`
 > **License:** `MIT — (c) shadcn, vendored from github.com/shadcn/improve; Fable 5 adaptation by Alex`
 > **Compatibility:** Portable Markdown skill plus three references (audit-playbook, plan-template, closing-the-loop). The execute variant needs a host that can spawn subagents in an isolated git worktree; planning works without one.
 > **Trigger:** `improve, audit this codebase, find improvement opportunities, what should I work on next, roadmap, tech debt audit, handoff plan, write a plan for another agent, /improve, execute plan, reconcile plans`
@@ -593,7 +831,7 @@ Sweep a repository for poisoned grounding: claims ABOUT the code (doc comments, 
 - `poisoning_chain_tracing`
 
 </details>
-> **Path:** `skills/packs/grounding-audit`
+> **Path:** `skills/review-quality/grounding-audit`
 > **License:** `MIT (original text in this repo)`
 > **Compatibility:** Portable Markdown skill; needs only repo read access plus the ability to build/run for output-claim verification.
 > **Trigger:** `grounding audit, doku lügt, docs lie, poisoned grounding, doc example wrong, stale docs, verify claims against code, prose assertion, bauchgefühl code smell, docs don't match code, /grounding-audit`
@@ -626,10 +864,137 @@ and the reasoning-extraction refusal trap.
 - `fable5_migration`
 
 </details>
-> **Path:** `skills/packs/prompt-engineering-expert`
+> **Path:** `skills/prompt-engineering/prompt-engineering-expert`
 > **License:** `MIT (original text in this repo)`
 > **Compatibility:** Portable Markdown skill; references are model-agnostic prompt-engineering guidance plus a Claude Fable 5 / Mythos 5 section that maps to Anthropic model behavior.
 > **Trigger:** `improve this prompt, write a system prompt, review my instructions, this prompt isn't working, why isn't Claude doing X, the model keeps doing Y, how should I phrase this, agent prompt, skill description, CLAUDE.md, AGENTS.md, few-shot examples, Fable 5, Mythos 5, prompt migration, effort tuning, unexpected refusal`
+
+
+</details>
+
+<details open>
+<summary><h3>R Codebase Maturity</h3></summary>
+
+> On-demand, evidence-first maintenance routines — mutation testing, emitter corpora, performance-claim gates, autonomous maintenance runs, and agent-log scans.
+
+**`Agent Log Scan`** &nbsp; `agent-log-scan` &nbsp; 👆 Manual &nbsp; P1
+
+Scan Claude Code agent transcripts (session-history JSONL) for antipatterns — retry loops, permission thrash,
+API dead-ends, usage-limit interruptions — and turn them into config and routine changes that raise autonomy.
+
+<details>
+<summary>Capabilities</summary>
+
+- `transcript_analysis`
+- `antipattern_detection`
+- `permission_tuning`
+
+</details>
+> **Path:** `skills/codebase-maturity/agent-log-scan`
+> **License:** `MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)`
+> **Compatibility:** Portable Markdown skill with Python helper scripts; Codex UI metadata in agents/openai.yaml.
+> **Trigger:** `scan agent logs, analyze session history, why do my agents keep failing, retry loops, permission thrash, usage-limit interruptions, cut permission prompts`
+
+
+**`Emitter Corpus`** &nbsp; `emitter-corpus` &nbsp; 👆 Manual &nbsp; P1
+
+Validate a parser or importer against a corpus of files as real upstream producers actually write them, and land
+that corpus as permanent CI fixtures.
+
+<details>
+<summary>Capabilities</summary>
+
+- `corpus_validation`
+- `interop_fixtures`
+- `format_compatibility`
+
+</details>
+> **Path:** `skills/codebase-maturity/emitter-corpus`
+> **License:** `MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)`
+> **Compatibility:** Portable Markdown skill; Codex UI metadata in agents/openai.yaml.
+> **Trigger:** `does it work with X's files, format compatibility testing, interop validation, parser corpus, regression corpus, interop fixtures`
+
+
+**`Maintenance Run`** &nbsp; `maintenance-run` &nbsp; 👆 Manual &nbsp; P1
+
+Orchestrate a full autonomous maintenance run on a repo: parallel finders, root-cause dedupe, adversarial
+verification, a fixer fleet with disjoint ownership, single-writer integration, and a hard termination rule.
+
+<details>
+<summary>Capabilities</summary>
+
+- `maintenance_orchestration`
+- `finding_dedupe`
+- `adversarial_verification`
+- `termination_rule`
+
+</details>
+> **Path:** `skills/codebase-maturity/maintenance-run`
+> **License:** `MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)`
+> **Compatibility:** Portable Markdown skill with a Python findings helper; Codex UI metadata in agents/openai.yaml.
+> **Trigger:** `autonomous maintenance run, repo health pass, find and fix everything, scheduled repo maintenance, multi-agent bug hunt, when should the loop stop`
+
+
+**`Mutation Tester`** &nbsp; `mutation-tester` &nbsp; 👆 Manual &nbsp; P1
+
+Run mutation testing and turn surviving mutants into targeted tests, or keep a recorded mutation-score baseline as
+a regression gate that proves repeated maintenance runs did not weaken the suite.
+
+<details>
+<summary>Capabilities</summary>
+
+- `mutation_testing`
+- `surviving_mutants`
+- `score_baseline`
+
+</details>
+> **Path:** `skills/codebase-maturity/mutation-tester`
+> **License:** `MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)`
+> **Compatibility:** Portable Markdown skill; Codex UI metadata in agents/openai.yaml.
+> **Trigger:** `mutation testing, mutation score, stryker, how good are my tests really, test-suite strength, test gaps beyond coverage`
+
+
+**`Perf Gate`** &nbsp; `perf-gate` &nbsp; 👆 Manual &nbsp; P1
+
+Measure a project's own performance claims (README, docs) against reality and attribute regressions to code.
+
+<details>
+<summary>Capabilities</summary>
+
+- `perf_claim_verification`
+- `benchmarking`
+- `regression_attribution`
+
+</details>
+> **Path:** `skills/codebase-maturity/perf-gate`
+> **License:** `MIT (from ANcpLua/maturity-skills main @ 2ab662b, 2026-08-29)`
+> **Compatibility:** Portable Markdown skill; Codex UI metadata in agents/openai.yaml.
+> **Trigger:** `verify performance claim, benchmark a tool, does it really handle X MB, streaming claim, O(n) claim, perf baseline`
+
+
+</details>
+
+<details open>
+<summary><h3>P Productivity</h3></summary>
+
+> On-demand skills for the agent's own tooling: Claude Code plugins, marketplaces and their components.
+
+**`Plugin Creator`** &nbsp; `plugin-creator` &nbsp; 👆 Manual &nbsp; P1
+
+Claude Code plugins, from scaffold to marketplace. Use when creating a plugin or adding skills, agents, hooks, MCP or LSP servers to one, when listing a plugin in a marketplace, when edits to an installed plugin don't show up, or when submitting a plugin to Anthropic's plugin directory.
+
+<details>
+<summary>Capabilities</summary>
+
+- `plugin_scaffold`
+- `marketplace_manifest`
+- `component_wiring`
+
+</details>
+> **Path:** `skills/productivity/plugin-creator`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill; Claude Code plugin conventions only.
+> **Trigger:** `create plugin, claude code plugin, plugin.json, marketplace.json, add skill to plugin, add agent hook mcp lsp to plugin, plugin marketplace`
 
 
 </details>
@@ -672,4 +1037,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-08-21 04:02:36 UTC | Skills: 23 | Categories: 10</sub>
+<sub>Generated: 2026-09-30 08:04:34 UTC | Skills: 40 | Categories: 14</sub>

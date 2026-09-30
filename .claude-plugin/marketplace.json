@@ -1,0 +1,26 @@
+{
+  "name": "ancplua-skills",
+  "owner": {
+    "name": "ANcpLua",
+    "url": "https://github.com/ANcpLua"
+  },
+  "description": "ANcpLua's skills as an installable Claude Code plugin.",
+  "plugins": [
+    {
+      "name": "ancplua-skills",
+      "source": "./",
+      "description": "ANcpLua's agent skills: .NET platform and testing, codebase maturity, documentation grounding, MCP SDKs, frontend motion, source-control and CI delivery, prompt engineering and the ArchCheck thesis workspace.",
+      "category": "engineering",
+      "keywords": [
+        "skills",
+        "dotnet",
+        "testing",
+        "roslyn",
+        "mcp",
+        "fallout",
+        "codebase-maturity",
+        "documentation-grounding"
+      ]
+    }
+  ]
+}
