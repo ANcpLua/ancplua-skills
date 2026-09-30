@@ -72,6 +72,29 @@ skills:
       - protocol_correctness
     active: true
 
+  - id: chatgpt-plugin-build
+    name: "ChatGPT Plugin Build"
+    category: model-context-protocol
+    scope: domain
+    priority: 1
+    trigger: "chatgpt plugin, plugin extensions, openai/ui entrypoint, sidebar app, conversation panel, composer mentions, mcp events, events/subscribe, website annotations, plugin.json, plugin submission"
+    activation: manual
+    path: "skills/model-context-protocol/chatgpt-plugin-build"
+    license: "MIT repo wrapper; references summarize public OpenAI docs and the openai/mcp-extensions specification"
+    compatibility: "Portable Markdown skill. Facts checked against developers.openai.com/plugins, learn.chatgpt.com and openai/mcp-extensions on 2026-09-30."
+    description: |
+      Build ChatGPT and Codex plugins backed by an MCP server: use-case inventory, tool contracts and plugin shape,
+      then plugin extensions (entry points, settings, deep links, model context, mentions, forms), MCP Events
+      subscriptions with signed webhook delivery, website annotations, bundled skills, OAuth sign-in, developer-mode
+      testing, and packaging, submission and updates.
+    capabilities:
+      - plugin_planning
+      - plugin_extensions
+      - mcp_events
+      - website_annotations
+      - plugin_packaging
+    active: true
+
   - id: microsoft-first-research
     name: "Microsoft-First Research"
     category: documentation-grounding
