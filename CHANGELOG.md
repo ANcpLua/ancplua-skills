@@ -18,6 +18,8 @@ Categories:
 ### Added
 - The repository is an installable Claude Code plugin: `.claude-plugin/plugin.json` lists every skill, `.claude-plugin/marketplace.json` serves it as `ancplua-skills`.
 - Skills `test-audit`, `mstestlean`, `gear-1`, `paper-reader` and `plugin-creator`, and the category `productivity`.
+- `analyzer-purity` skill (`dotnet-platform`): the rules that keep Roslyn analyzers, generators and code fixes pure, loadable and cache-friendly, each tied to its RS diagnostic where one exists.
+- `AGENTS.md` routes MSTest on MTP, Fallout builds and Roslyn components to their skills from what the project files contain; `CLAUDE.md` imports it.
 
 ### Changed
 - Skills live under `skills/<category>/<skill>/` (the registry category), each category with a README; `skills/packs/` is gone and every path in the registry, README, docs, renovate and adapters follows.

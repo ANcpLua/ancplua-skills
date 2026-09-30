@@ -29,7 +29,7 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 3 | 3 |
-| Domain | 25 | 25 |
+| Domain | 26 | 26 |
 | Session | 12 | 12 |
 
 ---
@@ -51,7 +51,7 @@
   - [F Frontend UI](#frontend-ui) (6)
     - [React](#react) (1)
   - [A Architecture Diagramming](#architecture-diagramming) (1)
-  - [N .NET Platform](#.net-platform) (4)
+  - [N .NET Platform](#.net-platform) (5)
   - [A .NET AI & Agent SDKs](#.net-ai--agent-sdks) (1)
   - [C CI Automation](#ci-automation) (1)
   - [T Testing](#testing) (5)
@@ -504,6 +504,25 @@ ANcpLua.Roslyn.Utilities compendium read live from the local checkout (helpers, 
 > **License:** `MIT (original text in this repo)`
 > **Compatibility:** Portable Markdown skill with an inline Python index over a local ANcpLua.Roslyn.Utilities checkout (ANCPLUA_UTILITIES_ROOT).
 > **Trigger:** `gear-1, compendium reuse, ANcpLua.Roslyn.Utilities, replace hand-rolled helpers, upstream a helper, source-only package sweep`
+
+
+**`Analyzer Purity`** &nbsp; `analyzer-purity` &nbsp; 👆 Manual &nbsp; P1
+
+Keep Roslyn analyzers, source generators and code fixes pure, loadable and cache-friendly inside every compiler host. Use when creating, changing, reviewing or packaging a netstandard2.0 project with IsRoslynComponent, EnforceExtendedAnalyzerRules or Microsoft.CodeAnalysis references, or when an RS1xxx/RS2xxx diagnostic, a sluggish IDE or a generator that reruns on every keystroke points at one.
+
+<details>
+<summary>Capabilities</summary>
+
+- `analyzer_purity`
+- `banned_api_enforcement`
+- `incremental_generator_caching`
+- `analyzer_packaging`
+
+</details>
+> **Path:** `skills/dotnet-platform/analyzer-purity`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill; rule IDs from the Microsoft.CodeAnalysis.Analyzers package.
+> **Trigger:** `roslyn analyzer, source generator, code fix, IsRoslynComponent, EnforceExtendedAnalyzerRules, netstandard2.0 analyzer, RS1035, RS1041, RS2008, analyzer packaging`
 
 
 </details>
@@ -1037,4 +1056,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-09-30 15:09:07 UTC | Skills: 40 | Categories: 14</sub>
+<sub>Generated: 2026-09-30 16:15:58 UTC | Skills: 41 | Categories: 14</sub>
