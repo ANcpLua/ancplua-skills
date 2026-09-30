@@ -790,6 +790,25 @@ skills:
       - skeptic_review
     active: true
 
+  - id: analyzer-purity
+    name: "Analyzer Purity"
+    category: dotnet-platform
+    scope: domain
+    priority: 1
+    trigger: "roslyn analyzer, source generator, code fix, IsRoslynComponent, EnforceExtendedAnalyzerRules, netstandard2.0 analyzer, RS1035, RS1041, RS2008, analyzer packaging"
+    activation: manual
+    path: "skills/dotnet-platform/analyzer-purity"
+    license: "MIT (original text in this repo)"
+    compatibility: "Portable Markdown skill; rule IDs from the Microsoft.CodeAnalysis.Analyzers package."
+    description: |
+      Keep Roslyn analyzers, source generators and code fixes pure, loadable and cache-friendly inside every compiler host. Use when creating, changing, reviewing or packaging a netstandard2.0 project with IsRoslynComponent, EnforceExtendedAnalyzerRules or Microsoft.CodeAnalysis references, or when an RS1xxx/RS2xxx diagnostic, a sluggish IDE or a generator that reruns on every keystroke points at one.
+    capabilities:
+      - analyzer_purity
+      - banned_api_enforcement
+      - incremental_generator_caching
+      - analyzer_packaging
+    active: true
+
   - id: paper-reader
     name: "Paper Reader"
     category: documentation-grounding
