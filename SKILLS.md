@@ -29,8 +29,8 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 3 | 3 |
-| Domain | 23 | 23 |
-| Session | 14 | 14 |
+| Domain | 25 | 25 |
+| Session | 12 | 12 |
 
 ---
 
@@ -660,7 +660,7 @@ Audit and prune an existing .NET test suite (MSTest on Microsoft.Testing.Platfor
 > **Trigger:** `test audit, prune tests, duplicate tests, tests that restate the implementation, mstest suite cleanup, coverage within points`
 
 
-**`MSTest LeanTest`** &nbsp; `mstestlean` &nbsp; 👆 Manual &nbsp; P1
+**`MSTest LeanTest`** &nbsp; `mstest-lean` &nbsp; 👆 Manual &nbsp; P1
 
 LeanTest.MSTest tests for Lean-verified .NET code. Use when a Lean counterexample or claim needs an MSTest test at the owner boundary, or when writing or reviewing LeanTest.MSTest tests.
 
@@ -1037,4 +1037,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-09-30 08:04:34 UTC | Skills: 40 | Categories: 14</sub>
+<sub>Generated: 2026-09-30 15:09:07 UTC | Skills: 40 | Categories: 14</sub>

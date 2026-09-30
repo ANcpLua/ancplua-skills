@@ -1,7 +1,7 @@
 ---
 name: maf-dotnet-source-of-truth
 description: >-
-  Write Microsoft Agent Framework (.NET) code against the cloned, SHA-pinned source — never from memory or
+  Write Microsoft Agent Framework (.NET) code against the SHA-pinned source — never from memory or
   from Microsoft Learn, which lag the source by weeks and keep pre-GA signatures alive long after they were
   renamed. USE FOR: writing or reviewing any code that touches Microsoft.Agents.AI / Microsoft.Agents.AI.Abstractions
   (AIAgent, ChatClientAgent, AgentSession, AgentResponse, RunAsync/RunStreamingAsync) or Microsoft.Extensions.AI
@@ -16,13 +16,13 @@ license: Apache-2.0
 
 # MAF .NET Source-of-Truth — grep the pinned tree, never the docs
 
-**Provenance: every API claim below was grep-verified on 2026-07-16 against tag `dotnet-1.13.0` (`ee65f5329`) in a local `microsoft/agent-framework` reference clone (in this workspace: `qyl-references/agent-framework-dotnet`; sparse, `dotnet/` only, blob-less).** Not from Microsoft Learn, not from memory. The renames are real: `AgentThread` has **0** references in `dotnet/src/*.cs` at the tag; `AgentSession` has **371**. Treat anything you remember about `AgentThread` / `AgentRunResponse` as outdated.
+**Provenance: the API signatures and rename table below were verified on 2026-09-30 against release `dotnet-1.22.0`, SHA `0c9944cc9f577d51277ac7c55dbc388b60a577af`, using the upstream source archive.** Searches covered all `dotnet/src/**/*.cs` files. Counts are matching lines with whole-word symbols, including comments: `AgentThread` has **0**, `AgentSession` has **432**. Treat remembered `AgentThread` / `AgentRunResponse` names as outdated.
 
-Breaking-change scan `dotnet-1.10.0..dotnet-1.13.0`: 7 .NET `[BREAKING]` commits, **all in hosting / skills / file-access surfaces** (OpenAI Hosting OptionsMapping #6855, FileAccess/FileMemory store API #6807 #6474, Azure.AI.AgentServer 2.0 + Foundry.Hosting #6800, AgentSkillsProvider approval defaults #6729 #6521, AgentMcpSkillsSource archive skills #6631). The core agent API (`AIAgent`, `ChatClientAgent`, `AgentSession`, `AgentResponse`, run/session/serialize methods) is unchanged since 1.10.0 — every signature below re-verified at 1.13.0. If you touch MAF hosting, file tools, or skills providers, read those PRs first.
+This refresh covers the core agent, run, session, serialization, constructor, and run-options signatures indexed below. It does not claim a complete migration audit of hosting, file tools, skills providers, or other integrations; inspect their source and tests at the same pin before using them.
 
 > 🚨 **Microsoft Learn and devblogs lag the source by weeks-to-months and silently keep pre-GA and GA-era (`1.0`, April 2026) signatures alive long after they were renamed. The cloned, SHA-pinned source is the only authority for any type name, method name, or signature.** Docs are allowed only for conceptual "why" and migration narrative.
 
-Local source root (set this): `MAF_SRC=<your agent-framework clone>/dotnet` (in this workspace the clone is `qyl-references/agent-framework-dotnet`). (The previous `qyl-workspace/agent-framework-dotnet-rootsource` checkout was deleted.) This is a full `microsoft/agent-framework` clone, so source is `$MAF_SRC/src/**` and tests `$MAF_SRC/tests/**` under the `dotnet/` subtree. ⚠️ The clone's working tree is `main`, which drifts ahead of releases — for signature claims, grep **at the tag**: `git -C "$MAF_SRC/.." grep '<symbol>' dotnet-1.13.0 -- 'dotnet/src/*.cs'` (blob-less clone fetches blobs on demand).
+Local source root (set this): `MAF_SRC=<your pinned agent-framework source>/dotnet`. Source lives under `$MAF_SRC/src/**`, and tests under `$MAF_SRC/tests/**`. Use the archive for the recorded release SHA, or an already verified checkout of that SHA. A working tree on `main` drifts ahead of releases; use `rg` on the pinned files for signature claims. The refresh ritual below downloads a fresh source archive without reading Git history.
 
 ## When to Use
 
@@ -37,7 +37,7 @@ Use this skill whenever you are about to write, review, or port MAF .NET code �
 
 1. **Never emit a MAF type or method from memory.** Before writing any MAF call, `grep` it in `$MAF_SRC/src/**` and copy the real signature.
 2. **Tests are executable spec.** When unsure of intended usage, read `$MAF_SRC/tests/**` (the `*.UnitTests` projects) — they pin real signatures, fixtures, and call shapes the prose simplifies away. Prefer a pattern you can see exercised in a test.
-3. **`[BREAKING]` tripwire.** Each package has a `CHANGELOG.md`; renames are tagged `[BREAKING]` with a PR number. If a symbol you "remember" isn't in `src/`, search the changelogs for its rename before substituting anything.
+3. **Missing-symbol tripwire.** If a symbol you remember is absent from the pinned `src/`, inspect the current declarations and their tests before substituting anything. Upstream release notes can provide migration context; they do not replace signature checks.
 4. **Namespaces:** `ChatMessage`, `ChatRole`, `ChatOptions`, `IChatClient`, `AITool` come from `Microsoft.Extensions.AI`. Agent types (`AIAgent`, `ChatClientAgent`, `AgentSession`, `AgentResponse`) come from `Microsoft.Agents.AI` / `Microsoft.Agents.AI.Abstractions`.
 5. If docs and source disagree, **source wins and you say so explicitly** in the reply.
 
@@ -45,18 +45,18 @@ Use this skill whenever you are about to write, review, or port MAF .NET code �
 
 | Stale name still in docs/blogs | Correct symbol | Evidence (in `src/`) |
 |---|---|---|
-| `AgentThread`, `agent.GetNewThread()` | `AgentSession`, `agent.CreateSessionAsync()` | `AgentThread`/`GetNewThread` = **0** refs at `dotnet-1.13.0`; `AgentSession` = 371, `CreateSessionAsync` = 41 |
-| `AgentRunResponse` | `AgentResponse` | `AgentRunResponse` = **0**; `AgentResponse` = 265 |
-| `AgentRunResponseUpdate` | `AgentResponseUpdate` | `AgentRunResponseUpdate` = **0**; `AgentResponseUpdate` = 210; streaming returns `IAsyncEnumerable<AgentResponseUpdate>` |
-| `session.Serialize(...)` | `agent.SerializeSessionAsync(session, …)` | `SerializeSessionAsync` = 13 refs |
+| `AgentThread`, `agent.GetNewThread()` | `AgentSession`, `agent.CreateSessionAsync()` | `AgentThread`/`GetNewThread` = **0** refs at `dotnet-1.22.0`; `AgentSession` = 432, `CreateSessionAsync` = 41 |
+| `AgentRunResponse` | `AgentResponse` | `AgentRunResponse` = **0**; `AgentResponse` = 252 |
+| `AgentRunResponseUpdate` | `AgentResponseUpdate` | `AgentRunResponseUpdate` = **0**; `AgentResponseUpdate` = 230; streaming returns `IAsyncEnumerable<AgentResponseUpdate>` |
+| `session.Serialize(...)` | `agent.SerializeSessionAsync(session, …)` | `SerializeSessionAsync` = 15 matching lines |
 | `DeserializeSessionAsync(serializedSession:)` | param is **`serializedState`** | `DeserializeSessionAsync(JsonElement serializedState, JsonSerializerOptions?, ct)` — `AIAgent.cs:222` |
-| `IChatClient.CompleteAsync` / `CompleteStreamingAsync` | `GetResponseAsync` / `GetStreamingResponseAsync` | call sites in `ChatClientAgent.cs` (the 13 `CompleteAsync` in `src/` are unrelated `Workflows` / `A2A` / `Declarative` methods) |
+| `IChatClient.CompleteAsync` / `CompleteStreamingAsync` | `GetResponseAsync` / `GetStreamingResponseAsync` | call sites in `ChatClientAgent.cs` (`CompleteAsync` elsewhere in `src/` is not the `IChatClient` response API) |
 
 ## The IChatClient-vs-RunAsync rule
 
 Two failure modes hide here. Both are banned.
 
-**Failure mode A — hand-rolling the model loop.** Old examples talk to `IChatClient` directly and reimplement the tool-call loop / history by hand. Since 1.10.0 (unchanged through 1.13.0) you wrap the client in an agent and let it own the loop, sessions, and middleware.
+**Failure mode A — hand-rolling the model loop.** Old examples talk to `IChatClient` directly and reimplement the tool-call loop / history by hand. At the verified 1.22.0 pin, wrap the client in an agent and let it own the loop, sessions, and middleware.
 
 **Failure mode B — dead method/type names** (`CompleteAsync`, `AgentThread`, `AgentRunResponse`).
 
@@ -69,7 +69,7 @@ AgentRunResponse resp = await agent.RunAsync("hi", thread);             // Agent
 ```
 
 ```csharp
-// ✅ RIGHT — assembled from grep-verified signatures (2026-07-16, dotnet-1.13.0). It is a dated snapshot, not the authority:
+// ✅ RIGHT — assembled from grep-verified signatures (2026-09-30, dotnet-1.22.0). It is a dated snapshot, not the authority:
 //    the authority is the files cited below — open them. The real exercised example is the test/sample linked under the block.
 using Microsoft.Agents.AI;        // AIAgent, ChatClientAgent, AgentSession, AgentResponse, AgentResponse<T>
 using Microsoft.Extensions.AI;    // IChatClient, ChatMessage, ChatRole, ChatOptions, AITool
@@ -106,7 +106,8 @@ Verified signatures — **the file is the authority; open it, don't trust this i
 
 **Don't trust the snippet — read a real exercised example** (executable spec; this skill is just a dated index into it):
 - `tests/Microsoft.Agents.AI.Abstractions.UnitTests/DelegatingAIAgentTests.cs` — `CreateSessionAsync()` + `RunAsync(...)` in use.
-- `samples/02-agents/Agents/Agent_Step06_DependencyInjection/Program.cs` — a canonical `new ChatClientAgent(...)` wiring.
+- `tests/Microsoft.Agents.AI.UnitTests/ChatClient/ChatClientAgentTests.cs` — exercised `ChatClientAgent` constructor shapes.
+- `samples/02-agents/Agents/Agent_Step06_DependencyInjection/Program.cs` — Foundry `AsAIAgent(...)` wiring, `CreateSessionAsync()`, and streaming over a session.
 
 ## Common Pitfalls
 
@@ -131,37 +132,55 @@ Verified signatures — **the file is the authority; open it, don't trust this i
 No webhook is possible on a repo you don't own. Instead, check at point of use — one API call, no workflow, no cron:
 
 ```bash
-# Latest upstream dotnet release vs this file's pin (dotnet-1.13.0).
+# Latest upstream dotnet release vs this file's pin (dotnet-1.22.0).
 gh api repos/microsoft/agent-framework/releases \
-  --jq '[.[] | select(.tag_name|startswith("dotnet-"))][0].tag_name'
-# If that prints a tag newer than dotnet-1.13.0 → this file is stale; run the refresh ritual below.
-# (NuGet package versions track the tag: Microsoft.Agents.AI 1.13.0 = dotnet-1.13.0.)
+  --jq '[.[] | select(.draft == false and .prerelease == false) | select(.tag_name|startswith("dotnet-"))][0].tag_name'
+# If that prints a tag newer than dotnet-1.22.0 → this file is stale; run the refresh ritual below.
+# (NuGet package versions track the tag: Microsoft.Agents.AI 1.22.0 = dotnet-1.22.0.)
 ```
 
 > 💡 Hands-off path (wired): Renovate watches this repo and the `dotnet-*` releases of `microsoft/agent-framework` (see `renovate.json` → `customManagers`). When a newer one ships it opens a PR bumping the machine anchor below. **Treat that PR as a prompt to re-verify, never a blind merge** — re-grep the rename table at the new tag; Renovate only changed the anchor, not the verified prose.
 
-<!-- renovate-pin: microsoft/agent-framework dotnet-1.13.0 -->
+<!-- renovate-pin: microsoft/agent-framework dotnet-1.22.0 -->
 <!-- ^ Renovate bumps the version in the line above when a newer dotnet-* release ships; the prose/table stay until a human re-greps. -->
 
 
 ## Refresh ritual (when you bump the pinned version)
 
 ```bash
-MAF_REPO=<your agent-framework clone>   # e.g. qyl-references/agent-framework-dotnet; dotnet code under dotnet/
-NEW_TAG=dotnet-X.Y.Z    # ← the tag you are refreshing to (this file's current pin: dotnet-1.13.0)
+set -euo pipefail
+MAF_REPO="<new-empty-source-directory>"
+NEW_TAG=dotnet-X.Y.Z    # current pin: dotnet-1.22.0
 
-# 0. Fetch tags (the clone drifts) and record the tag SHA you verify against.
-git -C "$MAF_REPO" fetch --tags origin && git -C "$MAF_REPO" rev-parse --short "$NEW_TAG"
+# Resolve the release tag to its source SHA, including annotated tags.
+read -r OBJECT_TYPE PIN < <(gh api "repos/microsoft/agent-framework/git/ref/tags/$NEW_TAG" \
+  --jq '.object | [.type, .sha] | @tsv')
+while [ "$OBJECT_TYPE" = tag ]; do
+  read -r OBJECT_TYPE PIN < <(gh api "repos/microsoft/agent-framework/git/tags/$PIN" \
+    --jq '.object | [.type, .sha] | @tsv')
+done
+[ "$OBJECT_TYPE" = commit ]
+printf 'Source pin: %s %s\n' "$NEW_TAG" "$PIN"
 
-# 1. Tripwire: any .NET breaking deltas since this file's pin?
-git -C "$MAF_REPO" log --oneline dotnet-1.13.0.."$NEW_TAG" -- dotnet/ | grep -i breaking
+# Start with a fresh directory so files from another release cannot remain.
+mkdir "$MAF_REPO"
+curl -fsSL "https://codeload.github.com/microsoft/agent-framework/tar.gz/$PIN" \
+  | tar -xz --strip-components=1 -C "$MAF_REPO"
+MAF_SRC="$MAF_REPO/dotnet"
 
-# 2. Re-grep the symbols this file asserts AT THE TAG (never on main — it drifts ahead):
-git -C "$MAF_REPO" grep -c 'AgentThread\|AgentRunResponse\|GetNewThread' "$NEW_TAG" -- 'dotnet/src/*.cs'   # expect: no output (0 hits)
-git -C "$MAF_REPO" grep -c 'AgentSession' "$NEW_TAG" -- 'dotnet/src/*.cs' | head                            # expect: many
+# Check the rename traps and current signatures in the extracted source.
+if rg -n -w 'AgentThread|AgentRunResponse|AgentRunResponseUpdate|GetNewThread' "$MAF_SRC/src" -g '*.cs'; then
+  echo 'Rename assumptions changed; investigate before updating the skill.'
+  exit 1
+else
+  status=$?
+  [ "$status" -eq 1 ] || exit "$status"
+fi
+rg -n -w 'AgentSession|CreateSessionAsync|SerializeSessionAsync|DeserializeSessionAsync' \
+  "$MAF_SRC/src/Microsoft.Agents.AI.Abstractions/AIAgent.cs"
 ```
 
-This file has a half-life: the Thread→Session and serialize-move renames landed *after* GA. 1.10.0 → 1.13.0 left the core agent API untouched (all breaking changes were hosting / skills / file-access), but assume churn continues. **The durable asset is the ritual, not the table** — re-grep, don't re-remember.
+Then inspect every signature and cited test/sample in the index above, recompute the whole-word matching-line counts across `src/**/*.cs`, and update the provenance, table, examples, and machine anchor together. The durable asset is the ritual: verify the pinned source again on every refresh.
 
 ## Related skills
 

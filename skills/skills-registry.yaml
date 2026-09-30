@@ -737,7 +737,7 @@ skills:
   - id: test-audit
     name: "Test Audit"
     category: testing
-    scope: session
+    scope: domain
     priority: 1
     trigger: "test audit, prune tests, duplicate tests, tests that restate the implementation, mstest suite cleanup, coverage within points"
     activation: manual
@@ -753,10 +753,10 @@ skills:
       - coverage_guard
     active: true
 
-  - id: mstestlean
+  - id: mstest-lean
     name: "MSTest LeanTest"
     category: testing
-    scope: session
+    scope: domain
     priority: 1
     trigger: "leantest, mstestlean, lean counterexample test, claim coverage, TestScenarioId, TestTag, trx claims"
     activation: manual

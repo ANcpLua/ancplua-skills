@@ -28,12 +28,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup .NET 10
-        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: '10.0.x'
           dotnet-quality: 'ga'
@@ -52,27 +50,28 @@ jobs:
       - name: Build solution
         run: ./build.sh Compile --skip
 
-      - name: Generate SKILLS.md
-        run: ./build.sh GenerateSkills
+      - name: Generate and verify SKILLS.md
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import difflib
+          import subprocess
+
+          index = Path("SKILLS.md")
+          expected = index.read_text().splitlines()[:-1]
+          subprocess.run(["./build.sh", "GenerateSkills"], check=True)
+          actual = index.read_text().splitlines()[:-1]
+          if actual != expected:
+              print("\n".join(difflib.unified_diff(
+                  expected, actual, fromfile="checked-in SKILLS.md",
+                  tofile="generated SKILLS.md", lineterm=""
+              )))
+              raise SystemExit("Run './build.sh GenerateSkills' locally and commit.")
+          print("SKILLS.md structure is up to date (timestamp ignored)")
+          PY
 
       - name: Validate Skills
         run: ./build.sh ValidateSkills
-
-      - name: Verify SKILLS.md structure is up to date
-        run: |
-          # Compare SKILLS.md ignoring the timestamp line (last line)
-          # Remove timestamp from both versions before comparing
-          head -n -1 SKILLS.md > /tmp/skills-new.md
-          git show HEAD:SKILLS.md | head -n -1 > /tmp/skills-old.md
-
-          if diff -q /tmp/skills-old.md /tmp/skills-new.md > /dev/null 2>&1; then
-            echo "✅ SKILLS.md structure is up to date (timestamp ignored)"
-          else
-            echo "❌ SKILLS.md has structural changes."
-            echo "Run './build.sh GenerateSkills' locally and commit."
-            diff /tmp/skills-old.md /tmp/skills-new.md || true
-            exit 1
-          fi
 
   docker:
     name: Docker Build Test
@@ -81,10 +80,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
 
       - name: Build Docker image (no push)
         uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7
