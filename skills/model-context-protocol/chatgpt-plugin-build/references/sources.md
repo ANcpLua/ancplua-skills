@@ -1,6 +1,6 @@
 # Documentation routes
 
-Fetch one page for the step at hand. Every page under `developers.openai.com/plugins` and `learn.chatgpt.com/docs` has a Markdown twin: append `.md` to its URL. For a topic missing here, read [the plugin index](https://developers.openai.com/plugins/llms.txt) and pick the matching page; leave `llms-full.txt` alone. When a page and the specification disagree, the specification decides; say which one you followed.
+Fetch one page for the step at hand. Every page under `developers.openai.com/plugins` and `learn.chatgpt.com/docs` has a Markdown twin: append `.md` to its URL. For a topic missing here, read [the plugin index](https://developers.openai.com/plugins/llms.txt) for building and submitting, or [the ChatGPT docs index](https://learn.chatgpt.com/docs/llms.txt) for how ChatGPT runs plugins, tasks and the desktop app, and pick the matching page; leave `llms-full.txt` alone. When the URL has a query string, `.md` goes before it. When a page and the specification disagree, the specification decides; say which one you followed.
 
 | Task | Page |
 | --- | --- |
@@ -13,7 +13,7 @@ Fetch one page for the step at hand. Every page under `developers.openai.com/plu
 | Plugin extensions | [Plugin Extensions](https://developers.openai.com/plugins/build/extensions.md), then the [specification](https://github.com/openai/mcp-extensions/blob/main/docs/spec.md) |
 | Extension SDKs and a worked example | [TypeScript](https://github.com/openai/mcp-extensions/blob/main/typescript/README.md), [Python](https://github.com/openai/mcp-extensions/blob/main/python/README.md), [Bits & Bolts](https://github.com/openai/mcp-extensions/tree/main/plugins/bits-and-bolts) |
 | Forms on a registered server | [Multi-round-trip requests](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr) |
-| Event subscriptions | [MCP Events](https://developers.openai.com/plugins/build/mcp-events.md), the [draft design](https://github.com/modelcontextprotocol/experimental-ext-triggers-events/blob/main/docs/design-sketch-proposal.md), [Standard Webhooks for JavaScript](https://github.com/standard-webhooks/standard-webhooks/tree/main/libraries/javascript) |
+| Event subscriptions | [MCP Events](https://developers.openai.com/plugins/build/mcp-events.md), [event-triggered tasks](https://learn.chatgpt.com/docs/automations.md), the [draft design](https://github.com/modelcontextprotocol/experimental-ext-triggers-events/blob/main/docs/design-sketch-proposal.md), [Standard Webhooks for JavaScript](https://github.com/standard-webhooks/standard-webhooks/tree/main/libraries/javascript) |
 | Website annotations | [Annotations Extensibility](https://learn.chatgpt.com/docs/annotations-extensibility.md) |
 | Actions on a website | [Site tools (WebMCP)](https://learn.chatgpt.com/docs/webmcp.md) |
 | Skills in the plugin | [Build skills](https://developers.openai.com/plugins/build/skills.md) |
