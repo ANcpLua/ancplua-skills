@@ -1,0 +1,17 @@
+Verified consumer surface, TUnit 1.67.0:
+
+Parser.ParseAsync(Stream input, CancellationToken ct = default) -> Task<Report>.
+It leaves the caller's stream open. Report.Total is an int; the valid fixture
+FixtureBytes() has an expected Total of 42. Report.Warnings is a string array.
+
+ScriptedReadStream(byte[] bytes, int chunkSize, bool asyncOnly = true) : Stream.
+PauseAt(int offset) pauses when a read reaches that byte offset.
+Paused : Task completes only when a read reaches the pause.
+Resume() releases paused and future reads (idempotent).
+SynchronousReadAttempted : bool, CanRead remains true until disposed.
+ReadAsync honors its supplied cancellation token. The fixture has >128 bytes.
+
+Existing tests cover cancellation during a paused read. Ordinary successful reads
+currently finish synchronously. No generated-data abstraction exists yet.
+
+The test method can receive a CancellationToken from TUnit with [Timeout(10_000)].

@@ -83,6 +83,24 @@ categories:
       > Skills for CI/CD orchestration — self-hosted runner lifecycle, draining queued runs, VM/engine bring-up and teardown, and scoped cleanup.
     order: 16
 
+  - id: testing
+    name: "Testing"
+    prefix: test
+    icon: "T"
+    scope: domain
+    description: |
+      > Skills for writing, reviewing, and proving tests — test frameworks and red-on-old/green-on-new proofs of dependency behaviour changes.
+    order: 17
+
+  - id: archcheck-thesis
+    name: "ArchCheck Thesis"
+    prefix: archcheck
+    icon: "X"
+    scope: domain
+    description: |
+      > Project skills for the ArchCheck thesis workspace — the twbook LaTeX document and ArchCheck rule evaluation. Project paths are relative to the thesis workspace.
+    order: 18
+
   - id: review-quality
     name: "Review & Quality"
     prefix: review
@@ -100,3 +118,12 @@ categories:
     description: |
       > On-demand skills for writing, refining, debugging, and evaluating prompts, system prompts, agent instructions, and skill descriptions — including model-specific guidance.
     order: 21
+
+  - id: codebase-maturity
+    name: "Codebase Maturity"
+    prefix: maturity
+    icon: "R"
+    scope: session
+    description: |
+      > On-demand, evidence-first maintenance routines — mutation testing, emitter corpora, performance-claim gates, autonomous maintenance runs, and agent-log scans.
+    order: 22

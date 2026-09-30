@@ -1,0 +1,14 @@
+$ dotnet run --project Ledger.Tests.csproj
+████████╗██╗   ██╗███╗   ██╗██╗████████╗
+TUnit v1.68.17 | .NET 10.0 | osx-arm64
+
+passed RoundingTests.Bankers_rounding_rounds_half_to_even (4ms)
+passed CurrencyTests.Codes_compare_case_insensitively (2ms)
+passed ParallelTests.At_most_four_postings_in_flight (118ms)
+
+Test run summary: Passed! - Ledger.Tests.dll (net10.0|arm64)
+  total: 3
+  failed: 0
+  succeeded: 3
+  skipped: 0
+  duration: 412ms

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Mutation Tester"
+  short_description: "Kill surviving mutants and gate on a mutation-score baseline"

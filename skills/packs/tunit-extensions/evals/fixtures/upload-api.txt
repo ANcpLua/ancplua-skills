@@ -1,0 +1,27 @@
+TUnit 1.67.0, .NET 10. No mocking or external test-server package installed.
+
+Provided ServerSession API (do not implement transport):
+  static Task<ServerSession> StartAsync(IPAddress address, int port)
+  Uri Url { get; }
+  Task Ready { get; }
+  Task<Request> Received { get; }
+  void RespondWith(int statusCode)
+  void DisconnectAfterRequest()
+  Task StopAsync()
+  ValueTask DisposeAsync()
+StartAsync returns an owned session; Ready can later fail. StopAsync joins the
+request loop. DisposeAsync releases the socket, including after failed readiness.
+The session handles exactly one request. It has mutable request/response state.
+Each test configures its response. IPAddress.Loopback with port 0 is supported.
+
+Public client: Task<int> Cli.RunAsync(string[] args, TextWriter stdout, TextWriter stderr).
+Command: upload --url <url> --body <JSON>. Success 201 => exit 0; 500 or disconnect => exit 1.
+Request has Method, Path and Body. Check POST, /upload, and a meaningful JSON field.
+Server Url is the base URL; append /upload.
+
+Questionable sketch:
+  [ClassDataSource<UploadFixture>(Shared = SharedType.PerClass)]
+  class UploadTests(UploadFixture fixture) { /* three independently parameterized cases */ }
+  class UploadFixture { /* constructor starts one server with GetAwaiter().GetResult() */ }
+
+No request to change dependencies, turn off suite parallelism, or add retries.

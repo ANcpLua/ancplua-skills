@@ -1,0 +1,19 @@
+Package facts: TUnit 1.67.0; coverlet.MTP 10.0.1; no coverlet.collector or coverlet.msbuild.
+SDK 10.0.401. global.json has test.runner=Microsoft.Testing.Platform.
+Tests project: tests/Example.Tests/Example.Tests.csproj.
+Measurement is a record with bool HasData and bool ThresholdMet.
+
+Existing repository wrapper:
+  dotnet fallout Test --filter <tree expression>   (normal tests without coverage)
+  dotnet fallout Coverage                       (fresh coverage and domain gate)
+Each target is explicit and non-publishing. Coverage has the only provider filters,
+kept in the csproj under Condition="'$(Coverage)' == 'true'".
+Its flags include --coverlet and --coverlet-output-format cobertura.
+Do not edit the wrapper or duplicate those flags in the skill.
+
+Already verified direct diagnostics:
+  dotnet test --project tests/Example.Tests --list-tests
+  --treenode-filter, --results-directory, --maximum-parallel-tests,
+  --minimum-expected-tests 1, --report-trx, --info and --help are supported.
+Native MTP arguments need no extra -- separator in this SDK setup.
+No retries configured. The user wants to measure flakiness, not hide failures.

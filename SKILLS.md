@@ -29,8 +29,8 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 2 | 2 |
-| Domain | 15 | 15 |
-| Session | 6 | 6 |
+| Domain | 22 | 22 |
+| Session | 11 | 11 |
 
 ---
 
@@ -51,13 +51,16 @@
   - [F Frontend UI](#frontend-ui) (6)
     - [React](#react) (1)
   - [A Architecture Diagramming](#architecture-diagramming) (1)
-  - [N .NET Platform](#.net-platform) (1)
+  - [N .NET Platform](#.net-platform) (3)
   - [A .NET AI & Agent SDKs](#.net-ai--agent-sdks) (1)
   - [C CI Automation](#ci-automation) (1)
+  - [T Testing](#testing) (3)
+  - [X ArchCheck Thesis](#archcheck-thesis) (2)
 
 - **Session Skills (On-Demand)**
   - [Q Review & Quality](#review--quality) (5)
   - [P Prompt Engineering](#prompt-engineering) (1)
+  - [R Codebase Maturity](#codebase-maturity) (5)
 
 </details>
 
@@ -423,6 +426,48 @@ the false-friend projects, the net10-BCL → netstandard2.0 substitution cookboo
 > **Trigger:** `target framework, TFM, netstandard2.0, net10, source generator, roslyn analyzer, IsRoslynComponent, multi-target, polyfill, AOT trim, can I use HashCode / System.Text.Json / Span here, qyl workspace`
 
 
+**`SLNX for Rider`** &nbsp; `slnx-rider` &nbsp; 👆 Manual &nbsp; P1
+
+Organize a .slnx solution file and make Rider index everything in it: creating, cleaning up, reorganizing, or
+migrating .slnx/.sln files; MSBuild config files (Directory.Build.props, Directory.Packages.props, global.json,
+nuget.config, .editorconfig) or docs missing from the solution tree; and validating a .slnx against Slnx.xsd.
+
+<details>
+<summary>Capabilities</summary>
+
+- `slnx`
+- `solution_organization`
+- `rider_indexing`
+- `xsd_validation`
+
+</details>
+> **Path:** `skills/packs/slnx-rider`
+> **License:** `MIT; bundled Slnx.xsd under MIT (assets/Slnx.xsd.LICENSE)`
+> **Compatibility:** Portable Markdown skill with the Slnx.xsd schema in assets/ and an XSD-gap reference.
+> **Trigger:** `slnx, sln migration, solution file cleanup, rider not indexing, Directory.Build.props not showing, solution items, Slnx.xsd`
+
+
+**`Fallout Build`** &nbsp; `fallout-build` &nbsp; 👆 Manual &nbsp; P1
+
+Write, change, review, or run Fallout (NUKE) builds: exemplar-first layout, exact pins for SDK, packages, tools,
+images and actions, target chains with .Produces/Assert/ReportSummary, generated GitHub workflows, and a
+two-run reproducibility proof. Includes running ArchCheck's Containers/Tool/Analyze/Spans targets.
+
+<details>
+<summary>Capabilities</summary>
+
+- `fallout_build`
+- `exact_pinning`
+- `workflow_generation`
+- `archcheck_targets`
+
+</details>
+> **Path:** `skills/packs/fallout-build`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill with references; exemplar paths are relative to a local examplefalloutbuilds checkout (<examples>).
+> **Trigger:** `fallout build, nuke build, Build.cs, _build.csproj, build.sh, pin build tools, GitHubActions workflow generation, add fallout target, run archcheck build`
+
+
 </details>
 
 <details open>
@@ -484,6 +529,124 @@ outside the test-container label).
 > **License:** `MIT repo wrapper`
 > **Compatibility:** Portable Markdown skill. Assumes a forge with a runner API (e.g. gh) and an idempotent project-local control tool exposing status/up/down/reset/run; machine, VM, and repo specifics live in that tool, not in this skill.
 > **Trigger:** `self-hosted runner, runner offline, ci queued not starting, bring the VM up for CI, ci up, ci down, get CI green, self-hosted job not picking up, runner lifecycle, drain queued runs`
+
+
+</details>
+
+<details open>
+<summary><h3>T Testing</h3></summary>
+
+> Skills for writing, reviewing, and proving tests — test frameworks and red-on-old/green-on-new proofs of dependency behaviour changes.
+
+**`Prove Fix Across Versions`** &nbsp; `prove-fix-across-versions` &nbsp; 👆 Manual &nbsp; P1
+
+Prove each behaviour change between two versions of a dependency with a test that is red on OLD and green on NEW.
+For "fixed in X" / "changed in X" claims, re-verifying version claims in docs or changelogs, confirming an upstream
+fix, and diagnosing a bug before reporting it upstream. Plain version bumps with no behavioural claim are out of scope.
+
+<details>
+<summary>Capabilities</summary>
+
+- `version_claim_proof`
+- `red_green_tests`
+- `changelog_verification`
+- `upstream_diagnosis`
+
+</details>
+> **Path:** `skills/packs/prove-fix-across-versions`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill with a .NET reference and graded evals (evals/ fixtures and scaffold scripts).
+> **Trigger:** `fixed in, changed in, version bump claim, verify changelog claim, upstream fix, red on old green on new, re-verify version claims, report upstream bug`
+
+
+**`TUnit Extensions`** &nbsp; `tunit-extensions` &nbsp; 👆 Manual &nbsp; P1
+
+Write, review, troubleshoot, or migrate tests using TUnit, TUnit.Assertions, or TUnit.Mocks: ordinary tests and
+assertions, data sources and matrices, fixture lifecycles, custom assertions, executors, async isolation, and
+TUnit/Microsoft.Testing.Platform runner problems.
+
+<details>
+<summary>Capabilities</summary>
+
+- `tunit`
+- `assertions`
+- `data_sources`
+- `fixture_lifecycle`
+- `mtp_runner`
+
+</details>
+> **Path:** `skills/packs/tunit-extensions`
+> **License:** `Derivative of the official TUnit skill v1.68.4 (MIT); attribution in UPSTREAM-NOTICE.md`
+> **Compatibility:** Portable Markdown skill with task-specific references and evals (evals/evals.json, trigger-queries.json).
+> **Trigger:** `tunit, TUnit.Assertions, TUnit.Mocks, data source, matrix tests, fixture lifecycle, custom assertion, test executor, async isolation, mtp runner`
+
+
+**`MSTest Extensions`** &nbsp; `mstest-extensions` &nbsp; 👆 Manual &nbsp; P1
+
+Write, review, troubleshoot, or migrate MSTest tests on Microsoft.Testing.Platform: data-driven cases, fixture
+lifecycle and TestContext, cooperative timeouts, parallel isolation, Assert.Throws and Assert.That extensions,
+custom test attributes, and MTP discovery, filters, exit codes, and extensions. The MSTest counterpart of tunit-extensions.
+
+<details>
+<summary>Capabilities</summary>
+
+- `mstest`
+- `data_driven_tests`
+- `fixture_lifecycle`
+- `mtp_runner`
+- `custom_assertions`
+
+</details>
+> **Path:** `skills/packs/mstest-extensions`
+> **License:** `MIT (original text in this repo; summarizes Microsoft Learn MSTest docs with links)`
+> **Compatibility:** Portable Markdown skill with task-specific references; written against MSTest 4.4 and Microsoft.Testing.Platform 2.4, with version notes for earlier releases.
+> **Trigger:** `mstest, MSTest.Sdk, DataRow, DynamicData, TestDataRow, CombinatorialData, TestContext, ClassInitialize, Assert.ThrowsExactly, Assert.That, mtp runner, --filter`
+
+
+</details>
+
+<details open>
+<summary><h3>X ArchCheck Thesis</h3></summary>
+
+> Project skills for the ArchCheck thesis workspace — the twbook LaTeX document and ArchCheck rule evaluation. Project paths are relative to the thesis workspace.
+
+**`twbook (ArchCheck Thesis)`** &nbsp; `archcheck-twbook` &nbsp; 👆 Manual &nbsp; P1
+
+Edit the thesis workspace's twbook LaTeX class, document content, bibliography, and PDF layout: template
+configuration, bibliography handling, compilation, and PDF verification.
+
+<details>
+<summary>Capabilities</summary>
+
+- `latex_class`
+- `bibliography`
+- `pdf_verification`
+
+</details>
+> **Path:** `skills/packs/twbook`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Project skill for the ArchCheck thesis workspace; project paths are relative to the thesis repository root.
+> **Trigger:** `twbook, thesis latex class, bibliography, citation problem, pdf layout, document compilation`
+
+
+**`ArchCheck Evaluation`** &nbsp; `archcheck-evaluation` &nbsp; 👆 Manual &nbsp; P1
+
+Develop ArchCheck's static or runtime rules, analyze repository or trace evidence, and evaluate findings and
+coverage: SR1-SR6, RT1-RT3, inference, SARIF interpretation, and empirical result claims.
+
+<details>
+<summary>Capabilities</summary>
+
+- `static_rules`
+- `runtime_rules`
+- `sarif`
+- `precision_recall`
+
+</details>
+> **Path:** `skills/packs/archcheck-evaluation`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Project skill for ArchCheck; project paths are relative to the ArchCheck/ directory. Build targets: fallout-build references/archcheck.md.
+> **Trigger:** `archcheck rules, SR1-SR6, RT1-RT3, ownership inference, sarif, finding aggregation, precision recall, empirical claims`
 
 
 </details>
@@ -634,6 +797,108 @@ and the reasoning-extraction refusal trap.
 
 </details>
 
+<details open>
+<summary><h3>R Codebase Maturity</h3></summary>
+
+> On-demand, evidence-first maintenance routines — mutation testing, emitter corpora, performance-claim gates, autonomous maintenance runs, and agent-log scans.
+
+**`Agent Log Scan`** &nbsp; `agent-log-scan` &nbsp; 👆 Manual &nbsp; P1
+
+Scan Claude Code agent transcripts (session-history JSONL) for antipatterns — retry loops, permission thrash,
+API dead-ends, usage-limit interruptions — and turn them into config and routine changes that raise autonomy.
+
+<details>
+<summary>Capabilities</summary>
+
+- `transcript_analysis`
+- `antipattern_detection`
+- `permission_tuning`
+
+</details>
+> **Path:** `skills/packs/agent-log-scan`
+> **License:** `MIT (from ANcpLua/maturity-skills)`
+> **Compatibility:** Portable Markdown skill with Python helper scripts; Codex UI metadata in agents/openai.yaml.
+> **Trigger:** `scan agent logs, analyze session history, why do my agents keep failing, retry loops, permission thrash, usage-limit interruptions, cut permission prompts`
+
+
+**`Emitter Corpus`** &nbsp; `emitter-corpus` &nbsp; 👆 Manual &nbsp; P1
+
+Validate a parser or importer against a corpus of files as real upstream producers actually write them, and land
+that corpus as permanent CI fixtures.
+
+<details>
+<summary>Capabilities</summary>
+
+- `corpus_validation`
+- `interop_fixtures`
+- `format_compatibility`
+
+</details>
+> **Path:** `skills/packs/emitter-corpus`
+> **License:** `MIT (from ANcpLua/maturity-skills)`
+> **Compatibility:** Portable Markdown skill; Codex UI metadata in agents/openai.yaml.
+> **Trigger:** `does it work with X's files, format compatibility testing, interop validation, parser corpus, regression corpus, interop fixtures`
+
+
+**`Maintenance Run`** &nbsp; `maintenance-run` &nbsp; 👆 Manual &nbsp; P1
+
+Orchestrate a full autonomous maintenance run on a repo: parallel finders, root-cause dedupe, adversarial
+verification, a fixer fleet with disjoint ownership, single-writer integration, and a hard termination rule.
+
+<details>
+<summary>Capabilities</summary>
+
+- `maintenance_orchestration`
+- `finding_dedupe`
+- `adversarial_verification`
+- `termination_rule`
+
+</details>
+> **Path:** `skills/packs/maintenance-run`
+> **License:** `MIT (from ANcpLua/maturity-skills)`
+> **Compatibility:** Portable Markdown skill with a Python findings helper; Codex UI metadata in agents/openai.yaml.
+> **Trigger:** `autonomous maintenance run, repo health pass, find and fix everything, scheduled repo maintenance, multi-agent bug hunt, when should the loop stop`
+
+
+**`Mutation Tester`** &nbsp; `mutation-tester` &nbsp; 👆 Manual &nbsp; P1
+
+Run mutation testing and turn surviving mutants into targeted tests, or keep a recorded mutation-score baseline as
+a regression gate that proves repeated maintenance runs did not weaken the suite.
+
+<details>
+<summary>Capabilities</summary>
+
+- `mutation_testing`
+- `surviving_mutants`
+- `score_baseline`
+
+</details>
+> **Path:** `skills/packs/mutation-tester`
+> **License:** `MIT (from ANcpLua/maturity-skills)`
+> **Compatibility:** Portable Markdown skill; Codex UI metadata in agents/openai.yaml.
+> **Trigger:** `mutation testing, mutation score, stryker, how good are my tests really, test-suite strength, test gaps beyond coverage`
+
+
+**`Perf Gate`** &nbsp; `perf-gate` &nbsp; 👆 Manual &nbsp; P1
+
+Measure a project's own performance claims (README, docs) against reality and attribute regressions to code.
+
+<details>
+<summary>Capabilities</summary>
+
+- `perf_claim_verification`
+- `benchmarking`
+- `regression_attribution`
+
+</details>
+> **Path:** `skills/packs/perf-gate`
+> **License:** `MIT (from ANcpLua/maturity-skills)`
+> **Compatibility:** Portable Markdown skill; Codex UI metadata in agents/openai.yaml.
+> **Trigger:** `verify performance claim, benchmark a tool, does it really handle X MB, streaming claim, O(n) claim, perf baseline`
+
+
+</details>
+
 ---
 
 ## Skill Loading Order
@@ -672,4 +937,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-08-21 04:02:36 UTC | Skills: 23 | Categories: 10</sub>
+<sub>Generated: 2026-09-30 04:22:46 UTC | Skills: 35 | Categories: 13</sub>

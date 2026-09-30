@@ -493,3 +493,243 @@ skills:
       - prose_to_structure_refactor
       - poisoning_chain_tracing
     active: true
+
+  - id: prove-fix-across-versions
+    name: "Prove Fix Across Versions"
+    category: testing
+    scope: domain
+    priority: 1
+    trigger: "fixed in, changed in, version bump claim, verify changelog claim, upstream fix, red on old green on new, re-verify version claims, report upstream bug"
+    activation: manual
+    path: "skills/packs/prove-fix-across-versions"
+    license: "MIT (original text in this repo)"
+    compatibility: "Portable Markdown skill with a .NET reference and graded evals (evals/ fixtures and scaffold scripts)."
+    description: |
+      Prove each behaviour change between two versions of a dependency with a test that is red on OLD and green on NEW.
+      For "fixed in X" / "changed in X" claims, re-verifying version claims in docs or changelogs, confirming an upstream
+      fix, and diagnosing a bug before reporting it upstream. Plain version bumps with no behavioural claim are out of scope.
+    capabilities:
+      - version_claim_proof
+      - red_green_tests
+      - changelog_verification
+      - upstream_diagnosis
+    active: true
+
+  - id: tunit-extensions
+    name: "TUnit Extensions"
+    category: testing
+    scope: domain
+    priority: 1
+    trigger: "tunit, TUnit.Assertions, TUnit.Mocks, data source, matrix tests, fixture lifecycle, custom assertion, test executor, async isolation, mtp runner"
+    activation: manual
+    path: "skills/packs/tunit-extensions"
+    license: "Derivative of the official TUnit skill v1.68.4 (MIT); attribution in UPSTREAM-NOTICE.md"
+    compatibility: "Portable Markdown skill with task-specific references and evals (evals/evals.json, trigger-queries.json)."
+    description: |
+      Write, review, troubleshoot, or migrate tests using TUnit, TUnit.Assertions, or TUnit.Mocks: ordinary tests and
+      assertions, data sources and matrices, fixture lifecycles, custom assertions, executors, async isolation, and
+      TUnit/Microsoft.Testing.Platform runner problems.
+    capabilities:
+      - tunit
+      - assertions
+      - data_sources
+      - fixture_lifecycle
+      - mtp_runner
+    active: true
+
+
+  - id: mstest-extensions
+    name: "MSTest Extensions"
+    category: testing
+    scope: domain
+    priority: 1
+    trigger: "mstest, MSTest.Sdk, DataRow, DynamicData, TestDataRow, CombinatorialData, TestContext, ClassInitialize, Assert.ThrowsExactly, Assert.That, mtp runner, --filter"
+    activation: manual
+    path: "skills/packs/mstest-extensions"
+    license: "MIT (original text in this repo; summarizes Microsoft Learn MSTest docs with links)"
+    compatibility: "Portable Markdown skill with task-specific references; written against MSTest 4.4 and Microsoft.Testing.Platform 2.4, with version notes for earlier releases."
+    description: |
+      Write, review, troubleshoot, or migrate MSTest tests on Microsoft.Testing.Platform: data-driven cases, fixture
+      lifecycle and TestContext, cooperative timeouts, parallel isolation, Assert.Throws and Assert.That extensions,
+      custom test attributes, and MTP discovery, filters, exit codes, and extensions. The MSTest counterpart of tunit-extensions.
+    capabilities:
+      - mstest
+      - data_driven_tests
+      - fixture_lifecycle
+      - mtp_runner
+      - custom_assertions
+    active: true
+  - id: slnx-rider
+    name: "SLNX for Rider"
+    category: dotnet-platform
+    scope: domain
+    priority: 1
+    trigger: "slnx, sln migration, solution file cleanup, rider not indexing, Directory.Build.props not showing, solution items, Slnx.xsd"
+    activation: manual
+    path: "skills/packs/slnx-rider"
+    license: "MIT; bundled Slnx.xsd under MIT (assets/Slnx.xsd.LICENSE)"
+    compatibility: "Portable Markdown skill with the Slnx.xsd schema in assets/ and an XSD-gap reference."
+    description: |
+      Organize a .slnx solution file and make Rider index everything in it: creating, cleaning up, reorganizing, or
+      migrating .slnx/.sln files; MSBuild config files (Directory.Build.props, Directory.Packages.props, global.json,
+      nuget.config, .editorconfig) or docs missing from the solution tree; and validating a .slnx against Slnx.xsd.
+    capabilities:
+      - slnx
+      - solution_organization
+      - rider_indexing
+      - xsd_validation
+    active: true
+
+  - id: agent-log-scan
+    name: "Agent Log Scan"
+    category: codebase-maturity
+    scope: session
+    priority: 1
+    trigger: "scan agent logs, analyze session history, why do my agents keep failing, retry loops, permission thrash, usage-limit interruptions, cut permission prompts"
+    activation: manual
+    path: "skills/packs/agent-log-scan"
+    license: "MIT (from ANcpLua/maturity-skills)"
+    compatibility: "Portable Markdown skill with Python helper scripts; Codex UI metadata in agents/openai.yaml."
+    description: |
+      Scan Claude Code agent transcripts (session-history JSONL) for antipatterns — retry loops, permission thrash,
+      API dead-ends, usage-limit interruptions — and turn them into config and routine changes that raise autonomy.
+    capabilities:
+      - transcript_analysis
+      - antipattern_detection
+      - permission_tuning
+    active: true
+
+  - id: emitter-corpus
+    name: "Emitter Corpus"
+    category: codebase-maturity
+    scope: session
+    priority: 1
+    trigger: "does it work with X's files, format compatibility testing, interop validation, parser corpus, regression corpus, interop fixtures"
+    activation: manual
+    path: "skills/packs/emitter-corpus"
+    license: "MIT (from ANcpLua/maturity-skills)"
+    compatibility: "Portable Markdown skill; Codex UI metadata in agents/openai.yaml."
+    description: |
+      Validate a parser or importer against a corpus of files as real upstream producers actually write them, and land
+      that corpus as permanent CI fixtures.
+    capabilities:
+      - corpus_validation
+      - interop_fixtures
+      - format_compatibility
+    active: true
+
+  - id: maintenance-run
+    name: "Maintenance Run"
+    category: codebase-maturity
+    scope: session
+    priority: 1
+    trigger: "autonomous maintenance run, repo health pass, find and fix everything, scheduled repo maintenance, multi-agent bug hunt, when should the loop stop"
+    activation: manual
+    path: "skills/packs/maintenance-run"
+    license: "MIT (from ANcpLua/maturity-skills)"
+    compatibility: "Portable Markdown skill with a Python findings helper; Codex UI metadata in agents/openai.yaml."
+    description: |
+      Orchestrate a full autonomous maintenance run on a repo: parallel finders, root-cause dedupe, adversarial
+      verification, a fixer fleet with disjoint ownership, single-writer integration, and a hard termination rule.
+    capabilities:
+      - maintenance_orchestration
+      - finding_dedupe
+      - adversarial_verification
+      - termination_rule
+    active: true
+
+  - id: mutation-tester
+    name: "Mutation Tester"
+    category: codebase-maturity
+    scope: session
+    priority: 1
+    trigger: "mutation testing, mutation score, stryker, how good are my tests really, test-suite strength, test gaps beyond coverage"
+    activation: manual
+    path: "skills/packs/mutation-tester"
+    license: "MIT (from ANcpLua/maturity-skills)"
+    compatibility: "Portable Markdown skill; Codex UI metadata in agents/openai.yaml."
+    description: |
+      Run mutation testing and turn surviving mutants into targeted tests, or keep a recorded mutation-score baseline as
+      a regression gate that proves repeated maintenance runs did not weaken the suite.
+    capabilities:
+      - mutation_testing
+      - surviving_mutants
+      - score_baseline
+    active: true
+
+  - id: perf-gate
+    name: "Perf Gate"
+    category: codebase-maturity
+    scope: session
+    priority: 1
+    trigger: "verify performance claim, benchmark a tool, does it really handle X MB, streaming claim, O(n) claim, perf baseline"
+    activation: manual
+    path: "skills/packs/perf-gate"
+    license: "MIT (from ANcpLua/maturity-skills)"
+    compatibility: "Portable Markdown skill; Codex UI metadata in agents/openai.yaml."
+    description: |
+      Measure a project's own performance claims (README, docs) against reality and attribute regressions to code.
+    capabilities:
+      - perf_claim_verification
+      - benchmarking
+      - regression_attribution
+    active: true
+
+  - id: archcheck-twbook
+    name: "twbook (ArchCheck Thesis)"
+    category: archcheck-thesis
+    scope: domain
+    priority: 1
+    trigger: "twbook, thesis latex class, bibliography, citation problem, pdf layout, document compilation"
+    activation: manual
+    path: "skills/packs/twbook"
+    license: "MIT (original text in this repo)"
+    compatibility: "Project skill for the ArchCheck thesis workspace; project paths are relative to the thesis repository root."
+    description: |
+      Edit the thesis workspace's twbook LaTeX class, document content, bibliography, and PDF layout: template
+      configuration, bibliography handling, compilation, and PDF verification.
+    capabilities:
+      - latex_class
+      - bibliography
+      - pdf_verification
+    active: true
+
+  - id: fallout-build
+    name: "Fallout Build"
+    category: dotnet-platform
+    scope: domain
+    priority: 1
+    trigger: "fallout build, nuke build, Build.cs, _build.csproj, build.sh, pin build tools, GitHubActions workflow generation, add fallout target, run archcheck build"
+    activation: manual
+    path: "skills/packs/fallout-build"
+    license: "MIT (original text in this repo)"
+    compatibility: "Portable Markdown skill with references; exemplar paths are relative to a local examplefalloutbuilds checkout (<examples>)."
+    description: |
+      Write, change, review, or run Fallout (NUKE) builds: exemplar-first layout, exact pins for SDK, packages, tools,
+      images and actions, target chains with .Produces/Assert/ReportSummary, generated GitHub workflows, and a
+      two-run reproducibility proof. Includes running ArchCheck's Containers/Tool/Analyze/Spans targets.
+    capabilities:
+      - fallout_build
+      - exact_pinning
+      - workflow_generation
+      - archcheck_targets
+    active: true
+  - id: archcheck-evaluation
+    name: "ArchCheck Evaluation"
+    category: archcheck-thesis
+    scope: domain
+    priority: 1
+    trigger: "archcheck rules, SR1-SR6, RT1-RT3, ownership inference, sarif, finding aggregation, precision recall, empirical claims"
+    activation: manual
+    path: "skills/packs/archcheck-evaluation"
+    license: "MIT (original text in this repo)"
+    compatibility: "Project skill for ArchCheck; project paths are relative to the ArchCheck/ directory. Build targets: fallout-build references/archcheck.md."
+    description: |
+      Develop ArchCheck's static or runtime rules, analyze repository or trace evidence, and evaluate findings and
+      coverage: SR1-SR6, RT1-RT3, inference, SARIF interpretation, and empirical result claims.
+    capabilities:
+      - static_rules
+      - runtime_rules
+      - sarif
+      - precision_recall
+    active: true

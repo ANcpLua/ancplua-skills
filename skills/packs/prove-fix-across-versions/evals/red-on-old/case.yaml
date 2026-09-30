@@ -1,0 +1,10 @@
+schema_version: "1.1"
+name: red-on-old
+description: >-
+  Repo already bumped TUnit/TUnit.Mocks 1.68.0 -> 1.68.17. The user wants a test for the
+  #6833 mocks fix (init-only properties) and a changelog-grade "fixed in 1.68.17" claim.
+  Ground truth: on 1.68.0 a mock of an interface with `{ get; init; }` fails to compile
+  (CS8854/CS8855; CS8853 for an overridden virtual init property); on 1.68.17 it works.
+tags: [dotnet, red-green]
+context:
+  scaffold_script: scaffold.sh
