@@ -5,7 +5,7 @@
 The shared contract is deliberately small:
 
 ```text
-skills/packs/<skill-name>/
+skills/<category>/<skill-name>/
   SKILL.md
   references/   optional
   scripts/      optional
@@ -24,7 +24,7 @@ Everything else is optional metadata. Unknown keys should be ignored.
 Claude can use the core skill folders directly:
 
 ```bash
-cp -R skills/packs/<skill-name> ~/.claude/skills/
+cp -R skills/<category>/<skill-name> ~/.claude/skills/
 ```
 
 Claude subagents are not generic skills. They live in `adapters/claude/agents/` and may include Claude-only fields such as `model`, `color`, or `memory`.
@@ -34,7 +34,7 @@ Claude subagents are not generic skills. They live in `adapters/claude/agents/` 
 Codex can also use the core skill folders directly:
 
 ```bash
-cp -R skills/packs/<skill-name> ~/.codex/skills/
+cp -R skills/<category>/<skill-name> ~/.codex/skills/
 ```
 
 Keep descriptions concise. Codex loaders have stricter frontmatter description limits than a human reading Markdown.

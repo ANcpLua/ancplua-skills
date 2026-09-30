@@ -7,7 +7,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^skills/packs/maf-dotnet-source-of-truth/SKILL\\.md$/"
+        "/^skills/dotnet-ai/maf-dotnet-source-of-truth/SKILL\\.md$/"
       ],
       "matchStrings": [
         "<!-- renovate-pin: microsoft/agent-framework dotnet-(?<currentValue>[\\d.]+) -->"
@@ -25,7 +25,7 @@
       "matchDatasources": ["github-releases"],
       "commitMessageTopic": "MAF .NET source pin",
       "prBodyNotes": [
-        "Pin bump only - NOT a verified update. A new Microsoft Agent Framework release can rename APIs. Before merging, run the skill's refresh ritual: re-grep the rename table against the new dotnet-* tag and update the prose/provenance in skills/packs/maf-dotnet-source-of-truth/SKILL.md. Renovate only bumped the machine anchor."
+        "Pin bump only - NOT a verified update. A new Microsoft Agent Framework release can rename APIs. Before merging, run the skill's refresh ritual: re-grep the rename table against the new dotnet-* tag and update the prose/provenance in skills/dotnet-ai/maf-dotnet-source-of-truth/SKILL.md. Renovate only bumped the machine anchor."
       ]
     }
   ]

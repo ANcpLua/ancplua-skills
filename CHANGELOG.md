@@ -16,6 +16,14 @@ Categories:
 ## [Unreleased]
 
 ### Added
+- The repository is an installable Claude Code plugin: `.claude-plugin/plugin.json` lists every skill, `.claude-plugin/marketplace.json` serves it as `ancplua-skills`.
+- Skills `test-audit`, `mstestlean`, `gear-1`, `paper-reader` and `plugin-creator`, and the category `productivity`.
+
+### Changed
+- Skills live under `skills/<category>/<skill>/` (the registry category), each category with a README; `skills/packs/` is gone and every path in the registry, README, docs, renovate and adapters follows.
+
+
+### Added
 - `mstest-extensions` skill (`testing` category): the MSTest counterpart of `tunit-extensions` for MSTest 4 on Microsoft.Testing.Platform, with references for data-driven cases, lifecycle and TestContext, assertions and execution control, and MTP runner verification.
 - Imported 11 skills into `skills/packs/`, each rewritten against plugin-eval findings (compact `SKILL.md`, "Use when" triggers, detail moved into `references/`): `prove-fix-across-versions` and `tunit-extensions` (new `testing` category), `slnx-rider` and `fallout-build` (`dotnet-platform`; `fallout-build` merges the general Fallout build skill with ArchCheck's build runbook), the `maturity-skills` routines `agent-log-scan`, `emitter-corpus`, `maintenance-run`, `mutation-tester`, `perf-gate` (new `codebase-maturity` category), and the ArchCheck thesis skills `twbook` and `archcheck-evaluation` (new `archcheck-thesis` category). `regression-review` was left out: the built-in `/code-review` covers it.
 - `prompt-engineering-expert` skill + new `prompt-engineering` category: diagnose-first help for writing, refining, and debugging prompts, system prompts, agent instructions, CLAUDE.md/AGENTS.md files, and skill trigger descriptions. Ships five references (principles, techniques, failure-modes, examples) plus a Claude Fable 5 / Mythos 5 section: prune-before-you-add migration, symptom→fix snippets, long-run scaffolding, effort selection, and the reasoning-extraction refusal trap.
