@@ -29,7 +29,7 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 3 | 3 |
-| Domain | 26 | 26 |
+| Domain | 27 | 27 |
 | Session | 12 | 12 |
 
 ---
@@ -44,7 +44,7 @@
     - [Microsoft](#microsoft) (2)
 
 - **Domain Skills (Project-Scoped)**
-  - [M Model Context Protocol](#model-context-protocol) (2)
+  - [M Model Context Protocol](#model-context-protocol) (3)
     - [.NET](#.net) (1)
     - [TypeScript](#typescript) (1)
   - [S Source Control Platforms](#source-control-platforms) (3)
@@ -140,6 +140,29 @@ Operating guide for Microsoft Learn grounding: search/fetch/code-sample retrieva
 <summary><h3>M Model Context Protocol</h3></summary>
 
 > Skills for MCP SDKs, protocol behavior, transports, tools, resources, prompts, and client/server correctness.
+
+**`ChatGPT Plugin Build`** &nbsp; `chatgpt-plugin-build` &nbsp; 👆 Manual &nbsp; P1
+
+Build ChatGPT and Codex plugins backed by an MCP server: use-case inventory, tool contracts and plugin shape,
+then plugin extensions (entry points, settings, deep links, model context, mentions, forms), MCP Events
+subscriptions with signed webhook delivery, website annotations, bundled skills, OAuth sign-in, developer-mode
+testing, and packaging, submission and updates.
+
+<details>
+<summary>Capabilities</summary>
+
+- `plugin_planning`
+- `plugin_extensions`
+- `mcp_events`
+- `website_annotations`
+- `plugin_packaging`
+
+</details>
+> **Path:** `skills/model-context-protocol/chatgpt-plugin-build`
+> **License:** `MIT repo wrapper; references summarize public OpenAI docs and the openai/mcp-extensions specification`
+> **Compatibility:** Portable Markdown skill. Facts checked against developers.openai.com/plugins, learn.chatgpt.com and openai/mcp-extensions on 2026-09-30.
+> **Trigger:** `chatgpt plugin, plugin extensions, openai/ui entrypoint, sidebar app, conversation panel, composer mentions, mcp events, events/subscribe, website annotations, plugin.json, plugin submission`
+
 
 #### .NET
 
@@ -1056,4 +1079,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-09-30 16:15:58 UTC | Skills: 41 | Categories: 14</sub>
+<sub>Generated: 2026-09-30 17:38:48 UTC | Skills: 42 | Categories: 14</sub>

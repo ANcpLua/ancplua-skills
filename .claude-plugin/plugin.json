@@ -25,6 +25,7 @@
     "./skills/documentation-grounding/paper-reader",
     "./skills/model-context-protocol/mcp-csharp-sdk-1-4-1",
     "./skills/model-context-protocol/mcp-typescript-sdk-v2",
+    "./skills/model-context-protocol/chatgpt-plugin-build",
     "./skills/source-control/extension-store-publishing",
     "./skills/source-control/forgejo-direct-api",
     "./skills/source-control/nuget-trusted-publishing",
