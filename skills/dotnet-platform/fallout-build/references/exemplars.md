@@ -47,6 +47,15 @@ Checked on 28 and 29 September 2026.
 - macOS ships GNU Make 3.81. A `build` target next to a `build/` folder needs `.PHONY: build`.
 - On macOS 27, `hdiutil attach` is deprecated. Use `diskutil image attach --readOnly --nobrowse --mountPoint <dir> <image>` and `diskutil eject <dir>`.
 
+Checked on 2 October 2026 by migrating three NUKE 10.1.0 builds (qyl, qyl-api-schema, Qyl.OpenTelemetry.SemanticConventions) with `fallout-migrate` 10.4.0, run without installing it as `dnx --yes fallout.migrate@10.4.0 --dry-run .` and then without `--dry-run`. Its output says "Migration complete"; these still need a hand:
+- `Nuke.Components` interfaces are not renamed. Fallout.Components calls them `IHas*` (`IHasSolution`, `IHasArtifacts`, `IHasConfiguration`); the migrated build fails with CS0246 on every `IHaz*`.
+- Only `*.csproj` files are rewritten. Central package management is left alone: `<PackageVersion Include="Nuke.Common" Version="$(NukeVersion)"/>` in `Directory.Packages.props` and the `<NukeVersion>` property stay, so rename both to `Fallout.Common`/`FalloutVersion` 10.4.0.
+- A removed line takes the next line's indentation with it (the line after `<NukeTelemetryVersion>`, and `</ItemGroup>` after the dropped pin).
+- The explicit `System.Security.Cryptography.Xml` reference is deleted and its explaining comment left behind. Keep the pin (see the NU1903 note above).
+- Bootstrap scripts outside the repository root (`eng/build.sh`, `eng/build.ps1`) keep `.nuke/temp` and the `NUKE_ENTERPRISE_TOKEN` feed block.
+- `.nuke/build.schema.json` is renamed, not regenerated, so it still defines `NukeBuild`. Fallout rewrites it only when `BuildProjectFile` resolves, by walking up from the build assembly's directory to the first `*.csproj` (`FalloutBuild.Statics.cs`); with output under a root `Artifacts/` folder that walk finds none and the file never changes. Ignore it like `.fallout/temp/` unless it regenerates.
+- The `_build` assembly name is not a Fallout requirement; it is the default `fallout :setup` suggests (`SetupCommand.cs`).
+
 ## Docker-built PDF
 
 - Base image `texlive/texlive:latest@sha256:<digest>`. The full scheme needs no `tlmgr` at build time. Assert required packages with `kpsewhich <package>.sty`.
