@@ -16,7 +16,7 @@ license: Proprietary
 compatibility: >
   React 18 or 19. Next.js 14+ (App Router recommended) or any React framework
   that supports client components. Tailwind CSS v4 strongly recommended for
-  blocks (they use v4 utility names). Node.js 18+ for the shadcn CLI.
+  blocks (they use v4 utility names). Node.js 20.18.1+ for the shadcn CLI (`shadcn@latest` declares `engines.node >=20.18.1`; check with `npm view shadcn engines`).
 metadata:
   author: reactbits
   version: "2.0"

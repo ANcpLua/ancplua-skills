@@ -43,7 +43,7 @@ Checked on 28 and 29 September 2026.
 - On `Fallout.Common` 11.0.18, a settings `.When(...)` condition is a `Func<TSettings, bool>`, not a `bool`.
 - No published Fallout package contains `PackageGuardTasks`. It exists only in Fallout's source. Call PackageGuard through `[NuGetPackage("PackageGuard", "PackageGuard.dll")]`, as FluentAssertions' build does.
 - `fallout` setup can write the global tool's assembly version (`10.4.0.15`) into `.config/dotnet-tools.json`. The package version is `10.4.0`, and `dotnet tool restore` fails on the other.
-- `System.Security.Cryptography.Xml` 10.0.6, a transitive dependency of `Fallout.Common`, carries two high advisories (NU1903). Pin 10.0.12 directly, as the starter kit does.
+- `System.Security.Cryptography.Xml`: `Fallout.Common` 10.3.49 and 11.0.x depend on 10.0.6, which carries five high advisories (GHSA-cvvh-rhrc-wg4q, -g8r8-53c2-pm3f, -23rf-6693-g89p, -8q5v-6pqq-x66h, -mmjf-rqrv-855v; NU1903), so a 10.3.49 build pins 10.0.12 directly, as the starter kit does. `Fallout.Common` 10.4.0 depends on 10.0.10, the release that fixes all five, so a 10.4.0 build needs no pin. Re-check with `curl -s https://api.nuget.org/v3-flatcontainer/fallout.common/<version>/fallout.common.nuspec` and the advisories' `first_patched_version` (`gh api /advisories/<id>`).
 - macOS ships GNU Make 3.81. A `build` target next to a `build/` folder needs `.PHONY: build`.
 - On macOS 27, `hdiutil attach` is deprecated. Use `diskutil image attach --readOnly --nobrowse --mountPoint <dir> <image>` and `diskutil eject <dir>`.
 
@@ -51,7 +51,7 @@ Checked on 2 October 2026 by migrating three NUKE 10.1.0 builds (qyl, qyl-api-sc
 - `Nuke.Components` interfaces are not renamed. Fallout.Components calls them `IHas*` (`IHasSolution`, `IHasArtifacts`, `IHasConfiguration`); the migrated build fails with CS0246 on every `IHaz*`.
 - Only `*.csproj` files are rewritten. Central package management is left alone: `<PackageVersion Include="Nuke.Common" Version="$(NukeVersion)"/>` in `Directory.Packages.props` and the `<NukeVersion>` property stay, so rename both to `Fallout.Common`/`FalloutVersion` 10.4.0.
 - A removed line takes the next line's indentation with it (the line after `<NukeTelemetryVersion>`, and `</ItemGroup>` after the dropped pin).
-- The explicit `System.Security.Cryptography.Xml` reference is deleted and its explaining comment left behind. Keep the pin (see the NU1903 note above).
+- The explicit `System.Security.Cryptography.Xml` reference is deleted and its explaining comment left behind. On 10.4.0 the deletion is harmless (see the note above); delete the comment too.
 - Bootstrap scripts outside the repository root (`eng/build.sh`, `eng/build.ps1`) keep `.nuke/temp` and the `NUKE_ENTERPRISE_TOKEN` feed block.
 - `.nuke/build.schema.json` is renamed, not regenerated, so it still defines `NukeBuild`. Fallout rewrites it only when `BuildProjectFile` resolves, by walking up from the build assembly's directory to the first `*.csproj` (`FalloutBuild.Statics.cs`); with output under a root `Artifacts/` folder that walk finds none and the file never changes. Ignore it like `.fallout/temp/` unless it regenerates.
 - The `_build` assembly name is not a Fallout requirement; it is the default `fallout :setup` suggests (`SetupCommand.cs`).

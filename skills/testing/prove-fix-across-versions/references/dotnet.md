@@ -45,7 +45,7 @@ load projects through `MSBuildWorkspace`. To check an editor-only error, load th
 project the same way:
 
 ```xml
-<PackageReference Include="Microsoft.Build.Locator" Version="1.7.8" />
+<PackageReference Include="Microsoft.Build.Locator" Version="1.11.2" />
 <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="<current>" />
 <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="<current>" />
 ```
