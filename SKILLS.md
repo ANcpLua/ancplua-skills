@@ -184,7 +184,7 @@ completions, logging, pagination, HTTP context, McpServer, and McpClient.
 </details>
 > **Path:** `skills/model-context-protocol/mcp-csharp-sdk-1-4-1`
 > **License:** `MIT repo wrapper; references summarize public SDK/docs`
-> **Compatibility:** Portable Markdown skill. Optional Claude subagent adapter is in adapters/claude/agents/mcp-csharp-sdk-expert.md.
+> **Compatibility:** Portable Markdown skill.
 > **Trigger:** `mcp csharp, modelcontextprotocol, mcp server, mcp client, streamable http, mcp tasks, mcp sampling, mcp elicitation, mcp roots`
 
 

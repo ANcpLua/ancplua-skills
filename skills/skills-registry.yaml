@@ -34,7 +34,7 @@ skills:
     activation: manual
     path: "skills/model-context-protocol/mcp-csharp-sdk-1-4-1"
     license: "MIT repo wrapper; references summarize public SDK/docs"
-    compatibility: "Portable Markdown skill. Optional Claude subagent adapter is in adapters/claude/agents/mcp-csharp-sdk-expert.md."
+    compatibility: "Portable Markdown skill."
     description: |
       Authoritative condensed reference for ModelContextProtocol C#/.NET SDK 1.4.1, including servers, clients, tools,
       prompts, resources, transports, sessions, tasks, MRTR, sampling, elicitation, roots, identity, auth, filters,
