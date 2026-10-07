@@ -3,5 +3,5 @@
     image: ancplua-skills
     build:
       context: .
-      dockerfile: ancplua-skills/Dockerfile
+      dockerfile: Dockerfile
 
