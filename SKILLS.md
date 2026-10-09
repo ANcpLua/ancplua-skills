@@ -29,7 +29,7 @@
 | Scope | Active | Total |
 |-------|--------|-------|
 | Global | 3 | 3 |
-| Domain | 27 | 27 |
+| Domain | 28 | 28 |
 | Session | 12 | 12 |
 
 ---
@@ -47,7 +47,7 @@
   - [M Model Context Protocol](#model-context-protocol) (3)
     - [.NET](#.net) (1)
     - [TypeScript](#typescript) (1)
-  - [S Source Control Platforms](#source-control-platforms) (3)
+  - [S Source Control Platforms](#source-control-platforms) (4)
   - [F Frontend UI](#frontend-ui) (6)
     - [React](#react) (1)
   - [A Architecture Diagramming](#architecture-diagramming) (1)
@@ -264,6 +264,28 @@ references (policy form traps, index lag, orphaned v-tags, 409s).
 > **License:** `MIT repo wrapper; NuGet.org facts from Microsoft Learn, workflow pattern from the ANcpLua fleet`
 > **Compatibility:** Portable Markdown skill; the bundled workflow targets GitHub Actions + nuget.org Trusted Publishing (NuGet/login OIDC).
 > **Trigger:** `nuget publish, trusted publishing, nuget api key, dotnet nuget push, nuget-publish.yml, release workflow, authenticate to nuget, NuGet/login, package not on nuget.org, automate nuget release`
+
+
+**`Stale Upstream PR`** &nbsp; `stale-upstream-pr` &nbsp; 👆 Manual &nbsp; P1
+
+Revive a stale pull request in a repository someone else maintains: read the maintainers' rules and requests,
+find what main changed under the PR, prove the change red on main and green on the branch, deliver one commit
+with checkable text, get a fresh review, and close the loop on GitHub as a fork author.
+
+<details>
+<summary>Capabilities</summary>
+
+- `upstream_pull_requests`
+- `drift_detection`
+- `before_after_probe`
+- `sandboxed_verification`
+- `fork_author_workflow`
+
+</details>
+> **Path:** `skills/source-control/stale-upstream-pr`
+> **License:** `MIT (original text in this repo)`
+> **Compatibility:** Portable Markdown skill with a Bash helper script; the sandbox script requires Docker, the GitHub steps use the gh CLI.
+> **Trigger:** `stale pull request, upstream PR, merge conflict on upstream PR, re-review, requested changes, CLA check red, ping maintainer, fork author`
 
 
 **`Extension Store Publishing`** &nbsp; `extension-store-publishing` &nbsp; 👆 Manual &nbsp; P1
@@ -1079,4 +1101,4 @@ Unsupported frontmatter keys should be ignored by runtimes that do not know them
 
 ---
 
-<sub>Generated: 2026-09-30 17:38:48 UTC | Skills: 42 | Categories: 14</sub>
+<sub>Generated: 2026-10-02 09:48:23 UTC | Skills: 43 | Categories: 14</sub>

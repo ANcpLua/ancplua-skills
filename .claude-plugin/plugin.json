@@ -29,6 +29,7 @@
     "./skills/source-control/extension-store-publishing",
     "./skills/source-control/forgejo-direct-api",
     "./skills/source-control/nuget-trusted-publishing",
+    "./skills/source-control/stale-upstream-pr",
     "./skills/frontend/animation-vocabulary",
     "./skills/frontend/apple-design",
     "./skills/frontend/emil-design-eng",

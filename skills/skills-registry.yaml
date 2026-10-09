@@ -287,6 +287,28 @@ skills:
       - ci_owned_versioning
     active: true
 
+  - id: stale-upstream-pr
+    name: "Stale Upstream PR"
+    category: source-control
+    scope: domain
+    priority: 1
+    trigger: "stale pull request, upstream PR, merge conflict on upstream PR, re-review, requested changes, CLA check red, ping maintainer, fork author"
+    activation: manual
+    path: "skills/source-control/stale-upstream-pr"
+    license: "MIT (original text in this repo)"
+    compatibility: "Portable Markdown skill with a Bash helper script; the sandbox script requires Docker, the GitHub steps use the gh CLI."
+    description: |
+      Revive a stale pull request in a repository someone else maintains: read the maintainers' rules and requests,
+      find what main changed under the PR, prove the change red on main and green on the branch, deliver one commit
+      with checkable text, get a fresh review, and close the loop on GitHub as a fork author.
+    capabilities:
+      - upstream_pull_requests
+      - drift_detection
+      - before_after_probe
+      - sandboxed_verification
+      - fork_author_workflow
+    active: true
+
   - id: qyl-tfm-map
     name: "qyl TFM Map"
     category: dotnet-platform
