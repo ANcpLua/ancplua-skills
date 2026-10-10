@@ -25,6 +25,7 @@ Categories:
 
 ### Changed
 - Skills live under `skills/<category>/<skill>/` (the registry category), each category with a README; `skills/packs/` is gone and every path in the registry, README, docs, renovate and adapters follows.
+- `gear-1`, `test-audit` and the registry name the skeptic agent by its plugin id, `ancplua-lean-proof:skeptic`, since the bare `skeptic` agent no longer exists on its own.
 - The five `codebase-maturity` imports record their upstream revision (`ANcpLua/maturity-skills` main @ 2ab662b).
 - CI parses every `SKILL.md` frontmatter, runs the bundled helper tests (`skills/**/scripts/test_*.py`) and checks the eval scaffold's HOME guard; `ValidateSkills` also scans `.py`, `.csproj`, `.props`, `.targets`, `.xml` and `.claude-plugin/` for machine-local paths.
 
