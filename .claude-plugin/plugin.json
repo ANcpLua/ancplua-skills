@@ -1,6 +1,6 @@
 {
   "name": "ancplua-skills",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ANcpLua's agent skills: .NET platform and testing, codebase maturity, documentation grounding, MCP SDKs, frontend motion, source-control and CI delivery, prompt engineering and the ArchCheck thesis workspace.",
   "author": {
     "name": "ANcpLua",

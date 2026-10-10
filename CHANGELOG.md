@@ -16,6 +16,7 @@ Categories:
 ## [Unreleased]
 
 ### Added
+- `make release`: bump the plugin version, commit, push and refresh the installed copy in one step, since Claude Code only picks up a plugin change behind a higher version.
 - The repository is an installable Claude Code plugin: `.claude-plugin/plugin.json` lists every skill, `.claude-plugin/marketplace.json` serves it as `ancplua-skills`.
 - Skills `test-audit`, `mstestlean`, `gear-1`, `paper-reader` and `plugin-creator`, and the category `productivity`.
 - `stale-upstream-pr` skill (`source-control`): revive a stale PR in someone else's repository, from the maintainers' rules and what main changed under the PR to red-on-main, green-on-branch probes, a sandbox runner with one build cache per checkout, a fresh-review brief and the limits of a fork author on GitHub.

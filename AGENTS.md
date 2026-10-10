@@ -19,3 +19,5 @@ To load a skill, invoke it by name (Claude Code: `ancplua-skills:<name>`). Witho
 ## Done
 
 Work is done when the completion criteria of every loaded skill hold.
+
+A change reaches the installed plugin only through `make release`: Claude Code refreshes a plugin only behind a higher version in `.claude-plugin/plugin.json`.
