@@ -140,7 +140,7 @@ The index is rebuilt from the checkout on every call; the source files it names 
 
 3. **Replace**: tests stay unchanged and green; non-test lines go down.
 4. **Upstream** what the compendium should own: a general helper with no match, or a reference that fails (CS0121 against the BCL or Roslyn, a type defined twice, a TFM or restore error, a Roslyn version floor). Every upstream fix lands with a regression test that goes **red** on the old code and **green** on the fix, shaped like `PublicSurfaceTests` (API surface) or `PackageConsumptionTests` (packs from the checkout, builds a consumer through `ProjectBuilder`). The consumer keeps a plain package reference.
-5. **Skeptic**: hand each module's diff and the helper sources to a `skeptic` subagent; what it demonstrates (a changed contract, a missed construct) goes back into step 2.
+5. **Skeptic**: hand each module's diff and the helper sources to an `ancplua-lean-proof:skeptic` subagent; what it demonstrates (a changed contract, a missed construct) goes back into step 2.
 6. **Verify**: build and test every touched project through its Fallout target when the repo has `build/Build.cs`, else `dotnet build` / `dotnet test`. The utilities repo runs in CI mode (`CI=true`, warnings are errors).
 7. **Deliver**: one branch and commit per module, stacked where files overlap, ready as PRs. Push, PR and merge wait for the user's go.
 8. **Report** the numbers: modules, constructs replaced, constructs left and why, upstream fixes with their red/green tests, non-test lines ±, tests ±, build status, and what the campaign did not check.

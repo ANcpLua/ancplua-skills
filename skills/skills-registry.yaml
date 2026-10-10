@@ -788,7 +788,7 @@ skills:
     activation: manual
     path: "skills/testing/test-audit"
     license: "MIT (original text in this repo)"
-    compatibility: "Portable Markdown skill; uses the C# LSP and the skeptic subagent when present."
+    compatibility: "Portable Markdown skill; uses the C# LSP and the `ancplua-lean-proof:skeptic` subagent when present."
     description: |
       Audit and prune an existing .NET test suite (MSTest on Microsoft.Testing.Platform) by finding tests that restate the implementation, duplicate stronger tests, or keep test-only production seams alive, then removing or consolidating them with evidence. Use when asked to audit, clean up, prune, dedupe, or consolidate tests, to cut test count against a coverage target, or to judge whether tests earn their keep.
     capabilities:

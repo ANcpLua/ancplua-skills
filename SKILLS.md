@@ -720,7 +720,7 @@ Audit and prune an existing .NET test suite (MSTest on Microsoft.Testing.Platfor
 </details>
 > **Path:** `skills/testing/test-audit`
 > **License:** `MIT (original text in this repo)`
-> **Compatibility:** Portable Markdown skill; uses the C# LSP and the skeptic subagent when present.
+> **Compatibility:** Portable Markdown skill; uses the C# LSP and the `ancplua-lean-proof:skeptic` subagent when present.
 > **Trigger:** `test audit, prune tests, duplicate tests, tests that restate the implementation, mstest suite cleanup, coverage within points`
 
 

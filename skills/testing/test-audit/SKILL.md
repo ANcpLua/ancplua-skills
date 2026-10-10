@@ -55,7 +55,7 @@ One coherent owner-boundary batch per commit. Delete test-only seams together wi
 ## Validate each batch
 - Never edit while a build or test run is active in the checkout.
 - Focused: `dotnet test --project <proj> --filter "<expr>" --minimum-expected-tests <n>`.
-- Mutation check: before deleting, run coverage filtered to just the candidates to get the lines they execute. Afterwards, mutate a sample of those lines with Roslyn, one at a time in a worktree; every mutant the old suite killed must still be killed. Hand contested deletions to the skeptic subagent.
+- Mutation check: before deleting, run coverage filtered to just the candidates to get the lines they execute. Afterwards, mutate a sample of those lines with Roslyn, one at a time in a worktree; every mutant the old suite killed must still be killed. Hand contested deletions to the `ancplua-lean-proof:skeptic` subagent.
 - Full suite with the baseline command; compare executed count and line and branch points.
 - `git diff --check`, and report production and test LOC separately (`git diff --numstat`).
 
